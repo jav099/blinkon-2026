@@ -1,0 +1,1629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS Gap Decorations — Feature Timeline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   CSS GAP DECORATIONS — BLINKON TIMELINE
+   Aesthetic: Dark blueprint / engineering schematic
+   ═══════════════════════════════════════════ */
+
+:root {
+  --bg-deep: #0a0e17;
+  --bg-surface: #111827;
+  --bg-card: #1a2235;
+  --bg-card-hover: #1f2a40;
+
+  --cl-hue: 217;
+  --pr-hue: 152;
+  --ms-hue: 38;
+
+  --cl: hsl(var(--cl-hue), 90%, 65%);
+  --cl-dim: hsl(var(--cl-hue), 50%, 40%);
+  --cl-glow: hsl(var(--cl-hue), 100%, 70%);
+  --cl-bg: hsla(var(--cl-hue), 80%, 55%, 0.08);
+  --cl-border: hsla(var(--cl-hue), 80%, 55%, 0.25);
+
+  --pr: hsl(var(--pr-hue), 70%, 60%);
+  --pr-dim: hsl(var(--pr-hue), 40%, 38%);
+  --pr-glow: hsl(var(--pr-hue), 90%, 65%);
+  --pr-bg: hsla(var(--pr-hue), 70%, 50%, 0.08);
+  --pr-border: hsla(var(--pr-hue), 70%, 50%, 0.25);
+
+  --ms: hsl(var(--ms-hue), 90%, 65%);
+  --ms-dim: hsl(var(--ms-hue), 60%, 40%);
+  --ms-glow: hsl(var(--ms-hue), 100%, 70%);
+  --ms-bg: hsla(var(--ms-hue), 80%, 55%, 0.1);
+  --ms-border: hsla(var(--ms-hue), 80%, 55%, 0.3);
+
+  --is-hue: 280;
+  --is: hsl(var(--is-hue), 70%, 65%);
+  --is-dim: hsl(var(--is-hue), 45%, 42%);
+  --is-glow: hsl(var(--is-hue), 90%, 70%);
+  --is-bg: hsla(var(--is-hue), 70%, 55%, 0.08);
+  --is-border: hsla(var(--is-hue), 70%, 55%, 0.25);
+
+  --text: #e2e8f0;
+  --text-dim: #8892a4;
+  --text-muted: #5a6478;
+  --border: rgba(255,255,255,0.06);
+  --border-bright: rgba(255,255,255,0.12);
+
+  --grid-line: rgba(99, 148, 255, 0.07);
+  --font-display: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --radius: 6px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-deep);
+  color: var(--text);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Background Grid Pattern ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Noise Overlay ── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ══════════ HERO ══════════ */
+.hero {
+  position: relative;
+  z-index: 1;
+  padding: 80px 40px 70px;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* Hero animated grid background */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 40%, hsla(var(--cl-hue), 80%, 50%, 0.12), transparent 70%),
+    radial-gradient(ellipse 60% 50% at 30% 60%, hsla(var(--pr-hue), 70%, 50%, 0.08), transparent 60%),
+    radial-gradient(ellipse 40% 40% at 75% 30%, hsla(var(--ms-hue), 80%, 50%, 0.06), transparent 50%);
+  z-index: -1;
+}
+
+.hero-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--cl);
+  margin-bottom: 24px;
+  padding: 6px 16px;
+  border: 1px solid var(--cl-border);
+  border-radius: 100px;
+  background: var(--cl-bg);
+  animation: fadeInDown 0.8s ease-out;
+}
+.hero-label::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cl);
+  box-shadow: 0 0 8px var(--cl-glow);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 700;
+  letter-spacing: -1px;
+  line-height: 1.1;
+  margin-bottom: 20px;
+  animation: fadeInDown 0.8s ease-out 0.1s both;
+}
+.hero h1 .accent {
+  background: linear-gradient(135deg, var(--cl), var(--pr));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: 1.1rem;
+  color: var(--text-dim);
+  max-width: 600px;
+  margin: 0 auto 40px;
+  font-weight: 300;
+  animation: fadeInDown 0.8s ease-out 0.2s both;
+}
+.hero-sub code {
+  font-family: var(--font-display);
+  font-size: 0.9em;
+  color: var(--pr);
+  background: var(--pr-bg);
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--pr-border);
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Stats Grid ── */
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2px;
+  max-width: 740px;
+  margin: 0 auto;
+  border-radius: 12px;
+  overflow: hidden;
+  animation: fadeInDown 0.8s ease-out 0.3s both;
+}
+
+.hero-stat {
+  background: var(--bg-card);
+  padding: 24px 16px;
+  position: relative;
+  transition: background 0.3s;
+}
+.hero-stat:hover { background: var(--bg-card-hover); }
+
+.hero-stat .num {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  display: block;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.hero-stat:nth-child(1) .num { color: var(--cl); }
+.hero-stat:nth-child(2) .num { color: var(--pr); }
+.hero-stat:nth-child(3) .num { color: var(--is); }
+.hero-stat:nth-child(4) .num { color: var(--ms); }
+.hero-stat:nth-child(5) .num { color: var(--text); }
+
+.hero-stat .label {
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+}
+
+/* ── Live Grid Demo ── */
+.hero-demo {
+  margin: 48px auto 0;
+  max-width: 400px;
+  animation: fadeInDown 0.8s ease-out 0.4s both;
+}
+.hero-demo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 60px);
+  gap: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+.hero-demo-cell {
+  background: hsla(var(--cl-hue), 40%, 30%, 0.15);
+  border: 1px solid hsla(var(--cl-hue), 40%, 50%, 0.1);
+}
+/* Gap decoration lines — the real thing */
+.hero-demo-grid::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    /* Column rules */
+    linear-gradient(90deg,
+      transparent calc(33.33% - 1px), var(--cl) calc(33.33% - 1px), var(--cl) calc(33.33% + 1px), transparent calc(33.33% + 1px),
+      transparent calc(66.66% - 1px), var(--pr) calc(66.66% - 1px), var(--pr) calc(66.66% + 1px), transparent calc(66.66% + 1px)
+    ),
+    /* Row rule */
+    linear-gradient(0deg,
+      transparent calc(50% - 1px), var(--ms) calc(50% - 1px), var(--ms) calc(50% + 1px), transparent calc(50% + 1px)
+    );
+  animation: gapFadeIn 2s ease-out 1s both;
+  pointer-events: none;
+}
+@keyframes gapFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.hero-demo-label {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  margin-top: 12px;
+  letter-spacing: 1px;
+}
+
+/* ══════════ STICKY NAV ══════════ */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 24px;
+  background: rgba(10, 14, 23, 0.85);
+  backdrop-filter: blur(16px) saturate(1.5);
+  -webkit-backdrop-filter: blur(16px) saturate(1.5);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-legend {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.nav-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  font-family: var(--font-display);
+  font-weight: 400;
+}
+.nav-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}
+.nav-dot.cl { background: var(--cl); box-shadow: 0 0 6px var(--cl-glow); }
+.nav-dot.pr { background: var(--pr); box-shadow: 0 0 6px var(--pr-glow); }
+.nav-dot.ms { background: var(--ms); box-shadow: 0 0 6px var(--ms-glow); }
+.nav-dot.is { background: var(--is); box-shadow: 0 0 6px var(--is-glow); }
+
+.nav-filters {
+  display: flex;
+  gap: 4px;
+}
+.filter-btn {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  padding: 7px 16px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.filter-btn:hover {
+  border-color: var(--border-bright);
+  color: var(--text-dim);
+  background: rgba(255,255,255,0.03);
+}
+.filter-btn.active {
+  background: var(--cl-bg);
+  border-color: var(--cl-border);
+  color: var(--cl);
+}
+.filter-btn[data-filter="pr"].active {
+  background: var(--pr-bg);
+  border-color: var(--pr-border);
+  color: var(--pr);
+}
+.filter-btn[data-filter="milestone"].active {
+  background: var(--ms-bg);
+  border-color: var(--ms-border);
+  color: var(--ms);
+}
+.filter-btn[data-filter="issue"].active {
+  background: var(--is-bg);
+  border-color: var(--is-border);
+  color: var(--is);
+}
+
+/* ══════════ TIMELINE CONTAINER ══════════ */
+.timeline-wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+
+/* ── Year Marker ── */
+.year-marker {
+  position: relative;
+  text-align: center;
+  padding: 64px 0 20px;
+}
+.year-marker h2 {
+  font-family: var(--font-display);
+  font-size: 5.5rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 10px;
+  line-height: 1;
+  position: relative;
+  display: inline-block;
+  background: linear-gradient(180deg, rgba(255,255,255,0.95) 40%, rgba(255,255,255,0.3));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+}
+.year-marker h2::before,
+.year-marker h2::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  height: 1px;
+  width: 80px;
+  background: linear-gradient(90deg, transparent, var(--cl-border));
+}
+.year-marker h2::before {
+  right: calc(100% + 20px);
+  background: linear-gradient(90deg, transparent, var(--cl-border));
+}
+.year-marker h2::after {
+  left: calc(100% + 20px);
+  background: linear-gradient(270deg, transparent, var(--cl-border));
+}
+
+/* ── Phase Banner ── */
+.phase {
+  position: relative;
+  margin: 12px 0 36px;
+  padding: 28px 32px 24px;
+  border: 1px solid var(--border-bright);
+  border-left: 4px solid;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--bg-surface), var(--bg-card));
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.04);
+}
+.phase::before {
+  content: 'Phase ' attr(data-num);
+  position: absolute;
+  top: -13px;
+  left: 24px;
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+.phase[data-num="01"] { border-left-color: var(--cl); }
+.phase[data-num="01"]::before { background: var(--cl-dim); color: #fff; }
+.phase[data-num="02"] { border-left-color: hsl(190, 80%, 55%); }
+.phase[data-num="02"]::before { background: hsl(190, 70%, 45%); color: #fff; }
+.phase[data-num="03"] { border-left-color: hsl(270, 70%, 65%); }
+.phase[data-num="03"]::before { background: hsl(270, 60%, 55%); color: #fff; }
+.phase[data-num="04"] { border-left-color: var(--ms); }
+.phase[data-num="04"]::before { background: var(--ms-dim); color: #fff; }
+.phase[data-num="05"] { border-left-color: var(--pr); }
+.phase[data-num="05"]::before { background: var(--pr-dim); color: #fff; }
+.phase[data-num="00"] { border-left-color: var(--is); }
+.phase[data-num="00"]::before { background: var(--is); color: #fff; }
+
+.phase h3 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--text);
+  letter-spacing: 0.3px;
+}
+.phase p {
+  font-size: 0.88rem;
+  color: var(--text-dim);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* ── Month Label ── */
+.month-label {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: var(--text-dim);
+  padding: 36px 0 14px 0;
+  position: relative;
+}
+.month-label::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 4px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border-bright), transparent 50%);
+}
+
+/* ── Timeline Track ── */
+.tl {
+  position: relative;
+  padding-left: 32px;
+}
+.tl::before {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 4px;
+  bottom: 4px;
+  width: 1px;
+  background: linear-gradient(180deg, var(--cl-border), var(--pr-border));
+}
+
+/* ── Entry ── */
+.entry {
+  position: relative;
+  margin-bottom: 4px;
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: default;
+}
+
+/* Track dot */
+.entry::before {
+  content: '';
+  position: absolute;
+  left: -30px;
+  top: 18px;
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  transition: all 0.25s;
+}
+
+.entry:hover {
+  border-color: var(--border);
+  background: var(--bg-card);
+  transform: translateX(4px);
+}
+.entry:hover::before { transform: scale(1.4); }
+
+/* ── CL Entries ── */
+.entry.cl { border-left: 2px solid var(--cl-border); }
+.entry.cl::before { background: var(--cl-dim); }
+.entry.cl:hover { background: var(--cl-bg); border-color: var(--cl-border); }
+.entry.cl:hover::before { background: var(--cl); box-shadow: 0 0 8px var(--cl-glow); }
+
+/* ── PR Entries ── */
+.entry.pr { border-left: 2px solid var(--pr-border); }
+.entry.pr::before { background: var(--pr-dim); border-radius: 50%; }
+.entry.pr:hover { background: var(--pr-bg); border-color: var(--pr-border); }
+.entry.pr:hover::before { background: var(--pr); box-shadow: 0 0 8px var(--pr-glow); }
+
+/* ── Issue Entries ── */
+.entry.issue { border-left: 2px solid var(--is-border); }
+.entry.issue::before { background: var(--is-dim); border-radius: 50%; }
+.entry.issue:hover { background: var(--is-bg); border-color: var(--is-border); }
+.entry.issue:hover::before { background: var(--is); box-shadow: 0 0 8px var(--is-glow); }
+.entry.issue .e-tag { background: var(--is-dim); color: #fff; }
+
+/* Issue RESOLVED entries get special treatment */
+.entry.issue.resolved { border-left: 2px solid var(--is); }
+.entry.issue.resolved .e-tag { background: var(--is); color: var(--bg-deep); font-weight: 700; }
+.entry.issue.resolved .e-title { color: var(--is); font-weight: 600; }
+
+/* ── Milestone Entries ── */
+.entry.milestone {
+  background: var(--ms-bg);
+  border: 1px solid var(--ms-border);
+  padding: 16px 20px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+.entry.milestone::before {
+  background: var(--ms);
+  box-shadow: 0 0 10px var(--ms-glow);
+  width: 9px;
+  height: 9px;
+  left: -31px;
+  top: 22px;
+  border-radius: 2px;
+  transform: rotate(45deg);
+}
+.entry.milestone:hover {
+  background: hsla(var(--ms-hue), 80%, 55%, 0.14);
+}
+.entry.milestone:hover::before { transform: rotate(45deg) scale(1.3); }
+
+/* ── Entry Internals ── */
+.e-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.e-tag {
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+.entry.cl .e-tag { background: var(--cl-dim); color: #fff; }
+.entry.pr .e-tag { background: var(--pr-dim); color: #fff; }
+.entry.milestone .e-tag { background: var(--ms); color: var(--bg-deep); font-weight: 700; }
+
+.e-id {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  color: var(--text-dim);
+}
+.e-id a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.e-id a:hover { color: var(--text); }
+
+.e-date {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  margin-left: auto;
+  flex-shrink: 0;
+  letter-spacing: 0.5px;
+}
+
+.e-title {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-top: 5px;
+  color: var(--text);
+  line-height: 1.45;
+}
+.e-title a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.e-title a:hover { color: var(--pr); }
+
+.entry.milestone .e-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--ms);
+}
+
+.e-desc {
+  font-size: 0.88rem;
+  color: var(--text-dim);
+  margin-top: 4px;
+  font-weight: 400;
+  line-height: 1.55;
+}
+.entry.milestone .e-desc { color: var(--text); font-weight: 400; }
+
+.e-author {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  margin-top: 5px;
+  opacity: 0.85;
+}
+
+/* ── Hidden ── */
+.entry.hidden { display: none; }
+
+/* ══════════ FOOTER ══════════ */
+footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 48px 24px;
+  border-top: 1px solid var(--border);
+}
+footer p {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  letter-spacing: 0.5px;
+}
+footer a {
+  color: var(--cl-dim);
+  text-decoration: none;
+  border-bottom: 1px solid var(--cl-border);
+  transition: color 0.2s;
+}
+footer a:hover { color: var(--cl); }
+
+/* ── Scroll-triggered fade-in ── */
+.entry, .phase, .month-label, .year-marker {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+.entry.visible, .phase.visible, .month-label.visible, .year-marker.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Responsive ── */
+@media (max-width: 700px) {
+  .hero { padding: 60px 20px 50px; }
+  .hero-stats { grid-template-columns: repeat(2, 1fr); max-width: 320px; }
+  .hero-stat .num { font-size: 1.6rem; }
+  .nav { flex-direction: column; gap: 8px; padding: 10px 16px; }
+  .nav-filters { flex-wrap: wrap; }
+  .tl { padding-left: 24px; }
+  .tl::before { left: 3px; }
+  .entry::before { left: -22px; }
+  .entry.milestone::before { left: -23px; }
+  .year-marker h2 { font-size: 3.5rem; letter-spacing: 6px; }
+  .hero-demo { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════ HERO ══════════ -->
+<header class="hero">
+  <div class="hero-label">BlinkOn 21 &bull; April 2026</div>
+  <h1><span class="accent">Gap Decorations</span><br>Feature Timeline</h1>
+  <p class="hero-sub">8 years of bringing <code>css-gaps-1</code> from spec to ship — across the W3C CSSWG and Chromium.</p>
+
+  <div class="hero-stats">
+    <div class="hero-stat"><span class="num">191</span><span class="label">Chromium CLs</span></div>
+    <div class="hero-stat"><span class="num">22</span><span class="label">Spec PRs</span></div>
+    <div class="hero-stat"><span class="num">30</span><span class="label">Issues</span></div>
+    <div class="hero-stat"><span class="num">8</span><span class="label">Years</span></div>
+    <div class="hero-stat"><span class="num">5+</span><span class="label">Contributors</span></div>
+  </div>
+
+  <div class="hero-demo">
+    <div class="hero-demo-grid">
+      <div class="hero-demo-cell"></div>
+      <div class="hero-demo-cell"></div>
+      <div class="hero-demo-cell"></div>
+      <div class="hero-demo-cell"></div>
+      <div class="hero-demo-cell"></div>
+      <div class="hero-demo-cell"></div>
+    </div>
+    <div class="hero-demo-label">column-rule &bull; row-rule &bull; rule-overlap</div>
+  </div>
+</header>
+
+<!-- ══════════ STICKY NAV ══════════ -->
+<nav class="nav">
+  <div class="nav-legend">
+    <span class="nav-legend-item"><span class="nav-dot cl"></span>Chromium CL</span>
+    <span class="nav-legend-item"><span class="nav-dot pr"></span>CSSWG PR</span>
+    <span class="nav-legend-item"><span class="nav-dot is"></span>CSSWG Issue</span>
+    <span class="nav-legend-item"><span class="nav-dot ms"></span>Milestone</span>
+  </div>
+  <div class="nav-filters">
+    <button class="filter-btn active" data-filter="all" onclick="filter('all')">All</button>
+    <button class="filter-btn" data-filter="milestone" onclick="filter('milestone')">Milestones</button>
+    <button class="filter-btn" data-filter="pr" onclick="filter('pr')">Spec PRs</button>
+    <button class="filter-btn" data-filter="cl" onclick="filter('cl')">CLs</button>
+    <button class="filter-btn" data-filter="issue" onclick="filter('issue')">Issues</button>
+  </div>
+</nav>
+
+<!-- ══════════ TIMELINE ══════════ -->
+<main class="timeline-wrap">
+
+<!-- ════ 2018 ════ -->
+<div class="year-marker"><h2>2018</h2></div>
+
+<div class="phase" data-num="00">
+  <h3>The Spark</h3>
+  <p>The original proposal that planted the seed for CSS Gap Decorations.</p>
+</div>
+
+<div class="month-label">June 2018</div>
+<div class="tl">
+  <div class="entry issue milestone" data-type="issue">
+    <div class="e-head">
+      <span class="e-tag">Issue</span>
+      <span class="e-id"><a href="https://github.com/w3c/csswg-drafts/issues/2748">#2748</a></span>
+      <span class="e-date">Jun 7</span>
+    </div>
+    <div class="e-title"><a href="https://github.com/w3c/csswg-drafts/issues/2748">Styling Gaps/Gutters — The Original Proposal</a></div>
+    <div class="e-desc">fantasai proposed adding styling capabilities to CSS gaps. 40 comments and still open — this is the meta-issue that started it all.</div>
+    <div class="e-author">fantasai</div>
+  </div>
+</div>
+
+<!-- ════ 2024 ════ -->
+<div class="year-marker"><h2>2024</h2></div>
+
+<div class="phase" data-num="01">
+  <h3>Foundation &amp; Infrastructure</h3>
+  <p>Data structures, CSS property parsing, and the first painting code.</p>
+</div>
+
+<div class="month-label">June 2024</div>
+<div class="tl">
+  <div class="entry issue" data-type="issue">
+    <div class="e-head">
+      <span class="e-tag">Issue</span>
+      <span class="e-id"><a href="https://github.com/w3c/csswg-drafts/issues/10393">#10393</a></span>
+      <span class="e-date">Jun 5</span>
+    </div>
+    <div class="e-title"><a href="https://github.com/w3c/csswg-drafts/issues/10393">Proposal: CSS Gap Decorations Level 1</a></div>
+    <div class="e-desc">Kevin Babbitt formally proposed a dedicated Level 1 spec for gap decorations.</div>
+    <div class="e-author">kbabbitt</div>
+  </div>
+  <div class="entry issue resolved milestone" data-type="issue">
+    <div class="e-head">
+      <span class="e-tag">Resolved</span>
+      <span class="e-id"><a href="https://github.com/w3c/csswg-drafts/issues/10393">#10393</a></span>
+      <span class="e-date">Jun 12</span>
+    </div>
+    <div class="e-title"><a href="https://github.com/w3c/csswg-drafts/issues/10393">CSSWG Adopts Gap Decorations</a></div>
+    <div class="e-desc">RESOLVED: Import the draft with shortname css-gaps and title CSS Gap Decorations with kbabbitt as editor.</div>
+    <div class="e-author">CSSWG Resolution</div>
+  </div>
+</div>
+
+<div class="month-label">November 2024</div>
+<div class="tl">
+  <div class="entry cl" data-type="cl">
+    <div class="e-head">
+      <span class="e-tag">CL</span>
+      <span class="e-id"><a href="https://chromium-review.googlesource.com/c/chromium/src/+/5990892">5990892</a></span>
+      <span class="e-date">Nov 6</span>
+    </div>
+    <div class="e-title">Rename 'gap_color*' files to 'gap_data*'</div>
+    <div class="e-desc">Broadened scope beyond just color — the beginning.</div>
+    <div class="e-author">Sam Davis Omekara</div>
+  </div>
+  <div class="entry cl" data-type="cl">
+    <div class="e-head">
+      <span class="e-tag">CL</span>
+      <span class="e-id"><a href="https://chromium-review.googlesource.com/c/chromium/src/+/5996090">5996090</a></span>
+      <span class="e-date">Nov 7</span>
+    </div>
+    <div class="e-title">Rename GapColor* classes to GapData*</div>
+    <div class="e-desc">Class renaming to align with broader gap data model.</div>
+    <div class="e-author">Sam Davis Omekara</div>
+  </div>
+  <div class="entry cl" data-type="cl">
+    <div class="e-head">
+      <span class="e-tag">CL</span>
+      <span class="e-id"><a href="https://chromium-review.googlesource.com/c/chromium/src/+/5962852">5962852</a></span>
+      <span class="e-date">Nov 12</span>
+    </div>
+    <div class="e-title">Templatize GapData and related classes</div>
+    <div class="e-desc">Generalized data structures via templates for reuse across properties.</div>
+    <div class="e-author">Sam Davis Omekara</div>
+  </div>
+  <div class="entry cl" data-type="cl">
+    <div class="e-head">
+      <span class="e-tag">CL</span>
+      <span class="e-id"><a href="https://chromium-review.googlesource.com/c/chromium/src/+/5990251">5990251</a></span>
+      <span class="e-date">Nov 12</span>
+    </div>
+    <div class="e-title">Generalize column-rule-color parsing code</div>
+    <div class="e-desc">Refactored parsing to support multiple gap decoration properties.</div>
+    <div class="e-author">Sam Davis Omekara</div>
+  </div>
+  <div class="entry cl" data-type="cl">
+    <div class="e-head">
+      <span class="e-tag">CL</span>
+      <span class="e-id"><a href="https://chromium-review.googlesource.com/c/chromium/src/+/5963080">5963080</a></span>
+      <span class="e-date">Nov 14</span>
+    </div>
+    <div class="e-title">Parsing the column-rule-width property</div>
+    <div class="e-desc">First new CSS property parsing for gap decorations.</div>
+    <div class="e-author">Sam Davis Omekara</div>
+  </div>
+  <div class="entry cl" data-type="cl">
+    <div class="e-head">
+      <span class="e-tag">CL</span>
+      <span class="e-id"><a href="https://chromium-review.googlesource.com/c/chromium/src/+/5967393">5967393</a></span>
+      <span class="e-date">Nov 19</span>
+    </div>
+    <div class="e-title">Introduce ColumnRuleWidth on ComputedStyle</div>
+    <div class="e-desc">Wired column-rule-width into computed style infrastructure.</div>
+    <div class="e-author">Sam Davis Omekara</div>
+  </div>
+</div>
+
+<div class="month-label">December 2024</div>
+<div class="tl">
+  <div class="entry cl" data-type="cl">
+    <div class="e-head">
+      <span class="e-tag">CL</span>
+      <span class="e-id"><a href="https://chromium-review.googlesource.com/c/chromium/src/+/6065161">6065161</a></span>
+      <span class="e-date">Dec 5</span>
+    </div>
+    <div class="e-title">Introduce ColumnRuleStyle on ComputedStyle</div>
+    <div class="e-desc">Column-rule-style support in computed style.</div>
+    <div class="e-author">Sam Davis Omekara</div>
+  </div>
+  <div class="entry milestone pr" data-type="pr">
+    <div class="e-head">
+      <span class="e-tag">Milestone</span>
+      <span class="e-id"><a href="https://github.com/w3c/csswg-drafts/pull/11115">PR #11115</a></span>
+      <span class="e-date">Dec 13</span>
+    </div>
+    <div class="e-title"><a href="https://github.com/w3c/csswg-drafts/pull/11115">Initial Editor's Draft Published</a></div>
+    <div class="e-desc">The first official css-gaps-1 spec. Deferred gap decoration areas, dropped direction-relative properties, generalized rule-break to all containers.</div>
+    <div class="e-author">Kevin Babbitt</div>
+  </div>
+  <div class="entry cl" data-type="cl">
+    <div class="e-head">
+      <span class="e-tag">CL</span>
+      <span class="e-id"><a href="https://chromium-review.googlesource.com/c/chromium/src/+/6081617">6081617</a></span>
+      <span class="e-date">Dec 17</span>
+    </div>
+    <div class="e-title">Introduce Gap Fragment Data Structure</div>
+    <div class="e-desc">Core data structure for representing gap fragments during layout.</div>
+    <div class="e-author">Sam Davis Omekara</div>
+  </div>
+</div>
+
+<!-- ════ 2025 ════ -->
+<div class="year-marker"><h2>2025</h2></div>
+
+<div class="phase" data-num="02">
+  <h3>Grid Painting &amp; Property Expansion</h3>
+  <p>Gap intersections, painting for grid, flex, multicol, and parsing all the row-rule-* properties.</p>
+</div>
+
+<div class="month-label">January – February 2025</div>
+<div class="tl">
+  <div class="entry issue" data-type="issue">
+    <div class="e-head">
+      <span class="e-tag">Issue</span>
+      <span class="e-id"><a href="https://github.com/w3c/csswg-drafts/issues/11491">#11491</a></span>
+      <span class="e-date">Jan 13</span>
+    </div>
+    <div class="e-title">Bikeshedding names for rule-break values</div>
+    <div class="e-desc">Opened 4 spec issues on the same day — naming, repeaters, computed values, shorthands.</div>
+    <div class="e-author">kbabbitt</div>
+  </div>
+  <div class="entry issue resolved" data-type="issue">
+    <div class="e-head">
+      <span class="e-tag">Resolved</span>
+      <span class="e-id"><a href="https://github.com/w3c/csswg-drafts/issues/11492">#11492</a></span>
+      <span class="e-date">Jan 31</span>
+    </div>
+    <div class="e-title">Auto repeater: accept current spec text</div>
+    <div class="e-desc">RESOLVED: Accept the current spec text for auto repeater behavior.</div>
+    <div class="e-author">CSSWG Resolution</div>
+  </div>
+  <div class="entry issue resolved" data-type="issue">
+    <div class="e-head">
+      <span class="e-tag">Resolved</span>
+      <span class="e-id"><a href="https://github.com/w3c/csswg-drafts/issues/11494">#11494</a></span>
+      <span class="e-date">Jan 31</span>
+    </div>
+    <div class="e-title">Disentangle computed *-width from *-style</div>
+    <div class="e-desc">RESOLVED: Remove none/hidden special behavior from computed value stage for column-rule-*, border-*, outline-*.</div>
+    <div class="e-author">CSSWG Resolution</div>
+  </div>
+  <div class="entry issue resolved" data-type="issue">
+    <div class="e-head">
+      <span class="e-tag">Resolved</span>
+      <span class="e-id"><a href="https://github.com/w3c/csswg-drafts/issues/11520">#11520</a></span>
+      <span class="e-date">Jan 31</span>
+    </div>
+    <div class="e-title">Suppress gaps at fragment breaks</div>
+    <div class="e-desc">RESOLVED: If the gap overlaps a page break, or is the last content before a break, suppress it.</div>
+    <div class="e-author">CSSWG Resolution</div>
+  </div>
+  <div class="entry milestone cl" data-type="cl">
+    <div class="e-head">
+      <span class="e-tag">Milestone</span>
+      <span class="e-id"><a href="https://chromium-review.googlesource.com/c/chromium/src/+/6101656">6101656</a></span>
+      <span class="e-date">Jan 30</span>
+    </div>
+    <div class="e-title">First Gap Decoration Painting</div>
+    <div class="e-desc">Setup paint for simple gap cases — gap decorations become visible for the first time!</div>
+    <div class="e-author">Sam Davis Omekara</div>
+  </div>
+  <div class="entry cl" data-type="cl">
+    <div class="e-head">
+      <span class="e-tag">CL</span>
+      <span class="e-id"><a href="https://chromium-review.googlesource.com/c/chromium/src/+/6175331">6175331</a></span>
+      <span class="e-date">Feb 12</span>
+    </div>
+    <div class="e-title">Build Gap Intersection Points</div>
+    <div class="e-desc">Core algorithm for computing gap intersection geometry.</div>
+    <div class="e-author">Sam Davis Omekara</div>
+  </div>
+  <div class="entry pr" data-type="pr">
+    <div class="e-head">
+      <span class="e-tag">PR</span>
+      <span class="e-id"><a href="https://github.com/w3c/csswg-drafts/pull/11720">PR #11720</a></span>
+      <span class="e-date">Feb 21</span>
+    </div>
+    <div class="e-title"><a href="https://github.com/w3c/csswg-drafts/pull/11720">Fixes for gap intersection point definition &amp; pairing algorithm</a></div>
+    <div class="e-desc">Fixed the pairing algorithm to correctly apply rule-break.</div>
+    <div class="e-author">Kevin Babbitt</div>
+  </div>
+</div>
+
+<div class="month-label">March 2025</div>
+<div class="tl">
+  <div class="entry milestone cl" data-type="cl">
+    <div class="e-head">
+      <span class="e-tag">Milestone</span>
+      <span class="e-id"><a href="https://chromium-review.googlesource.com/c/chromium/src/+/6354145">6354145</a></span>
+      <span class="e-date">Mar 20</span>
+    </div>
+    <div class="e-title">Gap Intersections for Flexbox</div>
+    <div class="e-desc">Extended the intersection model from grid to flex containers.</div>
+    <div class="e-author">Javier Contreras</div>
+  </div>
+  <div class="entry milestone cl" data-type="cl">
+    <div class="e-head">
+      <span class="e-tag">Milestone</span>
+      <span class="e-id"><a href="https://chromium-review.googlesource.com/c/chromium/src/+/6367772">6367772</a></span>
+      <span class="e-date">Mar 28</span>
+    </div>
+    <div class="e-title">Paint Gap Decorations for Flex</div>
+    <div class="e-desc">First painting support for gap decorations in flex containers.</div>
+    <div class="e-author">Javier Contreras</div>
+  </div>
+</div>
+
+<div class="month-label">April 2025</div>
+<div class="tl">
+  <div class="entry cl" data-type="cl">
+    <div class="e-head">
+      <span class="e-tag">CL</span>
+      <span class="e-id"><a href="https://chromium-review.googlesource.com/c/chromium/src/+/6383430">6383430</a></span>
+      <span class="e-date">Apr 2</span>
+    </div>
+    <div class="e-title">Painting gaps with multiple styles and widths</div>
+    <div class="e-desc">Support for different decoration styles per gap segment.</div>
+    <div class="e-author">Sam Davis Omekara</div>
+  </div>
+  <div class="entry pr" data-type="pr">
+    <div class="e-head">
+      <span class="e-tag">PR</span>
+      <span class="e-id"><a href="https://github.com/w3c/csswg-drafts/pull/12051">PR #12051</a></span>
+      <span class="e-date">Apr 12</span>
+    </div>
+    <div class="e-title"><a href="https://github.com/w3c/csswg-drafts/pull/12051">Use commas instead of slashes for *-rule shorthands</a></div>
+    <div class="e-desc">Shorthand separator changed from slashes to commas.</div>
+    <div class="e-author">Kevin Babbitt</div>
+  </div>
+  <div class="entry milestone cl" data-type="cl">
+    <div class="e-head">
+      <span class="e-tag">Milestone</span>
+      <span class="e-id"><a href="https://chromium-review.googlesource.com/c/chromium/src/+/6469189">6469189</a></span>
+      <span class="e-date">Apr 18</span>
+    </div>
+    <div class="e-title">Accumulator Design for Flex &amp; Grid</div>
+    <div class="e-desc">New architecture pattern (accumulator) for efficient gap geometry computation.</div>
+    <div class="e-author">Javier Contreras &amp; Sam Davis Omekara</div>
+  </div>
+  <div class="entry milestone cl" data-type="cl">
+    <div class="e-head">
+      <span class="e-tag">Milestone</span>
+      <span class="e-id"><a href="https://chromium-review.googlesource.com/c/chromium/src/+/6423352">6423352</a></span>
+      <span class="e-date">Apr 29</span>
+    </div>
+    <div class="e-title">Gap Intersections for Multicol</div>
+    <div class="e-desc">Extended the model to multi-column layout — all three layout modes now supported.</div>
+    <div class="e-author">Javier Contreras</div>
+  </div>
+  <div class="entry issue resolved" data-type="issue">
+    <div class="e-head">
+      <span class="e-tag">Resolved</span>
+      <span class="e-id"><a href="https://github.com/w3c/csswg-drafts/issues/11496">#11496</a></span>
+      <span class="e-date">Apr 3</span>
+    </div>
+    <div class="e-title">Column-rule shorthand grammar accepted</div>
+    <div class="e-desc">RESOLVED: Accept the PR to solve the column-rule shorthand grammar issue.</div>
+    <div class="e-author">CSSWG Resolution</div>
+  </div>
+  <div class="entry issue resolved" data-type="issue">
+    <div class="e-head">
+      <span class="e-tag">Resolved</span>
+      <span class="e-id"><a href="https://github.com/w3c/csswg-drafts/issues/11814">#11814</a></span>
+      <span class="e-date">Apr 3</span>
+    </div>
+    <div class="e-title">Collapsed gutters: use border-collapsing rules</div>
+    <div class="e-desc">RESOLVED: Suppress all but one decoration if gaps are coincident, using border-collapsing rules. (Later reversed!)</div>
+    <div class="e-author">CSSWG Resolution</div>
+  </div>
+</div>
+
+<div class="phase" data-num="03">
+  <h3>Shorthands, Serialization &amp; Stabilization</h3>
+  <p>Parsing all shorthands, serialization, ink overflow, and crash fixes.</p>
+</div>
+
+<div class="month-label">May 2025</div>
+<div class="tl">
+  <div class="entry cl" data-type="cl">
+    <div class="e-head">
+      <span class="e-tag">CL</span>
+      <span class="e-id"><a href="https://chromium-review.googlesource.com/c/chromium/src/+/6451833">6451833</a></span>
+      <span class="e-date">May 6</span>
+    </div>
+    <div class="e-title">Handle Ink Overflow for Gap Decorations</div>
+    <div class="e-desc">Decorations now properly affect ink overflow calculations.</div>
+    <div class="e-author">Sam Davis Omekara</div>
+  </div>
+  <div class="entry cl" data-type="cl">
+    <div class="e-head">
+      <span class="e-tag">CL</span>
+      <span class="e-id"><a href="https://chromium-review.googlesource.com/c/chromium/src/+/6423813">6423813</a></span>
+      <span class="e-date">May 13</span>
+    </div>
+    <div class="e-title">Parse column-rule shorthands</div>
+    <div class="e-desc">The column-rule shorthand fully parsed.</div>
+    <div class="e-author">Sam Davis Omekara</div>
+  </div>
+  <div class="entry milestone cl" data-type="cl">
+    <div class="e-head">
+      <span class="e-tag">Milestone</span>
+      <span class="e-id"><a href="https://chromium-review.googlesource.com/c/chromium/src/+/6514569">6514569</a></span>
+      <span class="e-date">May 30</span>
+    </div>
+    <div class="e-title">Feature Flag: Experimental</div>
+    <div class="e-desc">GapDecorations flag marked as experimental — available behind chrome://flags.</div>
+    <div class="e-author">Javier Contreras</div>
+  </div>
+</div>
+
+<div class="month-label">June 2025</div>
+<div class="tl">
+  <div class="entry cl" data-type="cl">
+    <div class="e-head">
+      <span class="e-tag">CL</span>
+      <span class="e-id"><a href="https://chromium-review.googlesource.com/c/chromium/src/+/6543211">6543211</a></span>
+      <span class="e-date">Jun</span>
+    </div>
+    <div class="e-title">Bidirectional rule shorthand + crash fixes</div>
+    <div class="e-desc">12 CLs in June: shorthands, serialization, crash fixes for initial/empty geometry, subgrid tests.</div>
+    <div class="e-author">Sam Davis Omekara &amp; Javier Contreras</div>
+  </div>
+</div>
+
+<div class="month-label">July – August 2025</div>
+<div class="tl">
+  <div class="entry milestone cl" data-type="cl">
+    <div class="e-head">
+      <span class="e-tag">Milestone</span>
+      <span class="e-id"><a href="https://chromium-review.googlesource.com/c/chromium/src/+/6643003">6643003</a></span>
+      <span class="e-date">Jul</span>
+    </div>
+    <div class="e-title">Animation &amp; Interpolation Support</div>
+    <div class="e-desc">Interpolation for *-rule-width, *-rule-color, *-rule-outset — including repeater values.</div>
+    <div class="e-author">Javier Contreras</div>
+  </div>
+  <div class="entry pr" data-type="pr">
+    <div class="e-head">
+      <span class="e-tag">PR</span>
+      <span class="e-id"><a href="https://github.com/w3c/csswg-drafts/pull/12584">PR #12584</a></span>
+      <span class="e-date">Aug 8</span>
+    </div>
+    <div class="e-title"><a href="https://github.com/w3c/csswg-drafts/pull/12584">Update gap intersection definition</a></div>
+    <div class="e-desc">Updated flex container gap definition to align with grid and multicol.</div>
+    <div class="e-author">Javier Contreras</div>
+  </div>
+  <div class="entry pr" data-type="pr">
+    <div class="e-head">
+      <span class="e-tag">PR</span>
+      <span class="e-id"><a href="https://github.com/w3c/csswg-drafts/pull/12585">PR #12585</a></span>
+      <span class="e-date">Aug 8</span>
+    </div>
+    <div class="e-title"><a href="https://github.com/w3c/csswg-drafts/pull/12585">Change rule-paint-order to rule-overlap</a></div>
+    <div class="e-desc">Property renamed per CSSWG resolution.</div>
+    <div class="e-author">Javier Contreras</div>
+  </div>
+  <div class="entry milestone cl" data-type="cl">
+    <div class="e-head">
+      <span class="e-tag">Milestone</span>
+      <span class="e-id"><a href="https://chromium-review.googlesource.com/c/chromium/src/+/6819000">6819000</a></span>
+      <span class="e-date">Aug 14</span>
+    </div>
+    <div class="e-title">Main/Cross Gap Architecture</div>
+    <div class="e-desc">Introduced Main and Cross gap classes — the foundation of the optimized pipeline.</div>
+    <div class="e-author">Javier Contreras &amp; Sam Davis Omekara</div>
+  </div>
+  <div class="entry issue resolved" data-type="issue">
+    <div class="e-head">
+      <span class="e-tag">Resolved</span>
+      <span class="e-id"><a href="https://github.com/w3c/csswg-drafts/issues/12431">#12431</a></span>
+      <span class="e-date">Aug 6</span>
+    </div>
+    <div class="e-title">Interpolation: use LCM methods</div>
+    <div class="e-desc">RESOLVED: Define gap decoration animations using LCM (Least Common Multiple) methods.</div>
+    <div class="e-author">CSSWG Resolution</div>
+  </div>
+  <div class="entry issue resolved" data-type="issue">
+    <div class="e-head">
+      <span class="e-tag">Resolved</span>
+      <span class="e-id"><a href="https://github.com/w3c/csswg-drafts/issues/12540">#12540</a></span>
+      <span class="e-date">Aug 6</span>
+    </div>
+    <div class="e-title">Rename to rule-overlap</div>
+    <div class="e-desc">RESOLVED: Change rule-paint-order name to rule-overlap.</div>
+    <div class="e-author">CSSWG Resolution</div>
+  </div>
+  <div class="entry issue resolved" data-type="issue">
+    <div class="e-head">
+      <span class="e-tag">Resolved</span>
+      <span class="e-id"><a href="https://github.com/w3c/csswg-drafts/issues/12024">#12024</a></span>
+      <span class="e-date">Aug 20</span>
+    </div>
+    <div class="e-title">Outset edge/interior longhands defined</div>
+    <div class="e-desc">RESOLVED: Two longhands for inner/outer outsets; percentages resolve same for edges vs. interior; shorthand lists inside first.</div>
+    <div class="e-author">CSSWG Resolution</div>
+  </div>
+  <div class="entry issue resolved" data-type="issue">
+    <div class="e-head">
+      <span class="e-tag">Resolved</span>
+      <span class="e-id"><a href="https://github.com/w3c/csswg-drafts/issues/12201">#12201</a></span>
+      <span class="e-date">Aug 20</span>
+    </div>
+    <div class="e-title">Shorthand serialization defined</div>
+    <div class="e-desc">RESOLVED: Serialize if longhands line up, else empty string. Use consistent punctuation.</div>
+    <div class="e-author">CSSWG Resolution</div>
+  </div>
+</div>
+
+<div class="phase" data-num="04">
+  <h3>Optimization &amp; Pipeline Migration</h3>
+  <p>New optimized geometry pipeline, old pipeline removal, fragmentation support.</p>
+</div>
+
+<div class="month-label">September 2025</div>
+<div class="tl">
+  <div class="entry cl" data-type="cl">
+    <div class="e-head">
+      <span class="e-tag">CL</span>
+      <span class="e-id"><a href="https://chromium-review.googlesource.com/c/chromium/src/+/6885245">6885245</a></span>
+      <span class="e-date">Sep 9</span>
+    </div>
+    <div class="e-title">Optimized gap decoration logic for multicol</div>
+    <div class="e-desc">New efficient algorithm for multi-column gap decorations.</div>
+    <div class="e-author">Javier Contreras</div>
+  </div>
+  <div class="entry pr" data-type="pr">
+    <div class="e-head">
+      <span class="e-tag">PR</span>
+      <span class="e-id"><a href="https://github.com/w3c/csswg-drafts/pull/12583">PR #12583</a></span>
+      <span class="e-date">Sep 17</span>
+    </div>
+    <div class="e-title"><a href="https://github.com/w3c/csswg-drafts/pull/12583">Define Interpolation behavior for GapDecorations</a></div>
+    <div class="e-desc">Spec definition for how gap decoration properties animate.</div>
+    <div class="e-author">Javier Contreras</div>
+  </div>
+  <div class="entry milestone cl" data-type="cl">
+    <div class="e-head">
+      <span class="e-tag">Milestone</span>
+      <span class="e-id"><a href="https://chromium-review.googlesource.com/c/chromium/src/+/6972460">6972460</a></span>
+      <span class="e-date">Sep 22</span>
+    </div>
+    <div class="e-title">Unified Feature Flag + Old Pipeline Removal</div>
+    <div class="e-desc">Merged both flags into one; removed old GapDecorations pipeline from Flex and Multicol.</div>
+    <div class="e-author">Javier Contreras</div>
+  </div>
+</div>
+
+<div class="month-label">October 2025</div>
+<div class="tl">
+  <div class="entry milestone cl" data-type="cl">
+    <div class="e-head">
+      <span class="e-tag">Milestone</span>
+      <span class="e-id"><a href="https://chromium-review.googlesource.com/c/chromium/src/+/6998207">6998207</a></span>
+      <span class="e-date">Oct 7</span>
+    </div>
+    <div class="e-title">Flex Fragmentation Support</div>
+    <div class="e-desc">Gap decorations survive fragmentation (printing, pagination) in flex containers.</div>
+    <div class="e-author">Javier Contreras</div>
+  </div>
+  <div class="entry cl" data-type="cl">
+    <div class="e-head">
+      <span class="e-tag">CL</span>
+      <span class="e-id"><a href="https://chromium-review.googlesource.com/c/chromium/src/+/7080904">7080904</a></span>
+      <span class="e-date">Oct 24</span>
+    </div>
+    <div class="e-title">Parse rule-visibility-items (column + row)</div>
+    <div class="e-desc">New property controlling decoration visibility near empty cells.</div>
+    <div class="e-author">Sam Davis Omekara</div>
+  </div>
+</div>
+
+<div class="month-label">November 2025</div>
+<div class="tl">
+  <div class="entry milestone cl" data-type="cl">
+    <div class="e-head">
+      <span class="e-tag">Milestone</span>
+      <span class="e-id"><a href="https://chromium-review.googlesource.com/c/chromium/src/+/7127743">7127743</a></span>
+      <span class="e-date">Nov 10</span>
+    </div>
+    <div class="e-title">Outset → Inset Rename</div>
+    <div class="e-desc">Major property rename: *-rule-outset becomes *-rule-inset per CSSWG resolution.</div>
+    <div class="e-author">Javier Contreras</div>
+  </div>
+  <div class="entry pr" data-type="pr">
+    <div class="e-head">
+      <span class="e-tag">PR</span>
+      <span class="e-id"><a href="https://github.com/w3c/csswg-drafts/pull/11913">PR #11913</a></span>
+      <span class="e-date">Nov 11</span>
+    </div>
+    <div class="e-title"><a href="https://github.com/w3c/csswg-drafts/pull/11913">Adjust *-width zero value special cases</a></div>
+    <div class="e-desc">Cross-spec update across css-backgrounds-3, css-multicol, css-ui-4, and css-gaps-1.</div>
+    <div class="e-author">Kevin Babbitt</div>
+  </div>
+  <div class="entry cl" data-type="cl">
+    <div class="e-head">
+      <span class="e-tag">CL</span>
+      <span class="e-id"><a href="https://chromium-review.googlesource.com/c/chromium/src/+/7185447">7185447</a></span>
+      <span class="e-date">Nov 22</span>
+    </div>
+    <div class="e-title">Performance tests for GapDecorations</div>
+    <div class="e-desc">Performance benchmarks added to track rendering speed.</div>
+    <div class="e-author">Javier Contreras</div>
+  </div>
+  <div class="entry issue resolved" data-type="issue">
+    <div class="e-head">
+      <span class="e-tag">Resolved</span>
+      <span class="e-id"><a href="https://github.com/w3c/csswg-drafts/issues/11814">#11814</a></span>
+      <span class="e-date">Nov 13</span>
+    </div>
+    <div class="e-title">Collapsed gutters: REVERSED — apply after collapse</div>
+    <div class="e-desc">RESOLVED: Undo previous resolution! Apply gap decorations after track collapse instead of using border-collapsing rules.</div>
+    <div class="e-author">CSSWG Resolution</div>
+  </div>
+  <div class="entry issue resolved milestone" data-type="issue">
+    <div class="e-head">
+      <span class="e-tag">Resolved</span>
+      <span class="e-id"><a href="https://github.com/w3c/csswg-drafts/issues/12602">#12602</a></span>
+      <span class="e-date">Nov 13</span>
+    </div>
+    <div class="e-title">rule-visibility-items: all | around | between</div>
+    <div class="e-desc">RESOLVED: Add 'rule-visibility-items: all | around | between' to control decoration visibility near empty cells.</div>
+    <div class="e-author">CSSWG Resolution</div>
+  </div>
+</div>
+
+<div class="month-label">December 2025</div>
+<div class="tl">
+  <div class="entry cl" data-type="cl">
+    <div class="e-head">
+      <span class="e-tag">CL</span>
+      <span class="e-id"><a href="https://chromium-review.googlesource.com/c/chromium/src/+/7056842">7056842</a></span>
+      <span class="e-date">Dec 9</span>
+    </div>
+    <div class="e-title">Implement fragmentation for gap segment states</div>
+    <div class="e-desc">Gap segment state tracking across fragmented containers.</div>
+    <div class="e-author">Sam Davis Omekara</div>
+  </div>
+  <div class="entry pr" data-type="pr">
+    <div class="e-head">
+      <span class="e-tag">PR</span>
+      <span class="e-id"><a href="https://github.com/w3c/csswg-drafts/pull/13024">PR #13024</a></span>
+      <span class="e-date">Dec 17</span>
+    </div>
+    <div class="e-title"><a href="https://github.com/w3c/csswg-drafts/pull/13024">Update outset properties</a></div>
+    <div class="e-desc">Major spec update restructuring the outset/inset property model.</div>
+    <div class="e-author">Javier Contreras</div>
+  </div>
+</div>
+
+<!-- ════ 2026 ════ -->
+<div class="year-marker"><h2>2026</h2></div>
+
+<div class="phase" data-num="05">
+  <h3>Spec Alignment &amp; Polish</h3>
+  <p>Segments-based model, rule-break refinements, empty cells, writing-mode, and overlap painting.</p>
+</div>
+
+<div class="month-label">January 2026</div>
+<div class="tl">
+  <div class="entry pr" data-type="pr">
+    <div class="e-head">
+      <span class="e-tag">PR</span>
+      <span class="e-id"><a href="https://github.com/w3c/csswg-drafts/pull/13264">PR #13264</a></span>
+      <span class="e-date">Jan 5</span>
+    </div>
+    <div class="e-title"><a href="https://github.com/w3c/csswg-drafts/pull/13264">Fix missing syntax for #inset</a></div>
+    <div class="e-desc">Corrected syntax definition for *-rule-inset shorthands.</div>
+    <div class="e-author">Javier Contreras</div>
+  </div>
+  <div class="entry pr" data-type="pr">
+    <div class="e-head">
+      <span class="e-tag">PR</span>
+      <span class="e-id"><a href="https://github.com/w3c/csswg-drafts/pull/13298">PR #13298</a></span>
+      <span class="e-date">Jan 7</span>
+    </div>
+    <div class="e-title"><a href="https://github.com/w3c/csswg-drafts/pull/13298">Update coincident gap decoration behavior</a></div>
+    <div class="e-desc">New resolution for decorations when tracks collapse.</div>
+    <div class="e-author">Sam Davis Omekara</div>
+  </div>
+  <div class="entry pr" data-type="pr">
+    <div class="e-head">
+      <span class="e-tag">PR</span>
+      <span class="e-id"><a href="https://github.com/w3c/csswg-drafts/pull/13336">PR #13336</a></span>
+      <span class="e-date">Jan 15</span>
+    </div>
+    <div class="e-title"><a href="https://github.com/w3c/csswg-drafts/pull/13336">Add serialization section for column-rule shorthand</a></div>
+    <div class="e-desc">New spec section + switched longhands from space to comma separation.</div>
+    <div class="e-author">Sam Davis Omekara</div>
+  </div>
+  <div class="entry issue resolved" data-type="issue">
+    <div class="e-head">
+      <span class="e-tag">Resolved</span>
+      <span class="e-id"><a href="https://github.com/w3c/csswg-drafts/issues/12922">#12922</a></span>
+      <span class="e-date">Jan 28</span>
+    </div>
+    <div class="e-title">Alignment space contributes to gap size</div>
+    <div class="e-desc">RESOLVED: Alignment space inserted into gutters contributes to the gap size for decoration purposes.</div>
+    <div class="e-author">CSSWG Resolution</div>
+  </div>
+  <div class="entry issue resolved" data-type="issue">
+    <div class="e-head">
+      <span class="e-tag">Resolved</span>
+      <span class="e-id"><a href="https://github.com/w3c/csswg-drafts/issues/13127">#13127</a></span>
+      <span class="e-date">Jan 28</span>
+    </div>
+    <div class="e-title">Rename spanning-item to normal; allow rule-break:none through spanners</div>
+    <div class="e-desc">RESOLVED: Rename 'spanning-item' to 'normal'. Allow rule-break:none to draw through spanners in multicol.</div>
+    <div class="e-author">CSSWG Resolution</div>
+  </div>
+  <div class="entry issue resolved" data-type="issue">
+    <div class="e-head">
+      <span class="e-tag">Resolved</span>
+      <span class="e-id"><a href="https://github.com/w3c/csswg-drafts/issues/13137">#13137</a></span>
+      <span class="e-date">Jan 28</span>
+    </div>
+    <div class="e-title">Initial value of insets changed to 0</div>
+    <div class="e-desc">RESOLVED: Change initial value to 0, with a keyword for the current default.</div>
+    <div class="e-author">CSSWG Resolution</div>
+  </div>
+  <div class="entry cl" data-type="cl">
+    <div class="e-head">
+      <span class="e-tag">CL</span>
+      <span class="e-id"><a href="https://chromium-review.googlesource.com/c/chromium/src/+/7533197">7533197</a></span>
+      <span class="e-date">Jan 30</span>
+    </div>
+    <div class="e-title">Rename rule-break 'spanning-item' to 'normal'</div>
+    <div class="e-desc">Aligned with CSSWG resolution to use 'normal' as the default keyword.</div>
+    <div class="e-author">Javier Contreras</div>
+  </div>
+</div>
+
+<div class="month-label">February 2026</div>
+<div class="tl">
+  <div class="entry pr" data-type="pr">
+    <div class="e-head">
+      <span class="e-tag">PR</span>
+      <span class="e-id"><a href="https://github.com/w3c/csswg-drafts/pull/13374">PR #13374</a></span>
+      <span class="e-date">Feb 3</span>
+    </div>
+    <div class="e-title"><a href="https://github.com/w3c/csswg-drafts/pull/13374">Add section for rule-visibility-items</a></div>
+    <div class="e-desc">New spec section defining how decorations behave near empty cells.</div>
+    <div class="e-author">Sam Davis Omekara</div>
+  </div>
+  <div class="entry milestone cl" data-type="cl">
+    <div class="e-head">
+      <span class="e-tag">Milestone</span>
+      <span class="e-id"><a href="https://chromium-review.googlesource.com/c/chromium/src/+/7539476">7539476</a></span>
+      <span class="e-date">Feb 13</span>
+    </div>
+    <div class="e-title">Multicol Gap Decorations Overhaul</div>
+    <div class="e-desc">Major refactor of multicol gap decoration architecture.</div>
+    <div class="e-author">Javier Contreras</div>
+  </div>
+  <div class="entry milestone pr" data-type="pr">
+    <div class="e-head">
+      <span class="e-tag">Milestone</span>
+      <span class="e-id"><a href="https://github.com/w3c/csswg-drafts/pull/13299">PR #13299</a></span>
+      <span class="e-date">Feb 17</span>
+    </div>
+    <div class="e-title"><a href="https://github.com/w3c/csswg-drafts/pull/13299">Segments-Based Model (replaces Intersections-Based)</a></div>
+    <div class="e-desc">Fundamental spec change: decorations are now defined as "segments" rather than "intersections."</div>
+    <div class="e-author">Javier Contreras</div>
+  </div>
+  <div class="entry pr" data-type="pr">
+    <div class="e-head">
+      <span class="e-tag">PR</span>
+      <span class="e-id"><a href="https://github.com/w3c/csswg-drafts/pull/13475">PR #13475</a></span>
+      <span class="e-date">Feb 13</span>
+    </div>
+    <div class="e-title"><a href="https://github.com/w3c/csswg-drafts/pull/13475">Change rule-break: spanning-item to rule-break: normal</a></div>
+    <div class="e-desc">Renamed 'spanning-item' to 'normal' as the default keyword per container type.</div>
+    <div class="e-author">Javier Contreras</div>
+  </div>
+</div>
+
+<div class="month-label">March 2026</div>
+<div class="tl">
+  <div class="entry cl" data-type="cl">
+    <div class="e-head">
+      <span class="e-tag">CL</span>
+      <span class="e-id"><a href="https://chromium-review.googlesource.com/c/chromium/src/+/7642513">7642513</a></span>
+      <span class="e-date">Mar 6</span>
+    </div>
+    <div class="e-title">Fix crash found by fuzzer in flex gap decorations</div>
+    <div class="e-desc">Stability improvement — crash discovered via fuzzing.</div>
+    <div class="e-author">Javier Contreras</div>
+  </div>
+  <div class="entry issue resolved" data-type="issue">
+    <div class="e-head">
+      <span class="e-tag">Resolved</span>
+      <span class="e-id"><a href="https://github.com/w3c/csswg-drafts/issues/13453">#13453</a></span>
+      <span class="e-date">Mar 18</span>
+    </div>
+    <div class="e-title">Column decorations can go through row gaps</div>
+    <div class="e-desc">RESOLVED: Column decorations can go through row gaps in multicol (same as grid rows). No spec change needed.</div>
+    <div class="e-author">CSSWG Resolution</div>
+  </div>
+  <div class="entry milestone cl" data-type="cl">
+    <div class="e-head">
+      <span class="e-tag">Milestone</span>
+      <span class="e-id"><a href="https://chromium-review.googlesource.com/c/chromium/src/+/7671617">7671617</a></span>
+      <span class="e-date">Mar 27</span>
+    </div>
+    <div class="e-title">Paint behavior for overlap-join</div>
+    <div class="e-desc">Painting support for the overlap-join value of rule-overlap.</div>
+    <div class="e-author">Sam Davis Omekara</div>
+  </div>
+  <div class="entry issue resolved" data-type="issue">
+    <div class="e-head">
+      <span class="e-tag">Resolved</span>
+      <span class="e-id"><a href="https://github.com/w3c/csswg-drafts/issues/13477">#13477</a></span>
+      <span class="e-date">Mar 31</span>
+    </div>
+    <div class="e-title">Empty space default: "all" for grid; initial value "normal"</div>
+    <div class="e-desc">RESOLVED: Default behavior for grid empty spaces is "all". Initial value changed to "normal".</div>
+    <div class="e-author">CSSWG Resolution</div>
+  </div>
+  <div class="entry issue resolved" data-type="issue">
+    <div class="e-head">
+      <span class="e-tag">Resolved</span>
+      <span class="e-id"><a href="https://github.com/w3c/csswg-drafts/issues/13663">#13663</a></span>
+      <span class="e-date">Mar 31</span>
+    </div>
+    <div class="e-title">Flex: adopt linear assignment for multiple values</div>
+    <div class="e-desc">RESOLVED: Adopt linear assignment for assigning multiple decoration values to flex containers.</div>
+    <div class="e-author">CSSWG Resolution</div>
+  </div>
+</div>
+
+<div class="month-label">April 2026</div>
+<div class="tl">
+  <div class="entry issue resolved" data-type="issue">
+    <div class="e-head">
+      <span class="e-tag">Resolved</span>
+      <span class="e-id"><a href="https://github.com/w3c/csswg-drafts/issues/13648">#13648</a></span>
+      <span class="e-date">Apr 13</span>
+    </div>
+    <div class="e-title">Writing-mode and direction interactions defined</div>
+    <div class="e-desc">RESOLVED: Accept edits defining writing mode and direction interactions with gap decorations.</div>
+    <div class="e-author">CSSWG Resolution</div>
+  </div>
+  <div class="entry pr" data-type="pr">
+    <div class="e-head">
+      <span class="e-tag">PR</span>
+      <span class="e-id"><a href="https://github.com/w3c/csswg-drafts/pull/13755">PR #13755</a></span>
+      <span class="e-date">Apr 2</span>
+    </div>
+    <div class="e-title"><a href="https://github.com/w3c/csswg-drafts/pull/13755">Add 'normal' value to rule-visibility-items</a></div>
+    <div class="e-desc">Added normal as a value for rule-visibility-items per WG resolution.</div>
+    <div class="e-author">Kevin Babbitt</div>
+  </div>
+  <div class="entry pr" data-type="pr">
+    <div class="e-head">
+      <span class="e-tag">PR</span>
+      <span class="e-id"><a href="https://github.com/w3c/csswg-drafts/pull/13732">PR #13732</a></span>
+      <span class="e-date">Apr 13</span>
+    </div>
+    <div class="e-title"><a href="https://github.com/w3c/csswg-drafts/pull/13732">Clarify writing-mode &amp; direction for gap decorations</a></div>
+    <div class="e-desc">Clarified how internationalization properties affect gap decoration rendering.</div>
+    <div class="e-author">Kevin Babbitt</div>
+  </div>
+  <div class="entry cl" data-type="cl">
+    <div class="e-head">
+      <span class="e-tag">CL</span>
+      <span class="e-id"><a href="https://chromium-review.googlesource.com/c/chromium/src/+/7757921">7757921</a></span>
+      <span class="e-date">Apr 13</span>
+    </div>
+    <div class="e-title">Grid gap decoration test for 'donut' scenario</div>
+    <div class="e-desc">Test for complex grid gap pattern — the latest change.</div>
+    <div class="e-author">Javier Contreras</div>
+  </div>
+</div>
+
+</main>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <p>Data sourced from <a href="https://chromium-review.googlesource.com/q/hashtag:gap-decorations+status:merged">Chromium Gerrit</a> and <a href="https://github.com/w3c/csswg-drafts">w3c/csswg-drafts</a></p>
+  <p style="margin-top: 8px; opacity: 0.6;">BlinkOn 21 &bull; April 2026</p>
+</footer>
+
+<script>
+// ── Filter Logic ──
+function filter(type) {
+  const entries = document.querySelectorAll('.entry');
+  const buttons = document.querySelectorAll('.filter-btn');
+
+  buttons.forEach(b => b.classList.remove('active'));
+  document.querySelector(`[data-filter="${type}"]`).classList.add('active');
+
+  entries.forEach(e => {
+    if (type === 'all') {
+      e.classList.remove('hidden');
+    } else if (type === 'milestone') {
+      e.classList.toggle('hidden', !e.classList.contains('milestone'));
+    } else if (type === 'issue') {
+      e.classList.toggle('hidden', e.dataset.type !== 'issue');
+    } else {
+      e.classList.toggle('hidden', e.dataset.type !== type);
+    }
+  });
+}
+
+// ── Scroll-triggered Reveal ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 40);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.entry, .phase, .month-label, .year-marker').forEach(el => {
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
