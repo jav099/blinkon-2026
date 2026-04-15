@@ -380,6 +380,8 @@ All landed Chromium CLs (hashtag: `gap-decorations`), merged CSSWG PRs (`css-gap
   > Proper paint invalidation tracking.
 
 ### 2025-06-11
+- **DEV TRIAL: [Chrome Blog Post Published](https://developer.chrome.com/blog/gap-decorations?hl=en)** — Gap Decorations announced for developer testing
+  > Official Chrome for Developers blog post introducing CSS Gap Decorations and announcing availability behind the Experimental Web Platform Features flag in Chrome/Edge 139.
 - **CL [6635191](https://chromium-review.googlesource.com/c/chromium/src/+/6635191)** — Marking row-rule-color as interpolable: false *(Javier Contreras)*
   > Disabled incorrect interpolation.
 - **CL [6625244](https://chromium-review.googlesource.com/c/chromium/src/+/6625244)** — Restrict width animation to just single values *(Javier Contreras)*

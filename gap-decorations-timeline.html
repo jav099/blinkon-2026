@@ -540,6 +540,31 @@ body::after {
 .entry.pr:hover { background: var(--pr-bg); border-color: var(--pr-border); }
 .entry.pr:hover::before { background: var(--pr); box-shadow: 0 0 8px var(--pr-glow); }
 
+/* ── Dev Trial Entry ── */
+.entry.devtrial {
+  background: linear-gradient(135deg, hsla(var(--ms-hue), 80%, 55%, 0.12), hsla(var(--pr-hue), 70%, 50%, 0.08));
+  border: 1px solid var(--ms-border);
+  border-left: 4px solid var(--ms);
+  padding: 18px 22px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.entry.devtrial::before {
+  content: '🚀';
+  background: none;
+  font-size: 14px;
+  width: auto;
+  height: auto;
+  left: -34px;
+  top: 20px;
+  border-radius: 0;
+}
+.entry.devtrial:hover { background: linear-gradient(135deg, hsla(var(--ms-hue), 80%, 55%, 0.18), hsla(var(--pr-hue), 70%, 50%, 0.12)); }
+.entry.devtrial:hover::before { transform: scale(1.2); }
+.entry.devtrial .e-tag { background: linear-gradient(135deg, var(--ms), hsl(25, 90%, 55%)); color: var(--bg-deep); font-weight: 700; letter-spacing: 2px; }
+.entry.devtrial .e-title { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--ms); }
+.entry.devtrial .e-desc { color: var(--text); font-weight: 400; }
+
 /* ── Issue Entries ── */
 .entry.issue { border-left: 2px solid var(--is-border); }
 .entry.issue::before { background: var(--is-dim); border-radius: 50%; }
@@ -1129,6 +1154,16 @@ footer a:hover { color: var(--cl); }
     <div class="e-title">Bidirectional rule shorthand + crash fixes</div>
     <div class="e-desc">12 CLs in June: shorthands, serialization, crash fixes for initial/empty geometry, subgrid tests.</div>
     <div class="e-author">Sam Davis Omekara &amp; Javier Contreras</div>
+  </div>
+  <div class="entry devtrial milestone" data-type="cl">
+    <div class="e-head">
+      <span class="e-tag">Dev Trial</span>
+      <span class="e-id"><a href="https://developer.chrome.com/blog/gap-decorations?hl=en">Chrome Blog</a> · <a href="https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/986">Edge #986</a></span>
+      <span class="e-date">Jun 11</span>
+    </div>
+    <div class="e-title"><a href="https://developer.chrome.com/blog/gap-decorations?hl=en">Gap Decorations Available for Developer Testing — Chrome/Edge 139</a></div>
+    <div class="e-desc">Official Chrome blog post published. Feature available behind chrome://flags/#enable-experimental-web-platform-features in Chrome &amp; Edge 139 Canary builds.</div>
+    <div class="e-author">Chrome for Developers</div>
   </div>
 </div>
 
