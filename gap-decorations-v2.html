@@ -83,20 +83,39 @@ a:hover { opacity: 0.8; }
 }
 
 /* ═══ PILLAR BADGES ═══ */
-.pillars { position: absolute; top: 28px; left: 40px; display: flex; gap: 8px; z-index: 10; }
+.pillars { position: absolute; top: 28px; left: 40px; display: flex; gap: 14px; z-index: 10; }
 .pill {
   font-family: var(--font-mono);
   font-size: 0.55rem;
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: 2px;
   text-transform: uppercase;
-  padding: 4px 14px;
-  border-radius: 100px;
-  border: 1px solid;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
-.pill-design { color: var(--design); border-color: var(--design-border); background: var(--design-bg); }
-.pill-impl { color: var(--impl); border-color: var(--impl-border); background: var(--impl-bg); }
-.pill-wg { color: var(--wg); border-color: var(--wg-border); background: var(--wg-bg); }
+.pill::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.pill-design { color: var(--design); }
+.pill-design::before { background: var(--design); }
+.pill-impl { color: var(--impl); }
+.pill-impl::before { background: var(--impl); }
+.pill-wg { color: var(--wg); }
+.pill-wg::before { background: var(--wg); }
+
+/* ═══ PILLAR BACKGROUND TINT ═══ */
+.slide[data-pillar="wg"] { background: hsla(40, 65%, 50%, 0.15); }
+.slide[data-pillar="design"] { background: hsla(155, 45%, 45%, 0.15); }
+.slide[data-pillar="impl"] { background: hsla(220, 65%, 55%, 0.15); }
+.slide[data-pillar="wg-design"] { background: linear-gradient(135deg, hsla(40, 65%, 50%, 0.15), hsla(155, 45%, 45%, 0.15)); }
+.slide[data-pillar="wg-impl"] { background: linear-gradient(135deg, hsla(40, 65%, 50%, 0.15), hsla(220, 65%, 55%, 0.15)); }
+.slide[data-pillar="design-impl"] { background: linear-gradient(135deg, hsla(155, 45%, 45%, 0.15), hsla(220, 65%, 55%, 0.15)); }
+.slide[data-pillar="all"] { background: linear-gradient(135deg, hsla(40, 65%, 50%, 0.12), hsla(155, 45%, 45%, 0.12), hsla(220, 65%, 55%, 0.12)); }
 
 /* Act badge */
 .act-badge {
@@ -355,12 +374,16 @@ a:hover { opacity: 0.8; }
 .slide-transition {
   background: linear-gradient(135deg, var(--bg) 0%, var(--surface) 100%);
 }
+.slide-transition::before { display: none; }
 .transition-line {
   width: 60px;
   height: 1px;
   background: var(--muted);
   margin: 20px 0;
 }
+
+/* Full-bleed slides — no surface card */
+.slide-fullbleed::before { display: none; }
 
 /* F2F grid */
 .f2f-grid {
@@ -571,7 +594,7 @@ a:hover { opacity: 0.8; }
 <!-- ═══════════════════════════════════════════════════ -->
 <!-- SLIDE 2: THE FIRST THREAD (Act 1) -->
 <!-- ═══════════════════════════════════════════════════ -->
-<div class="slide">
+<div class="slide" data-pillar="wg">
   <div class="pillars"><span class="pill pill-wg">CSSWG</span></div>
   <div class="act-badge">Part 1 &mdash; The Origin</div>
   <div class="left-col">
@@ -594,7 +617,7 @@ a:hover { opacity: 0.8; }
 <!-- ═══════════════════════════════════════════════════ -->
 <!-- SLIDE 3: THE PROPOSAL -->
 <!-- ═══════════════════════════════════════════════════ -->
-<div class="slide">
+<div class="slide" data-pillar="wg-design">
   <div class="pillars"><span class="pill pill-wg">CSSWG</span><span class="pill pill-design">Design</span></div>
   <div class="act-badge">Part 1 &mdash; The Origin</div>
   <div class="split">
@@ -628,7 +651,7 @@ a:hover { opacity: 0.8; }
 <!-- ═══════════════════════════════════════════════════ -->
 <!-- SLIDE 4: THREE LAYERS -->
 <!-- ═══════════════════════════════════════════════════ -->
-<div class="slide">
+<div class="slide" data-pillar="design-impl">
   <div class="pillars"><span class="pill pill-design">Design</span><span class="pill pill-impl">Implementation</span></div>
   <div class="act-badge">Part 1 &mdash; The Origin</div>
   <div class="split">
@@ -669,7 +692,7 @@ a:hover { opacity: 0.8; }
 <!-- ═══════════════════════════════════════════════════ -->
 <!-- SLIDE 6: CSSWG DISCUSSIONS (Act 2) -->
 <!-- ═══════════════════════════════════════════════════ -->
-<div class="slide">
+<div class="slide" data-pillar="wg-design">
   <div class="pillars"><span class="pill pill-wg">CSSWG</span><span class="pill pill-design">Design</span></div>
   <div class="act-badge">Part 2 &mdash; Iteration</div>
   <div class="center-col">
@@ -721,7 +744,7 @@ a:hover { opacity: 0.8; }
 <!-- ═══════════════════════════════════════════════════ -->
 <!-- SLIDE 6b: COST OF STANDARDS -->
 <!-- ═══════════════════════════════════════════════════ -->
-<div class="slide">
+<div class="slide" data-pillar="wg">
   <div class="pillars"><span class="pill pill-wg">CSSWG</span></div>
   <div class="act-badge">Part 2 &mdash; Iteration</div>
   <div class="split">
@@ -768,7 +791,7 @@ a:hover { opacity: 0.8; }
 <!-- ═══════════════════════════════════════════════════ -->
 <!-- SLIDE 7: MAIN/CROSS SPLIT -->
 <!-- ═══════════════════════════════════════════════════ -->
-<div class="slide">
+<div class="slide" data-pillar="impl">
   <div class="pillars"><span class="pill pill-impl">Implementation</span></div>
   <div class="act-badge">Part 2 &mdash; Iteration</div>
   <div class="split">
@@ -854,20 +877,10 @@ a:hover { opacity: 0.8; }
 <!-- ═══════════════════════════════════════════════════ -->
 <!-- SLIDE 8: PAINT FIXES -->
 <!-- ═══════════════════════════════════════════════════ -->
-<div class="slide">
+<div class="slide" data-pillar="impl">
   <div class="pillars"><span class="pill pill-impl">Implementation</span></div>
   <div class="act-badge">Part 2 &mdash; Iteration</div>
   <div class="split">
-    <div class="left-col">
-      <div class="s-label reveal">Into Unfamiliar Territory</div>
-      <div class="s-title reveal reveal-d1">Learning paint from scratch</div>
-      <div class="s-body reveal reveal-d2">
-        Nobody on the team had worked in Blink's paint code before. We needed decorations to clip, scroll, resize, and fragment correctly.
-      </div>
-      <div class="s-body reveal reveal-d3" style="margin-top: 16px;">
-        Philip Rogers (pdr), a paint owner, guided us through <a href="https://chromium-review.googlesource.com/c/chromium/src/+/6451833" target="_blank">4 CLs</a> and <strong>120+ review comments</strong>. Every patchset was a lesson in how the rendering pipeline actually works.
-      </div>
-    </div>
     <div class="center-col reveal reveal-d2">
       <!-- Visual: broken → fixed paint scenarios -->
       <div style="display: flex; flex-direction: column; gap: 12px; width: 260px;">
@@ -889,16 +902,37 @@ a:hover { opacity: 0.8; }
         </div>
       </div>
     </div>
+    <div class="left-col">
+      <div class="s-label reveal">Into Unfamiliar Territory</div>
+      <div class="s-title reveal reveal-d1">Learning paint from scratch</div>
+      <div class="s-body reveal reveal-d2">
+        Nobody on the team had worked in Blink's paint code before. We needed decorations to clip, scroll, resize, and fragment correctly.
+      </div>
+      <div class="s-body reveal reveal-d3" style="margin-top: 16px;">
+        Philip Rogers (pdr), a paint owner, guided us through <a href="https://chromium-review.googlesource.com/c/chromium/src/+/6451833" target="_blank">4 CLs</a> and <strong>120+ review comments</strong>. Every patchset was a lesson in how the rendering pipeline actually works.
+      </div>
+    </div>
   </div>
 </div>
 
 <!-- ═══════════════════════════════════════════════════ -->
 <!-- SLIDE 9: INTERPOLATION -->
 <!-- ═══════════════════════════════════════════════════ -->
-<div class="slide">
+<div class="slide" data-pillar="wg-impl">
   <div class="pillars"><span class="pill pill-wg">CSSWG</span><span class="pill pill-impl">Implementation</span></div>
   <div class="act-badge">Part 2 &mdash; Iteration</div>
   <div class="split">
+    <div class="center-col reveal reveal-d3">
+      <!-- Animated gap decoration demo -->
+      <div class="anim-demo">
+        <div class="anim-demo-cell"></div><div class="anim-demo-cell"></div><div class="anim-demo-cell"></div>
+        <div class="anim-demo-cell"></div><div class="anim-demo-cell"></div><div class="anim-demo-cell"></div>
+        <div class="anim-demo-cell"></div><div class="anim-demo-cell"></div><div class="anim-demo-cell"></div>
+      </div>
+      <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--muted); margin-top: 12px; letter-spacing: 1px;">
+        column-rule-color, column-rule-width: <span class="anim-label-color">animating…</span>
+      </div>
+    </div>
     <div class="left-col">
       <div class="s-label reveal">More Unfamiliar Territory</div>
       <div class="s-title reveal reveal-d1">Lists, repeaters, and LCM interpolation</div>
@@ -909,17 +943,6 @@ a:hover { opacity: 0.8; }
           <li><a href="https://github.com/w3c/csswg-drafts/issues/12431" target="_blank">#12431</a> resolved: animate using <strong>LCM</strong> alignment. Turns out we needed to expand for animating.</li>
           <li>Led to V2 interpolation: <a href="https://chromium-review.googlesource.com/c/chromium/src/+/6961880" target="_blank">CL 6961880</a>, <a href="https://chromium-review.googlesource.com/c/chromium/src/+/7078855" target="_blank">CL 7078855</a></li>
         </ul>
-      </div>
-    </div>
-    <div class="center-col reveal reveal-d3">
-      <!-- Animated gap decoration demo -->
-      <div class="anim-demo">
-        <div class="anim-demo-cell"></div><div class="anim-demo-cell"></div><div class="anim-demo-cell"></div>
-        <div class="anim-demo-cell"></div><div class="anim-demo-cell"></div><div class="anim-demo-cell"></div>
-        <div class="anim-demo-cell"></div><div class="anim-demo-cell"></div><div class="anim-demo-cell"></div>
-      </div>
-      <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--muted); margin-top: 12px; letter-spacing: 1px;">
-        column-rule-color, column-rule-width: <span class="anim-label-color">animating…</span>
       </div>
     </div>
   </div>
@@ -939,7 +962,7 @@ a:hover { opacity: 0.8; }
 <!-- ═══════════════════════════════════════════════════ -->
 <!-- SLIDE 12: DEVELOPER FEEDBACK -->
 <!-- ═══════════════════════════════════════════════════ -->
-<div class="slide">
+<div class="slide" data-pillar="wg-design">
   <div class="pillars"><span class="pill pill-wg">CSSWG</span><span class="pill pill-design">Design</span></div>
   <div class="act-badge">Part 3 &mdash; Resolving Loose Ends</div>
   <div class="center-col">
@@ -1007,7 +1030,7 @@ a:hover { opacity: 0.8; }
 <!-- ═══════════════════════════════════════════════════ -->
 <!-- SLIDE 13: TPAC & SEGMENTS (Part 3) -->
 <!-- ═══════════════════════════════════════════════════ -->
-<div class="slide">
+<div class="slide" data-pillar="wg-design">
   <div class="pillars"><span class="pill pill-wg">CSSWG</span><span class="pill pill-design">Design</span></div>
   <div class="act-badge">Part 3 &mdash; Resolving Loose Ends</div>
   <div class="center-col">
@@ -1078,33 +1101,31 @@ a:hover { opacity: 0.8; }
 <!-- ═══════════════════════════════════════════════════ -->
 <!-- SLIDE 12: JANUARY F2F -->
 <!-- ═══════════════════════════════════════════════════ -->
-<div class="slide">
+<div class="slide" data-pillar="all">
   <div class="pillars"><span class="pill pill-wg">CSSWG</span><span class="pill pill-design">Design</span><span class="pill pill-impl">Implementation</span></div>
   <div class="act-badge">Part 3 &mdash; Resolving Loose Ends</div>
   <div class="left-col">
     <div class="s-label reveal">January 28, 2026 CSSWG Face-To-Face</div>
     <div class="s-title reveal reveal-d1">Four issues resolved in one session</div>
-    <div class="f2f-grid reveal reveal-d2">
-      <div class="f2f-item">
-        <div class="f2f-num">1</div>
-        <div class="f2f-title">Rename <code style="font-family: var(--font-mono); font-size: 0.8em; color: var(--impl);">spanning-item</code> &rarr; <code style="font-family: var(--font-mono); font-size: 0.8em; color: var(--impl);">normal</code></div>
-        <div class="f2f-issue"><a href="https://github.com/w3c/csswg-drafts/issues/13127" target="_blank">#13127</a></div>
-      </div>
-      <div class="f2f-item">
-        <div class="f2f-num">2</div>
-        <div class="f2f-title">Initial inset value &rarr; <code style="font-family: var(--font-mono); font-size: 0.8em; color: var(--impl);">0</code></div>
-        <div class="f2f-issue"><a href="https://github.com/w3c/csswg-drafts/issues/13137" target="_blank">#13137</a>. Devs said rule-break changes had no visible effect.</div>
-      </div>
-      <div class="f2f-item">
-        <div class="f2f-num">3</div>
-        <div class="f2f-title">Alignment space contributes to gap size</div>
-        <div class="f2f-issue"><a href="https://github.com/w3c/csswg-drafts/issues/12922" target="_blank">#12922</a>. Whiteboard session with Alison Maher.</div>
-      </div>
-      <div class="f2f-item">
-        <div class="f2f-num">4</div>
-        <div class="f2f-title">Gap suppression with spanners, no change needed</div>
-        <div class="f2f-issue"><a href="https://github.com/w3c/csswg-drafts/issues/13362" target="_blank">#13362</a></div>
-      </div>
+    <div class="s-body reveal reveal-d2" style="max-width: 700px;">
+      <ol style="list-style: none; padding: 0; counter-reset: f2f; display: flex; flex-direction: column; gap: 16px;">
+        <li style="display: flex; gap: 16px; align-items: baseline; padding: 0;">
+          <span style="font-family: var(--font-display); font-size: 1.6rem; color: var(--wg); flex-shrink: 0; width: 28px;">1</span>
+          <span style="line-height: 1.5;">Rename <code>spanning-item</code> &rarr; <code>normal</code> <a href="https://github.com/w3c/csswg-drafts/issues/13127" target="_blank" style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--impl);">#13127</a></span>
+        </li>
+        <li style="display: flex; gap: 16px; align-items: baseline; padding: 0;">
+          <span style="font-family: var(--font-display); font-size: 1.6rem; color: var(--wg); flex-shrink: 0; width: 28px;">2</span>
+          <span style="line-height: 1.5;">Initial inset value &rarr; <code>0</code>. Devs said rule-break changes had no visible effect. <a href="https://github.com/w3c/csswg-drafts/issues/13137" target="_blank" style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--impl);">#13137</a></span>
+        </li>
+        <li style="display: flex; gap: 16px; align-items: baseline; padding: 0;">
+          <span style="font-family: var(--font-display); font-size: 1.6rem; color: var(--wg); flex-shrink: 0; width: 28px;">3</span>
+          <span style="line-height: 1.5;">Alignment space contributes to gap size. Whiteboard session with Alison Maher. <a href="https://github.com/w3c/csswg-drafts/issues/12922" target="_blank" style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--impl);">#12922</a></span>
+        </li>
+        <li style="display: flex; gap: 16px; align-items: baseline; padding: 0;">
+          <span style="font-family: var(--font-display); font-size: 1.6rem; color: var(--wg); flex-shrink: 0; width: 28px;">4</span>
+          <span style="line-height: 1.5;">Gap suppression with spanners — no change needed. <a href="https://github.com/w3c/csswg-drafts/issues/13362" target="_blank" style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--impl);">#13362</a></span>
+        </li>
+      </ol>
     </div>
     <div class="s-body reveal reveal-d3" style="margin-top: 16px;">
       <strong>11 CLs + 2 spec PRs within 5 weeks.</strong><br>
@@ -1120,30 +1141,30 @@ a:hover { opacity: 0.8; }
   <div class="center-col">
     <div class="s-label reveal">By the Numbers</div>
     <div class="s-title reveal reveal-d1">Two years of work</div>
-    <div class="stats-grid reveal reveal-d2">
-      <div class="stat">
-        <div class="s-big-num" style="font-size: 3rem; color: var(--impl);">191</div>
-        <div class="s-stat-label">Chromium CLs</div>
+    <div class="reveal reveal-d2" style="display: flex; gap: 60px; align-items: center; max-width: 800px;">
+      <!-- Hero number -->
+      <div style="text-align: center; flex-shrink: 0;">
+        <div class="s-big-num" style="font-size: 5.5rem; color: var(--impl);">191</div>
+        <div class="s-stat-label" style="font-size: 0.7rem;">Chromium CLs</div>
       </div>
-      <div class="stat">
-        <div class="s-big-num" style="font-size: 3rem; color: var(--wg);">22</div>
-        <div class="s-stat-label">Spec PRs</div>
-      </div>
-      <div class="stat">
-        <div class="s-big-num" style="font-size: 3rem; color: var(--design);">30</div>
-        <div class="s-stat-label">CSSWG Issues</div>
-      </div>
-      <div class="stat">
-        <div class="s-big-num" style="font-size: 3rem; color: var(--text);">5</div>
-        <div class="s-stat-label">Contributors</div>
-      </div>
-      <div class="stat">
-        <div class="s-big-num" style="font-size: 3rem; color: var(--text);">3</div>
-        <div class="s-stat-label">Layout Types</div>
-      </div>
-      <div class="stat">
-        <div class="s-big-num" style="font-size: 3rem; color: var(--text);">3</div>
-        <div class="s-stat-label">Blink Layers</div>
+      <!-- Supporting stats as a simple list -->
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <div style="display: flex; align-items: baseline; gap: 12px;">
+          <span class="s-big-num" style="font-size: 2rem; color: var(--wg); min-width: 50px; text-align: right;">22</span>
+          <span style="font-size: 0.88rem; color: var(--dim);">spec PRs merged</span>
+        </div>
+        <div style="display: flex; align-items: baseline; gap: 12px;">
+          <span class="s-big-num" style="font-size: 2rem; color: var(--design); min-width: 50px; text-align: right;">30</span>
+          <span style="font-size: 0.88rem; color: var(--dim);">CSSWG issues filed</span>
+        </div>
+        <div style="display: flex; align-items: baseline; gap: 12px;">
+          <span class="s-big-num" style="font-size: 2rem; color: var(--text); min-width: 50px; text-align: right;">5</span>
+          <span style="font-size: 0.88rem; color: var(--dim);">contributors</span>
+        </div>
+        <div style="display: flex; align-items: baseline; gap: 12px;">
+          <span class="s-big-num" style="font-size: 2rem; color: var(--text); min-width: 50px; text-align: right;">3</span>
+          <span style="font-size: 0.88rem; color: var(--dim);">layout types &middot; 3 Blink layers</span>
+        </div>
       </div>
     </div>
     <div class="s-body reveal reveal-d3" style="margin-top: 20px; text-align: center;">
@@ -1155,7 +1176,7 @@ a:hover { opacity: 0.8; }
 <!-- ═══════════════════════════════════════════════════ -->
 <!-- SLIDE 14: CONCLUSION -->
 <!-- ═══════════════════════════════════════════════════ -->
-<div class="slide">
+<div class="slide slide-fullbleed">
   <div class="center-col">
     <div class="s-label reveal">Final Thoughts</div>
     <div class="s-title reveal reveal-d1" style="max-width: 700px;">The feature that touches everything</div>

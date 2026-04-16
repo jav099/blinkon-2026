@@ -4,7 +4,7 @@
 **Pillars:** —
 **Part:** —
 
-**BlinkOn 21**
+**BlinkOn 2026**
 
 # The Story of CSS Gap Decorations
 From spec proposal to cross-layer implementation in Blink
@@ -204,7 +204,6 @@ Dev trial launched in Chrome/Edge 139 (June 2025). Developer feedback reshaped t
 ## Slide 12: Developer Feedback
 **Pillars:** CSSWG | Design
 **Part:** 3 — Resolving Loose Ends.
-**Subtitle:** What Developers Told Us
 
 ### Feedback that changed the spec
 
