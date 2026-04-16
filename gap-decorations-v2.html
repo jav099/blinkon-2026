@@ -771,24 +771,82 @@ a:hover { opacity: 0.8; }
 <div class="slide">
   <div class="pillars"><span class="pill pill-impl">Implementation</span></div>
   <div class="act-badge">Part 2 &mdash; Iteration</div>
-  <div class="left-col">
-    <div class="s-label reveal">Architecture</div>
-    <div class="s-title reveal reveal-d1">The MainGap / CrossGap split</div>
-    <div class="s-body reveal reveal-d2">
-      <ul>
-        <li><a href="https://chromium-review.googlesource.com/c/chromium/src/+/6819000" target="_blank">CL 6819000</a> (Aug 2025): introduced separate Main and Cross gap classes</li>
-        <li>The original intersection-based model computed everything together</li>
-        <li>Splitting by axis unlocked:
-          <ul style="margin-top: 4px;">
-            <li>Better performance (process only the axis that changed)</li>
-            <li>Grid track expansion and fragmentation support</li>
-            <li>Cleaner multicol integration</li>
-          </ul>
-        </li>
-      </ul>
+  <div class="split">
+    <div class="left-col">
+      <div class="s-label reveal">Architecture</div>
+      <div class="s-title reveal reveal-d1">The MainGap / CrossGap split</div>
+      <div class="s-body reveal reveal-d2">
+        <ul>
+          <li><a href="https://chromium-review.googlesource.com/c/chromium/src/+/6819000" target="_blank">CL 6819000</a> (Aug 2025): introduced separate Main and Cross gap classes</li>
+          <li>The original model stored every intersection as an (x, y) pair</li>
+          <li>Splitting by axis unlocked:
+            <ul style="margin-top: 4px;">
+              <li>Better performance (process only the axis that changed)</li>
+              <li>Grid track expansion and fragmentation support</li>
+              <li>Cleaner multicol integration</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
-    <div class="s-body reveal reveal-d3" style="margin-top: 12px;">
-      This was a major refactor, followed by per-layout optimized CLs for <a href="https://chromium-review.googlesource.com/c/chromium/src/+/6854089" target="_blank">grid</a>, <a href="https://chromium-review.googlesource.com/c/chromium/src/+/6850590" target="_blank">flex</a>, and <a href="https://chromium-review.googlesource.com/c/chromium/src/+/6885245" target="_blank">multicol</a>.
+    <div class="center-col reveal reveal-d3">
+      <!-- Before/After diagrams -->
+      <div style="display: flex; flex-direction: column; gap: 14px; width: 340px;">
+        <!-- BEFORE: 12 intersection pairs -->
+        <div style="background: var(--card); border-radius: 8px; padding: 16px; border: 1px solid var(--border);">
+          <div style="font-family: var(--font-mono); font-size: 0.55rem; color: hsl(0,50%,55%); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px;">Before: 12 pairs</div>
+          <div style="position: relative; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 42px); gap: 12px; column-rule-style: solid; column-rule-width: 1px; column-rule-color: hsla(0,40%,55%,0.3); row-rule-style: solid; row-rule-width: 1px; row-rule-color: hsla(0,40%,55%,0.3);">
+            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
+            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
+            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
+            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
+            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
+            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
+            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
+            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
+            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
+            <!-- Top of column gaps: 2 -->
+            <div class="md-cross" style="top: -4px; left: calc((100% - 24px) / 3 + 2px);"></div>
+            <div class="md-cross" style="top: -4px; left: calc((100% - 24px) / 3 * 2 + 14px);"></div>
+            <!-- Row 1/2 junction: 4 intersections -->
+            <div class="md-cross" style="top: 44px; left: -4px;"></div>
+            <div class="md-cross" style="top: 44px; left: calc((100% - 24px) / 3 + 2px);"></div>
+            <div class="md-cross" style="top: 44px; left: calc((100% - 24px) / 3 * 2 + 14px);"></div>
+            <div class="md-cross" style="top: 44px; right: -4px;"></div>
+            <!-- Row 2/3 junction: 4 intersections -->
+            <div class="md-cross" style="top: 98px; left: -4px;"></div>
+            <div class="md-cross" style="top: 98px; left: calc((100% - 24px) / 3 + 2px);"></div>
+            <div class="md-cross" style="top: 98px; left: calc((100% - 24px) / 3 * 2 + 14px);"></div>
+            <div class="md-cross" style="top: 98px; right: -4px;"></div>
+            <!-- Bottom of column gaps: 2 -->
+            <div class="md-cross" style="bottom: -4px; left: calc((100% - 24px) / 3 + 2px);"></div>
+            <div class="md-cross" style="bottom: -4px; left: calc((100% - 24px) / 3 * 2 + 14px);"></div>
+          </div>
+          <div style="font-family: var(--font-mono); font-size: 0.5rem; color: var(--muted); margin-top: 10px;">every intersection stored as (x, y)</div>
+        </div>
+        <!-- AFTER: 2 axis pairs -->
+        <div style="background: var(--card); border-radius: 8px; padding: 16px; border: 1px solid var(--design-border);">
+          <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--design); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px;">After: 2 + 2 offsets</div>
+          <div style="position: relative; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 42px); gap: 12px; column-rule-style: solid; column-rule-width: 2px; column-rule-color: var(--impl); row-rule-style: solid; row-rule-width: 2px; row-rule-color: var(--design);">
+            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
+            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
+            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
+            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
+            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
+            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
+            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
+            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
+            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
+            <!-- Column axis markers (blue triangles pointing down) at top -->
+            <div style="position: absolute; top: -10px; left: calc((100% - 24px) / 3 + 1px); width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid var(--impl);"></div>
+            <div style="position: absolute; top: -10px; left: calc((100% - 24px) / 3 * 2 + 13px); width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid var(--impl);"></div>
+            <!-- Row axis markers (green triangles pointing right) at left -->
+            <div style="position: absolute; left: -10px; top: 43px; width: 0; height: 0; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left: 6px solid var(--design);"></div>
+            <div style="position: absolute; left: -10px; top: 97px; width: 0; height: 0; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left: 6px solid var(--design);"></div>
+          </div>
+          <div style="font-family: var(--font-mono); font-size: 0.5rem; color: var(--muted); margin-top: 10px;"><span style="color: var(--impl);">column offsets</span> + <span style="color: var(--design);">row offsets</span>, stored separately</div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -879,7 +937,75 @@ a:hover { opacity: 0.8; }
 </div>
 
 <!-- ═══════════════════════════════════════════════════ -->
-<!-- SLIDE 11: TPAC & SEGMENTS (Act 3) -->
+<!-- SLIDE 12: DEVELOPER FEEDBACK -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="pillars"><span class="pill pill-wg">CSSWG</span><span class="pill pill-design">Design</span></div>
+  <div class="act-badge">Part 3 &mdash; Resolving Loose Ends</div>
+  <div class="center-col">
+    <div class="s-label reveal">What Developers Told Us</div>
+    <div class="s-title reveal reveal-d1">Feedback that changed the spec</div>
+    <div class="s-body reveal reveal-d2" style="text-align: center; margin-bottom: 20px;">
+      12 issues from 11 developers. 5 drove spec changes. 4 became future-level ideas.
+    </div>
+    <!-- Feedback cards -->
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 100%; max-width: 900px; row-rule-style: solid; row-rule-width: 1px; row-rule-color: hsla(40,65%,50%,0.15);" class="reveal reveal-d3">
+      <!-- Card 1: Empty grid areas -->
+      <div style="background: var(--card); border-radius: 8px; padding: 18px; border-top: 2px solid var(--wg); display: flex; flex-direction: column; gap: 8px;">
+        <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--wg); letter-spacing: 1px;">AHMAD SHADEED</div>
+        <div style="font-size: 0.82rem; color: var(--text); font-weight: 500;">Decorations around empty grid areas</div>
+        <div style="font-size: 0.75rem; color: var(--dim); line-height: 1.5;">Responsive layouts leave cells empty at wide viewports. Rules shouldn't appear there.</div>
+        <div style="margin-top: auto; padding-top: 8px; border-top: 1px solid var(--border);">
+          <div style="font-family: var(--font-mono); font-size: 0.5rem; color: var(--design); letter-spacing: 1px;">&#10003; NEW PROPERTY: rule-visibility-items</div>
+        </div>
+      </div>
+      <!-- Card 2: Asymmetric insets -->
+      <div style="background: var(--card); border-radius: 8px; padding: 18px; border-top: 2px solid var(--impl); display: flex; flex-direction: column; gap: 8px;">
+        <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--impl); letter-spacing: 1px;">REXGALILAE</div>
+        <div style="font-size: 0.82rem; color: var(--text); font-weight: 500;">Asymmetric insets on each side</div>
+        <div style="font-size: 0.75rem; color: var(--dim); line-height: 1.5;">Different inset values for start and end of a decoration. Unlocked new layout patterns.</div>
+        <div style="margin-top: auto; padding-top: 8px; border-top: 1px solid var(--border);">
+          <div style="font-family: var(--font-mono); font-size: 0.5rem; color: var(--design); letter-spacing: 1px;">&#10003; RESTRUCTURED: rule-inset properties</div>
+        </div>
+      </div>
+      <!-- Card 3: Zero-gap -->
+      <div style="background: var(--card); border-radius: 8px; padding: 18px; border-top: 2px solid var(--design); display: flex; flex-direction: column; gap: 8px;">
+        <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--design); letter-spacing: 1px;">O-T-W</div>
+        <div style="font-size: 0.82rem; color: var(--text); font-weight: 500;">Decorations with zero gap</div>
+        <div style="font-size: 0.75rem; color: var(--dim); line-height: 1.5;">Border-collapse behavior: visible rules but no spacing between items.</div>
+        <div style="margin-top: auto; padding-top: 8px; border-top: 1px solid var(--border);">
+          <div style="font-family: var(--font-mono); font-size: 0.5rem; color: var(--design); letter-spacing: 1px;">&#10003; FIXED: 0px gap support in flex + grid</div>
+        </div>
+      </div>
+      <!-- Card 4: Images/gradients (deferred) -->
+      <div style="background: var(--card); border-radius: 8px; padding: 18px; border-top: 2px solid var(--muted); display: flex; flex-direction: column; gap: 8px;">
+        <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--muted); letter-spacing: 1px;">SMASHINGCONF FREIBURG</div>
+        <div style="font-size: 0.82rem; color: var(--text); font-weight: 500;">Gradients and images as decorations</div>
+        <div style="font-size: 0.75rem; color: var(--dim); line-height: 1.5;">Like border-image but for gaps. Dots, symbols, patterns between items.</div>
+        <div style="margin-top: auto; padding-top: 8px; border-top: 1px solid var(--border);">
+          <div style="font-family: var(--font-mono); font-size: 0.5rem; color: var(--muted); letter-spacing: 1px;">&#9654; DEFERRED: future spec level</div>
+        </div>
+      </div>
+      <!-- Card 5: Intersection ornaments (deferred) -->
+      <div style="background: var(--card); border-radius: 8px; padding: 18px; border-top: 2px solid var(--muted); display: flex; flex-direction: column; gap: 8px;">
+        <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--muted); letter-spacing: 1px;">ALICO-CRA</div>
+        <div style="font-size: 0.82rem; color: var(--text); font-weight: 500;">Ornaments at crossing points</div>
+        <div style="font-size: 0.75rem; color: var(--dim); line-height: 1.5;">Styling where row and column rules intersect. Radius, padding, decoration.</div>
+        <div style="margin-top: auto; padding-top: 8px; border-top: 1px solid var(--border);">
+          <div style="font-family: var(--font-mono); font-size: 0.5rem; color: var(--muted); letter-spacing: 1px;">&#9654; DEFERRED: future spec level</div>
+        </div>
+      </div>
+      <!-- Card 6: Quote -->
+      <div style="background: var(--surface); border-radius: 8px; padding: 18px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+        <div style="font-family: var(--font-display); font-style: italic; font-size: 1rem; color: var(--text); line-height: 1.5; max-width: 200px;">"This made my day!"</div>
+        <div style="font-family: var(--font-mono); font-size: 0.5rem; color: var(--muted); letter-spacing: 1px; margin-top: 8px;">REXGALILAE, ON INSET CHANGES</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SLIDE 13: TPAC & SEGMENTS (Part 3) -->
 <!-- ═══════════════════════════════════════════════════ -->
 <div class="slide">
   <div class="pillars"><span class="pill pill-wg">CSSWG</span><span class="pill pill-design">Design</span></div>

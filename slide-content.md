@@ -133,12 +133,15 @@ Visual: timeline bars showing deliberation length for 3 issues (#11491: 14 month
 ### The MainGap / CrossGap split
 
 - [CL 6819000](https://chromium-review.googlesource.com/c/chromium/src/+/6819000) (Aug 2025): introduced separate Main and Cross gap classes.
-- The original intersection-based model computed everything together.
+- The original model stored every intersection as an (x, y) pair.
 - Splitting by axis unlocked:
   - Better performance (process only the axis that changed)
   - Grid track expansion and fragmentation support
   - Cleaner multicol integration
-- This was a major refactor, followed by per-layout optimized CLs for [grid](https://chromium-review.googlesource.com/c/chromium/src/+/6854089), [flex](https://chromium-review.googlesource.com/c/chromium/src/+/6850590), and [multicol](https://chromium-review.googlesource.com/c/chromium/src/+/6885245).
+
+Visual: Before/after 3×3 grid diagrams.
+- Before: 12 (x,y) intersection pairs marked with crosses at every junction.
+- After: 2 column offsets (blue triangles) + 2 row offsets (green triangles), stored separately.
 
 **Links:**
 - [CL 6819000](https://chromium-review.googlesource.com/c/chromium/src/+/6819000)
@@ -198,7 +201,34 @@ Dev trial launched in Chrome/Edge 139 (June 2025). Developer feedback reshaped t
 
 ---
 
-## Slide 12: From Intersections to Segments
+## Slide 12: Developer Feedback
+**Pillars:** CSSWG | Design
+**Part:** 3 — Resolving Loose Ends.
+**Subtitle:** What Developers Told Us
+
+### Feedback that changed the spec
+
+12 issues from 11 developers. 5 drove spec changes. 4 became future-level ideas.
+
+**Addressed:**
+1. Ahmad Shadeed: Decorations around empty grid areas. Result: new `rule-visibility-items` property.
+2. RexGalilae: Asymmetric insets on each side. Result: restructured `rule-inset` properties. ("This made my day!")
+3. o-t-w: Decorations with zero gap (border-collapse behavior). Result: 0px gap support in flex + grid.
+
+**Deferred to future spec level:**
+4. SmashingConf Freiburg: Gradients and images as decorations (like border-image for gaps).
+5. alico-cra: Ornaments at crossing points (styling where row and column rules intersect).
+
+**Links:**
+- [MSEdge #1099](https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/1099)
+- [MSEdge #996](https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/996)
+- [MSEdge #1155](https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/1155)
+- [MSEdge #984](https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/984)
+- [MSEdge #985](https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/985)
+
+---
+
+## Slide 13: From Intersections to Segments
 **Pillars:** CSSWG | Design
 **Part:** 3 — Resolving Loose Ends.
 **Subtitle:** The Model Was Grid-specific.
@@ -220,7 +250,7 @@ Visual: Two side-by-side diagrams of a grid (cells 1-6, item 3 spanning 2 cols):
 
 ---
 
-## Slide 13: January 28, 2026 CSSWG Face-To-Face
+## Slide 14: January 28, 2026 CSSWG Face-To-Face
 **Pillars:** CSSWG | Design | Implementation
 **Part:** 3 — Resolving Loose Ends.
 
@@ -242,7 +272,7 @@ Participants: Microsoft, other browser vendors, web developers.
 
 ---
 
-## Slide 14: By the Numbers
+## Slide 15: By the Numbers
 **Pillars:** —
 **Part:** —
 
@@ -261,7 +291,7 @@ Sam Davis Omekara · Javier Contreras · Kevin Babbitt · Alison Maher · Kurt C
 
 ---
 
-## Slide 15: Final Thoughts
+## Slide 16: Final Thoughts
 **Pillars:** —
 **Part:** —
 
