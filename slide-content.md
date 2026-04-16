@@ -2,7 +2,7 @@
 
 ## Slide 1: Title
 **Pillars:** —
-**Act:** —
+**Part:** —
 
 **BlinkOn 21**
 
@@ -21,6 +21,8 @@ Javier Contreras · Sam Davis Omekara
 **Pillars:** CSSWG
 **Part:** 1 — The Origin.
 
+### Six years before a single line of code
+
 - **June 7, 2018**: The initial CSSWG #2748: "Styling Gaps/Gutters" issue is opened.
 - The idea sat in the issue tracker for six years
 - No spec, no implementation, no resolution, just brainstorming and interest from the community.
@@ -35,6 +37,8 @@ Javier Contreras · Sam Davis Omekara
 ## Slide 3: The Proposal
 **Pillars:** CSSWG | Design
 **Part:** 1 — The Origin.
+
+### Microsoft picks up the thread
 
 - **June 5, 2024** — CSSWG #10393: formal proposal for CSS Gap Decorations Level 1
 - **June 12, 2024** — CSSWG resolves to adopt the spec and assigns one of our teammates as editor.
@@ -51,6 +55,7 @@ Javier Contreras · Sam Davis Omekara
 ## Slide 4: Three Layers
 **Pillars:** Design | Implementation
 **Part:** 1 — The Origin.
+**Subtitle:** Why This Feature Is Hard
 
 ### Style → Layout → Paint
 
@@ -73,6 +78,9 @@ The initial implementation led to open questions, on both the design and impleme
 ## Slide 6: Working with Standards
 **Pillars:** CSSWG | Design
 **Part:** 2 — Iteration.
+**Subtitle:** Working with Standards
+
+### The spec evolved alongside the code
 
 Implementation surfaced questions -> We filed issues -> We worked with the CSSWG to resolve them -> We updated the code.
 
@@ -96,6 +104,9 @@ Implementation surfaced questions -> We filed issues -> We worked with the CSSWG
 ## Slide 7: Standards Work Is Slow by Design
 **Pillars:** CSSWG
 **Part:** 2 — Iteration.
+**Subtitle:** The Other Side
+
+### Standards work is slow by design
 
 The other side of the standards coin:
 
@@ -117,6 +128,9 @@ Visual: timeline bars showing deliberation length for 3 issues (#11491: 14 month
 ## Slide 8: The MainGap / CrossGap Split
 **Pillars:** Implementation
 **Part:** 2 — Iteration.
+**Subtitle:** Architecture
+
+### The MainGap / CrossGap split
 
 - [CL 6819000](https://chromium-review.googlesource.com/c/chromium/src/+/6819000) (Aug 2025) — introduced separate Main and Cross gap classes.
 - The original intersection-based model computed everything together.
@@ -137,6 +151,9 @@ Visual: timeline bars showing deliberation length for 3 issues (#11491: 14 month
 ## Slide 9: Learning Paint from Scratch
 **Pillars:** Implementation
 **Part:** 2 — Iteration.
+**Subtitle:** Into Unfamiliar Territory
+
+### Learning paint from scratch
 
 Nobody on the team had worked in Blink's paint code before. We needed decorations to clip, scroll, resize, and fragment correctly.
 
@@ -155,6 +172,9 @@ Visual: before/after comparison — broken clipped grid vs. working gap decorati
 ## Slide 10: Lists, Repeaters, and LCM Interpolation
 **Pillars:** CSSWG | Implementation
 **Part:** 2 — Iteration.
+**Subtitle:** Animation Support
+
+### Lists, repeaters, and LCM interpolation
 
 - Properties accept lists with auto repeaters
 - We assumed we'd never need to expand repeaters
@@ -181,6 +201,9 @@ Dev trial launched in Chrome/Edge 139 (June 2025). Developer feedback reshaped t
 ## Slide 12: From Intersections to Segments
 **Pillars:** CSSWG | Design
 **Part:** 3 — Resolving Loose Ends.
+**Subtitle:** The Model Was Wrong
+
+### From intersections to segments
 
 **Sep 11, 2025** — #12784: multicol intersection points don't generalize.
 Offline TPAC 2025 discussion revealed the model was fundamentally wrong.
@@ -201,7 +224,7 @@ Visual: Two side-by-side diagrams of a grid (cells 1-6, item 3 spanning 2 cols):
 **Pillars:** CSSWG | Design | Implementation
 **Part:** 3 — Resolving Loose Ends.
 
-Four issues resolved in one session:
+### Four issues resolved in one session
 
 1. Rename `spanning-item` → `normal` — #13127
 2. Initial inset value → `0` — #13137 — devs said rule-break changes had no visible effect
@@ -221,7 +244,9 @@ Participants: javierct, oSamDavis, kbabbitt, alisonmaher, TabAtkins, fantasai, a
 
 ## Slide 14: By the Numbers
 **Pillars:** —
-**Act:** —
+**Part:** —
+
+### Two years of work
 
 | Metric | Count |
 |---|---|
@@ -236,26 +261,9 @@ Sam Davis Omekara · Javier Contreras · Kevin Babbitt · Alison Maher · Kurt C
 
 ---
 
-## Slide 14: By the Numbers
+## Slide 15: Final Thoughts
 **Pillars:** —
-**Act:** —
-
-| Metric | Count |
-|---|---|
-| Chromium CLs | 191 |
-| Spec PRs | 22 |
-| CSSWG Issues | 30 |
-| Contributors | 5 |
-| Layout Types | 3 |
-| Blink Layers | 3 |
-
-Sam Davis Omekara · Javier Contreras · Kevin Babbitt · Alison Maher · Kurt Catti-Schmidt
-
----
-
-## Slide 16: Final Thoughts
-**Pillars:** —
-**Act:** —
+**Part:** —
 
 ### The feature that touches everything
 
