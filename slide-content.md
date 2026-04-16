@@ -64,7 +64,7 @@ Gap decorations span three layers of Blink's rendering pipeline:
 
 ## Slide 5: Transition
 **Pillars:** —
-**Act:** Transition
+**Part:** Transition
 
 The initial implementation led to open questions, on both the design and implementation sides.
 
@@ -72,7 +72,7 @@ The initial implementation led to open questions, on both the design and impleme
 
 ## Slide 6: Working with Standards
 **Pillars:** CSSWG | Design
-**Act:** 2 — Evolution
+**Part:** 2 — Iteration.
 
 Implementation surfaced questions -> We filed issues -> We worked with the CSSWG to resolve them -> We updated the code.
 
@@ -95,7 +95,7 @@ Implementation surfaced questions -> We filed issues -> We worked with the CSSWG
 
 ## Slide 7: Standards Work Is Slow by Design
 **Pillars:** CSSWG
-**Act:** 2 — Evolution
+**Part:** 2 — Iteration.
 
 The other side of the standards coin:
 
@@ -116,7 +116,7 @@ Visual: timeline bars showing deliberation length for 3 issues (#11491: 14 month
 
 ## Slide 8: The MainGap / CrossGap Split
 **Pillars:** Implementation
-**Act:** 2 — Evolution
+**Part:** 2 — Iteration.
 
 - [CL 6819000](https://chromium-review.googlesource.com/c/chromium/src/+/6819000) (Aug 2025) — introduced separate Main and Cross gap classes.
 - The original intersection-based model computed everything together.
@@ -136,7 +136,7 @@ Visual: timeline bars showing deliberation length for 3 issues (#11491: 14 month
 
 ## Slide 9: Learning Paint from Scratch
 **Pillars:** Implementation
-**Act:** 2 — Evolution
+**Part:** 2 — Iteration.
 
 Nobody on the team had worked in Blink's paint code before. We needed decorations to clip, scroll, resize, and fragment correctly.
 
@@ -154,7 +154,7 @@ Visual: before/after comparison — broken clipped grid vs. working gap decorati
 
 ## Slide 10: Lists, Repeaters, and LCM Interpolation
 **Pillars:** CSSWG | Implementation
-**Act:** 2 — Evolution
+**Part:** 2 — Iteration.
 
 - Properties accept lists with auto repeaters
 - We assumed we'd never need to expand repeaters
@@ -172,7 +172,7 @@ Visual: animated 3×3 grid with cycling column-rule colors and pulsing row-rule 
 
 ## Slide 11: Transition
 **Pillars:** —
-**Act:** Transition
+**Part:** Transition
 
 Dev trial launched in Chrome/Edge 139 (June 2025). Developer feedback reshaped the spec.
 
@@ -180,7 +180,7 @@ Dev trial launched in Chrome/Edge 139 (June 2025). Developer feedback reshaped t
 
 ## Slide 12: From Intersections to Segments
 **Pillars:** CSSWG | Design
-**Act:** 3 — Convergence
+**Part:** 3 — Resolving Loose Ends.
 
 **Sep 11, 2025** — #12784: multicol intersection points don't generalize.
 Offline TPAC 2025 discussion revealed the model was fundamentally wrong.
@@ -199,7 +199,7 @@ Visual: Two side-by-side diagrams of a grid (cells 1-6, item 3 spanning 2 cols):
 
 ## Slide 13: January 28, 2026 F2F
 **Pillars:** CSSWG | Design | Implementation
-**Act:** 3 — Convergence
+**Part:** 3 — Resolving Loose Ends.
 
 Four issues resolved in one session:
 
