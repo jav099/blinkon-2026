@@ -736,7 +736,7 @@ a:hover { opacity: 0.8; }
         </ul>
       </div>
       <div class="s-body reveal reveal-d3" style="margin-top: 12px;">
-        The deliberation is frustrating, but it's also what produces a spec that <strong>multiple engines can implement consistently</strong>. That's the tradeoff.
+        The deliberation is frustrating, but it's also what produces a spec that <strong>multiple engines can implement consistently</strong> and as <strong>future-proof</strong> as possible.
       </div>
     </div>
     <div class="center-col reveal reveal-d3">
@@ -779,9 +779,9 @@ a:hover { opacity: 0.8; }
         <ul>
           <li><a href="https://chromium-review.googlesource.com/c/chromium/src/+/6819000" target="_blank">CL 6819000</a> (Aug 2025): introduced separate Main and Cross gap classes</li>
           <li>The original model stored every intersection as an (x, y) pair</li>
-          <li>Splitting by axis unlocked:
+          <li>Optimization:
             <ul style="margin-top: 4px;">
-              <li>Better performance (process only the axis that changed)</li>
+              <li>Better performance: <span style="font-family: var(--font-mono); color: hsl(0,50%,55%);">O(n &times; m)</span> &rarr; <span style="font-family: var(--font-mono); color: var(--design);">O(n + m)</span></li>
               <li>Grid track expansion and fragmentation support</li>
               <li>Cleaner multicol integration</li>
             </ul>
@@ -900,14 +900,14 @@ a:hover { opacity: 0.8; }
   <div class="act-badge">Part 2 &mdash; Iteration</div>
   <div class="split">
     <div class="left-col">
-      <div class="s-label reveal">Animation Support</div>
+      <div class="s-label reveal">More Unfamiliar Territory</div>
       <div class="s-title reveal reveal-d1">Lists, repeaters, and LCM interpolation</div>
       <div class="s-body reveal reveal-d2">
         <ul>
-          <li>Properties accept <strong>lists</strong> with auto repeaters</li>
-          <li>We assumed we'd never need to expand repeaters</li>
-          <li><a href="https://github.com/w3c/csswg-drafts/issues/12431" target="_blank">#12431</a> resolved: animate using <strong>LCM</strong> alignment</li>
-          <li>V2 interpolation: <a href="https://chromium-review.googlesource.com/c/chromium/src/+/6961880" target="_blank">CL 6961880</a>, <a href="https://chromium-review.googlesource.com/c/chromium/src/+/7078855" target="_blank">CL 7078855</a></li>
+          <li>Properties accept <strong>lists</strong> with auto repeaters (e.g. <code>column-rule-width: repeat(auto, 10px, 20px)</code>)</li>
+          <li>We initially assumed we would never need to expand repeaters</li>
+          <li><a href="https://github.com/w3c/csswg-drafts/issues/12431" target="_blank">#12431</a> resolved: animate using <strong>LCM</strong> alignment. Turns out we needed to expand for animating.</li>
+          <li>Led to V2 interpolation: <a href="https://chromium-review.googlesource.com/c/chromium/src/+/6961880" target="_blank">CL 6961880</a>, <a href="https://chromium-review.googlesource.com/c/chromium/src/+/7078855" target="_blank">CL 7078855</a></li>
         </ul>
       </div>
     </div>
@@ -1014,8 +1014,8 @@ a:hover { opacity: 0.8; }
     <div class="s-label reveal">The Model Was Grid-specific</div>
     <div class="s-title reveal reveal-d1" style="margin-bottom: 8px;">From intersections to segments</div>
     <div class="s-body reveal reveal-d2" style="text-align: center; margin-bottom: 20px;">
-      <a href="https://github.com/w3c/csswg-drafts/issues/12784" target="_blank">#12784</a>: multicol intersection points don't generalize.
-      Offline TPAC 2025 discussion revealed the model was biased towards grid.
+      <a href="https://github.com/w3c/csswg-drafts/issues/12784" target="_blank">#12784</a>: multicol intersection points don't generalize. We realized the model was biased towards grid.
+      Offline TPAC 2025 discussion led to a <strong>major</strong> spec overhaul.
     </div>
     <!-- Diagrams side by side, scaled up -->
     <div style="display: flex; gap: 40px; align-items: center; justify-content: center;" class="reveal reveal-d3">
@@ -1070,7 +1070,7 @@ a:hover { opacity: 0.8; }
       </div>
     </div>
     <div class="s-body reveal reveal-d5" style="text-align: center; margin-top: 16px;">
-      <strong>Nov 2025</strong>: We post the new proposal. <strong>Feb 2026</strong>: <a href="https://github.com/w3c/csswg-drafts/pull/13299" target="_blank">PR #13299</a> merges.
+      <strong>Nov 2025</strong>: We post the new proposal. <strong>Feb 2026</strong>: Officially incorporated into spec.
     </div>
   </div>
 </div>

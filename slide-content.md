@@ -114,7 +114,7 @@ The other side of the standards coin:
 - Some issues need multiple face-to-face meetings to resolve.
 - Implementation can be blocked on a naming discussion.
 
-The deliberation is frustrating, but it's also what produces a spec that **multiple engines can implement consistently**. That's the tradeoff.
+The deliberation is frustrating, but it's also what produces a spec that **multiple engines can implement consistently** and as **future-proof** as possible.
 
 Visual: timeline bars showing deliberation length for 3 issues (#11491: 14 months, #12848: 2 months, #12431: 1 month)
 
@@ -134,8 +134,8 @@ Visual: timeline bars showing deliberation length for 3 issues (#11491: 14 month
 
 - [CL 6819000](https://chromium-review.googlesource.com/c/chromium/src/+/6819000) (Aug 2025): introduced separate Main and Cross gap classes.
 - The original model stored every intersection as an (x, y) pair.
-- Splitting by axis unlocked:
-  - Better performance (process only the axis that changed)
+- Optimization::
+  - Better performance: O(n × m) → O(n + m)
   - Grid track expansion and fragmentation support
   - Cleaner multicol integration
 
@@ -175,14 +175,14 @@ Visual: before/after comparison, broken clipped grid vs. working gap decorations
 ## Slide 10: Lists, Repeaters, and LCM Interpolation
 **Pillars:** CSSWG | Implementation
 **Part:** 2 — Iteration.
-**Subtitle:** Animation Support
+**Subtitle:** More Unfamiliar Territory
 
 ### Lists, repeaters, and LCM interpolation
 
-- Properties accept lists with auto repeaters
-- We assumed we'd never need to expand repeaters
-- #12431 resolved: animate using LCM alignment
-- V2 interpolation: CL 6961880, CL 7078855
+- Properties accept lists with auto repeaters (e,g. `column-rule-width: repeat(auto, 1opx, 20px)`)
+- We initially assumed we would never need to expand repeaters
+- #12431 resolved: animate using LCM alignment. Turns out we needed to expand for animating.
+- Led to V2 interpolation: CL 6961880, CL 7078855
 
 Visual: animated 3×3 grid with cycling column-rule colors and pulsing row-rule widths
 
@@ -235,14 +235,14 @@ Dev trial launched in Chrome/Edge 139 (June 2025). Developer feedback reshaped t
 
 ### From intersections to segments
 
-**Sep 11, 2025**: #12784, multicol intersection points don't generalize.
-Offline TPAC 2025 discussion revealed the model was biased towards grid.
+**Sep 11, 2025**: #12784, multicol intersection points don't generalize. We realized the model was biased towards grid.
+Offline TPAC 2025 discussion led to a **major** spec overhaul.
 
 Visual: Two side-by-side diagrams of a grid (cells 1-6, item 3 spanning 2 cols):
 - **Old: Intersections**: column rules broken at each row gap junction, crosses at every intersection point (8 crosses)
 - **New: Segments**: column rules are continuous segments spanning full height, crosses only at segment endpoints (6 crosses)
 
-**Nov 2025**: We post the new proposal. **Feb 2026**: PR #13299 merges. The biggest spec change since the initial draft.
+**Nov 2025**: We post the new proposal. **Feb 2026**: Officialy incorporated into spec. The biggest spec change since the initial draft.
 
 **Links:**
 - [#12784](https://github.com/w3c/csswg-drafts/issues/12784)
