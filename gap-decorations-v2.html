@@ -9,24 +9,24 @@
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Satoshi:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #080b10;
-  --surface: #111620;
-  --card: #1a1e28;
-  --text: #e4e8ef;
-  --dim: #8a91a3;
-  --muted: #555c6e;
-  --border: rgba(255,255,255,0.06);
-  /* Pillars — muted, sophisticated */
-  --design: hsl(155, 45%, 52%);
-  --design-bg: hsla(155, 45%, 45%, 0.08);
-  --design-border: hsla(155, 45%, 45%, 0.2);
-  --impl: hsl(220, 65%, 60%);
-  --impl-bg: hsla(220, 65%, 55%, 0.08);
-  --impl-border: hsla(220, 65%, 55%, 0.2);
-  --wg: hsl(40, 65%, 58%);
-  --wg-bg: hsla(40, 65%, 50%, 0.08);
-  --wg-border: hsla(40, 65%, 50%, 0.2);
-  --accent: hsl(270, 50%, 62%);
+  --bg: #f0f1f4;
+  --surface: #ffffff;
+  --card: #f5f6f8;
+  --text: #1a1d24;
+  --dim: #555c6e;
+  --muted: #8a91a3;
+  --border: rgba(0,0,0,0.08);
+  /* Pillars — slightly deeper for light bg */
+  --design: hsl(155, 50%, 38%);
+  --design-bg: hsla(155, 50%, 40%, 0.08);
+  --design-border: hsla(155, 50%, 40%, 0.2);
+  --impl: hsl(220, 65%, 50%);
+  --impl-bg: hsla(220, 65%, 50%, 0.08);
+  --impl-border: hsla(220, 65%, 50%, 0.2);
+  --wg: hsl(35, 70%, 45%);
+  --wg-bg: hsla(35, 70%, 45%, 0.08);
+  --wg-border: hsla(35, 70%, 45%, 0.2);
+  --accent: hsl(270, 50%, 52%);
   --font-display: 'Instrument Serif', serif;
   --font-body: 'Satoshi', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
@@ -109,13 +109,13 @@ a:hover { opacity: 0.8; }
 .pill-wg::before { background: var(--wg); }
 
 /* ═══ PILLAR BACKGROUND TINT ═══ */
-.slide[data-pillar="wg"] { background: hsla(40, 65%, 50%, 0.15); }
-.slide[data-pillar="design"] { background: hsla(155, 45%, 45%, 0.15); }
-.slide[data-pillar="impl"] { background: hsla(220, 65%, 55%, 0.15); }
-.slide[data-pillar="wg-design"] { background: linear-gradient(135deg, hsla(40, 65%, 50%, 0.15), hsla(155, 45%, 45%, 0.15)); }
-.slide[data-pillar="wg-impl"] { background: linear-gradient(135deg, hsla(40, 65%, 50%, 0.15), hsla(220, 65%, 55%, 0.15)); }
-.slide[data-pillar="design-impl"] { background: linear-gradient(135deg, hsla(155, 45%, 45%, 0.15), hsla(220, 65%, 55%, 0.15)); }
-.slide[data-pillar="all"] { background: linear-gradient(135deg, hsla(40, 65%, 50%, 0.12), hsla(155, 45%, 45%, 0.12), hsla(220, 65%, 55%, 0.12)); }
+.slide[data-pillar="wg"] { background: hsla(35, 70%, 50%, 0.06); }
+.slide[data-pillar="design"] { background: hsla(155, 50%, 40%, 0.06); }
+.slide[data-pillar="impl"] { background: hsla(220, 65%, 50%, 0.06); }
+.slide[data-pillar="wg-design"] { background: linear-gradient(135deg, hsla(35, 70%, 50%, 0.06), hsla(155, 50%, 40%, 0.06)); }
+.slide[data-pillar="wg-impl"] { background: linear-gradient(135deg, hsla(35, 70%, 50%, 0.06), hsla(220, 65%, 50%, 0.06)); }
+.slide[data-pillar="design-impl"] { background: linear-gradient(135deg, hsla(155, 50%, 40%, 0.06), hsla(220, 65%, 50%, 0.06)); }
+.slide[data-pillar="all"] { background: linear-gradient(135deg, hsla(35, 70%, 50%, 0.05), hsla(155, 50%, 40%, 0.05), hsla(220, 65%, 50%, 0.05)); }
 
 /* Act badge */
 .act-badge {
@@ -326,7 +326,7 @@ a:hover { opacity: 0.8; }
 }
 .layer-style { background: var(--design-bg); border: 1px solid var(--design-border); color: var(--design); }
 .layer-layout { background: var(--impl-bg); border: 1px solid var(--impl-border); color: var(--impl); }
-.layer-paint { background: var(--wg-bg); border: 1px solid var(--wg-border); color: var(--wg); }
+.layer-paint { background: hsla(270,50%,52%,0.08); border: 1px solid hsla(270,50%,52%,0.2); color: var(--accent); }
 
 /* Timeline */
 .timeline {
@@ -374,8 +374,7 @@ a:hover { opacity: 0.8; }
 .slide-transition {
   background: linear-gradient(135deg, var(--bg) 0%, var(--surface) 100%);
 }
-.slide-transition::before { display: none; }
-.transition-line {
+.slide-transition::before { display: none; }.transition-line {
   width: 60px;
   height: 1px;
   background: var(--muted);
@@ -520,7 +519,7 @@ a:hover { opacity: 0.8; }
 }
 .md-cell {
   height: 50px;
-  background: hsla(220, 20%, 28%, 0.5);
+  background: hsla(220, 20%, 85%, 0.6);
   border-radius: 3px;
   display: flex;
   align-items: center;
@@ -566,7 +565,7 @@ a:hover { opacity: 0.8; }
 <!-- ═══════════════════════════════════════════════════ -->
 <!-- SLIDE 1: TITLE -->
 <!-- ═══════════════════════════════════════════════════ -->
-<div class="slide active">
+<div class="slide slide-fullbleed active">
   <div class="center-col">
     <div class="s-label reveal">BlinkOn 21</div>
     <div class="s-title reveal reveal-d1" style="font-size: clamp(2.4rem, 5vw, 4rem);">The Story of CSS Gap Decorations</div>
@@ -819,15 +818,15 @@ a:hover { opacity: 0.8; }
         <div style="background: var(--card); border-radius: 8px; padding: 16px; border: 1px solid var(--border);">
           <div style="font-family: var(--font-mono); font-size: 0.55rem; color: hsl(0,50%,55%); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px;">Before: 12 pairs</div>
           <div style="position: relative; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 42px); gap: 12px; column-rule-style: solid; column-rule-width: 1px; column-rule-color: hsla(0,40%,55%,0.3); row-rule-style: solid; row-rule-width: 1px; row-rule-color: hsla(0,40%,55%,0.3);">
-            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
-            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
-            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
-            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
-            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
-            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
-            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
-            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
-            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
             <!-- Top of column gaps: 2 -->
             <div class="md-cross" style="top: -4px; left: calc((100% - 24px) / 3 + 2px);"></div>
             <div class="md-cross" style="top: -4px; left: calc((100% - 24px) / 3 * 2 + 14px);"></div>
@@ -851,15 +850,15 @@ a:hover { opacity: 0.8; }
         <div style="background: var(--card); border-radius: 8px; padding: 16px; border: 1px solid var(--design-border);">
           <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--design); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px;">After: 2 + 2 offsets</div>
           <div style="position: relative; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 42px); gap: 12px; column-rule-style: solid; column-rule-width: 2px; column-rule-color: var(--impl); row-rule-style: solid; row-rule-width: 2px; row-rule-color: var(--design);">
-            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
-            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
-            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
-            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
-            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
-            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
-            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
-            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
-            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
             <!-- Column axis markers (blue triangles pointing down) at top -->
             <div style="position: absolute; top: -10px; left: calc((100% - 24px) / 3 + 1px); width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid var(--impl);"></div>
             <div style="position: absolute; top: -10px; left: calc((100% - 24px) / 3 * 2 + 13px); width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid var(--impl);"></div>
@@ -887,16 +886,16 @@ a:hover { opacity: 0.8; }
         <div style="position: relative; background: var(--card); border-radius: 8px; padding: 16px; border: 1px solid var(--border);">
           <div style="font-family: var(--font-mono); font-size: 0.55rem; color: hsl(0,50%,55%); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px;">Before</div>
           <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 30px 30px; gap: 0; border-radius: 4px; overflow: hidden; position: relative;">
-            <div style="background: hsla(220,30%,22%,0.5);"></div><div style="background: hsla(220,30%,22%,0.5);"></div><div style="background: hsla(220,30%,22%,0.5);"></div>
-            <div style="background: hsla(220,30%,22%,0.5);"></div><div style="background: hsla(220,30%,22%,0.5);"></div><div style="background: hsla(220,30%,22%,0.5);"></div>
+            <div style="background: hsla(220,20%,80%,0.6);"></div><div style="background: hsla(220,20%,80%,0.6);"></div><div style="background: hsla(220,20%,80%,0.6);"></div>
+            <div style="background: hsla(220,20%,80%,0.6);"></div><div style="background: hsla(220,20%,80%,0.6);"></div><div style="background: hsla(220,20%,80%,0.6);"></div>
           </div>
           <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--muted); margin-top: 8px;">decorations clipped on scroll</div>
         </div>
         <div style="position: relative; background: var(--card); border-radius: 8px; padding: 16px; border: 1px solid var(--design-border);">
           <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--design); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px;">After</div>
           <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 30px 30px; gap: 8px; border-radius: 4px; overflow: hidden; column-rule-style: solid; column-rule-width: 2px; column-rule-color: var(--design); row-rule-style: solid; row-rule-width: 2px; row-rule-color: var(--impl);">
-            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div><div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div><div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
-            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div><div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div><div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div><div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div><div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div><div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div><div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
           </div>
           <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--muted); margin-top: 8px;">ink overflow, scroll, resize — all correct</div>
         </div>
