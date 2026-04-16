@@ -579,7 +579,7 @@ a:hover { opacity: 0.8; }
     <div class="s-title reveal reveal-d1">Six years before a single line of code</div>
     <div class="s-body reveal reveal-d2">
       <ul>
-        <li><strong>June 7, 2018</strong> &mdash; The initial <a href="https://github.com/w3c/csswg-drafts/issues/2748" target="_blank">CSSWG #2748</a>: "Styling Gaps/Gutters" issue is opened.</li>
+        <li><strong>June 7, 2018</strong>: The initial <a href="https://github.com/w3c/csswg-drafts/issues/2748" target="_blank">CSSWG #2748</a>: "Styling Gaps/Gutters" issue is opened.</li>
         <li>The idea sat in the issue tracker for six years</li>
         <li>No spec, no implementation, no resolution, just brainstorming and interest from the community.</li>
       </ul>
@@ -633,14 +633,14 @@ a:hover { opacity: 0.8; }
   <div class="act-badge">Part 1 &mdash; The Origin</div>
   <div class="split">
     <div class="left-col">
-      <div class="s-label reveal">Why This Feature Is Hard</div>
+      <div class="s-label reveal">The Feature in Blink</div>
       <div class="s-title reveal reveal-d1">Style &rarr; Layout &rarr; Paint</div>
       <div class="s-body reveal reveal-d2">
         Gap decorations span three layers of Blink's rendering pipeline:
         <ul>
-          <li><strong>Style</strong> &mdash; parse properties: <code>column-rule</code>, <code>row-rule</code>, shorthands, repeaters, lists</li>
-          <li><strong>Layout</strong> &mdash; compute gap geometry for grid, flex, and multicol</li>
-          <li><strong>Paint</strong> &mdash; draw decorations with correct clipping, overflow, and scrolling</li>
+          <li><strong>Style</strong>: parse properties: <code>column-rule</code>, <code>row-rule</code>, shorthands, repeaters, lists</li>
+          <li><strong>Layout</strong>: compute gap geometry for grid, flex, and multicol</li>
+          <li><strong>Paint</strong>: draw decorations with correct clipping, overflow, and scrolling</li>
         </ul>
       </div>
     </div>
@@ -726,7 +726,7 @@ a:hover { opacity: 0.8; }
   <div class="act-badge">Part 2 &mdash; Iteration</div>
   <div class="split">
     <div class="left-col">
-      <div class="s-label reveal">The Other Side</div>
+      <div class="s-label reveal">The other side of the coin</div>
       <div class="s-title reveal reveal-d1">Standards work is slow by design</div>
       <div class="s-body reveal reveal-d2">
         <ul>
@@ -776,7 +776,7 @@ a:hover { opacity: 0.8; }
     <div class="s-title reveal reveal-d1">The MainGap / CrossGap split</div>
     <div class="s-body reveal reveal-d2">
       <ul>
-        <li><a href="https://chromium-review.googlesource.com/c/chromium/src/+/6819000" target="_blank">CL 6819000</a> (Aug 2025) &mdash; introduced separate Main and Cross gap classes</li>
+        <li><a href="https://chromium-review.googlesource.com/c/chromium/src/+/6819000" target="_blank">CL 6819000</a> (Aug 2025): introduced separate Main and Cross gap classes</li>
         <li>The original intersection-based model computed everything together</li>
         <li>Splitting by axis unlocked:
           <ul style="margin-top: 4px;">
@@ -788,7 +788,7 @@ a:hover { opacity: 0.8; }
       </ul>
     </div>
     <div class="s-body reveal reveal-d3" style="margin-top: 12px;">
-      This was a major refactor &mdash; followed by per-layout optimized CLs for <a href="https://chromium-review.googlesource.com/c/chromium/src/+/6854089" target="_blank">grid</a>, <a href="https://chromium-review.googlesource.com/c/chromium/src/+/6850590" target="_blank">flex</a>, and <a href="https://chromium-review.googlesource.com/c/chromium/src/+/6885245" target="_blank">multicol</a>.
+      This was a major refactor, followed by per-layout optimized CLs for <a href="https://chromium-review.googlesource.com/c/chromium/src/+/6854089" target="_blank">grid</a>, <a href="https://chromium-review.googlesource.com/c/chromium/src/+/6850590" target="_blank">flex</a>, and <a href="https://chromium-review.googlesource.com/c/chromium/src/+/6885245" target="_blank">multicol</a>.
     </div>
   </div>
 </div>
@@ -885,11 +885,11 @@ a:hover { opacity: 0.8; }
   <div class="pillars"><span class="pill pill-wg">CSSWG</span><span class="pill pill-design">Design</span></div>
   <div class="act-badge">Part 3 &mdash; Resolving Loose Ends</div>
   <div class="center-col">
-    <div class="s-label reveal">The Model Was Wrong</div>
+    <div class="s-label reveal">The Model Was Grid-specific</div>
     <div class="s-title reveal reveal-d1" style="margin-bottom: 8px;">From intersections to segments</div>
     <div class="s-body reveal reveal-d2" style="text-align: center; margin-bottom: 20px;">
       <a href="https://github.com/w3c/csswg-drafts/issues/12784" target="_blank">#12784</a>: multicol intersection points don't generalize.
-      Offline TPAC 2025 discussion revealed the model was fundamentally wrong.
+      Offline TPAC 2025 discussion revealed the model was biased towards grid.
     </div>
     <!-- Diagrams side by side, scaled up -->
     <div style="display: flex; gap: 40px; align-items: center; justify-content: center;" class="reveal reveal-d3">
@@ -944,7 +944,7 @@ a:hover { opacity: 0.8; }
       </div>
     </div>
     <div class="s-body reveal reveal-d5" style="text-align: center; margin-top: 16px;">
-      <strong>Nov 2025</strong> &mdash; Kevin posts the new proposal. <strong>Feb 2026</strong> &mdash; <a href="https://github.com/w3c/csswg-drafts/pull/13299" target="_blank">PR #13299</a> merges.
+      <strong>Nov 2025</strong>: We post the new proposal. <strong>Feb 2026</strong>: <a href="https://github.com/w3c/csswg-drafts/pull/13299" target="_blank">PR #13299</a> merges.
     </div>
   </div>
 </div>
@@ -956,7 +956,7 @@ a:hover { opacity: 0.8; }
   <div class="pillars"><span class="pill pill-wg">CSSWG</span><span class="pill pill-design">Design</span><span class="pill pill-impl">Implementation</span></div>
   <div class="act-badge">Part 3 &mdash; Resolving Loose Ends</div>
   <div class="left-col">
-    <div class="s-label reveal">January 28, 2026 F2F</div>
+    <div class="s-label reveal">January 28, 2026 CSSWG Face-To-Face</div>
     <div class="s-title reveal reveal-d1">Four issues resolved in one session</div>
     <div class="f2f-grid reveal reveal-d2">
       <div class="f2f-item">
@@ -967,22 +967,22 @@ a:hover { opacity: 0.8; }
       <div class="f2f-item">
         <div class="f2f-num">2</div>
         <div class="f2f-title">Initial inset value &rarr; <code style="font-family: var(--font-mono); font-size: 0.8em; color: var(--impl);">0</code></div>
-        <div class="f2f-issue"><a href="https://github.com/w3c/csswg-drafts/issues/13137" target="_blank">#13137</a> &mdash; devs said rule-break changes had no visible effect</div>
+        <div class="f2f-issue"><a href="https://github.com/w3c/csswg-drafts/issues/13137" target="_blank">#13137</a>. Devs said rule-break changes had no visible effect.</div>
       </div>
       <div class="f2f-item">
         <div class="f2f-num">3</div>
         <div class="f2f-title">Alignment space contributes to gap size</div>
-        <div class="f2f-issue"><a href="https://github.com/w3c/csswg-drafts/issues/12922" target="_blank">#12922</a> &mdash; whiteboard session with Alison Maher</div>
+        <div class="f2f-issue"><a href="https://github.com/w3c/csswg-drafts/issues/12922" target="_blank">#12922</a>. Whiteboard session with Alison Maher.</div>
       </div>
       <div class="f2f-item">
         <div class="f2f-num">4</div>
-        <div class="f2f-title">Gap suppression with spanners &mdash; no change needed</div>
+        <div class="f2f-title">Gap suppression with spanners, no change needed</div>
         <div class="f2f-issue"><a href="https://github.com/w3c/csswg-drafts/issues/13362" target="_blank">#13362</a></div>
       </div>
     </div>
     <div class="s-body reveal reveal-d3" style="margin-top: 16px;">
       <strong>11 CLs + 2 spec PRs within 5 weeks.</strong><br>
-      Participants: javierct, oSamDavis, kbabbitt, alisonmaher, TabAtkins, fantasai, and others.
+      Participants: Microsoft, other browser vendors, web developers.
     </div>
   </div>
 </div>
@@ -1038,7 +1038,7 @@ a:hover { opacity: 0.8; }
         <li>Gap decorations forced us to learn paint, layout, and style in depth</li>
         <li>The spec changed because implementation revealed real problems</li>
         <li>Developer feedback during dev trial directly shaped the final design</li>
-        <li>Standards work isn't overhead &mdash; it's how you get the design right</li>
+        <li>Standards work isn't overhead. It's how you get the design right.</li>
       </ul>
     </div>
     <div class="s-body reveal reveal-d3" style="text-align: center; margin-top: 20px; color: var(--muted);">

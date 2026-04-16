@@ -1,4 +1,4 @@
-# Gap Decorations v2 — Slide Content
+# Gap Decorations v2: Slide Content
 
 ## Slide 1: Title
 **Pillars:** —
@@ -40,10 +40,10 @@ Javier Contreras · Sam Davis Omekara
 
 ### Microsoft picks up the thread
 
-- **June 5, 2024** — CSSWG #10393: formal proposal for CSS Gap Decorations Level 1
-- **June 12, 2024** — CSSWG resolves to adopt the spec and assigns one of our teammates as editor.
-- **Dec 13, 2024** — PR #11115: first editor's draft published.
-- **Nov 6, 2024** — Sam Davis lands the first CL. Implementation begins.
+- **June 5, 2024**: CSSWG #10393, formal proposal for CSS Gap Decorations Level 1
+- **June 12, 2024**: CSSWG resolves to adopt the spec and assigns one of our teammates as editor.
+- **Dec 13, 2024**: PR #11115, first editor's draft published.
+- **Nov 6, 2024**: Sam Davis lands the first CL. Implementation begins.
 
 **Links:**
 - [CSSWG #10393](https://github.com/w3c/csswg-drafts/issues/10393)
@@ -55,15 +55,15 @@ Javier Contreras · Sam Davis Omekara
 ## Slide 4: Three Layers
 **Pillars:** Design | Implementation
 **Part:** 1 — The Origin.
-**Subtitle:** Why This Feature Is Hard
+**Subtitle:** The Feature in Blink
 
 ### Style → Layout → Paint
 
 Gap decorations span three layers of Blink's rendering pipeline:
 
-- **Style** — parse properties: column-rule, row-rule, shorthands, repeaters, lists
-- **Layout** — compute gap geometry for grid, flex, and multicol
-- **Paint** — draw decorations with correct clipping, overflow, and scrolling
+- **Style**: parse properties: column-rule, row-rule, shorthands, repeaters, lists
+- **Layout**: compute gap geometry for grid, flex, and multicol
+- **Paint**: draw decorations with correct clipping, overflow, and scrolling
 
 ---
 
@@ -84,11 +84,11 @@ The initial implementation led to open questions, on both the design and impleme
 
 Implementation surfaced questions -> We filed issues -> We worked with the CSSWG to resolve them -> We updated the code.
 
-- #11492 — Auto repeater behavior (resolved Jan 31, 2025)
-- #11494 — Computed value with none/hidden (resolved Jan 31, 2025)
-- #11496 — Shorthand grammar (resolved Apr 3, 2025)
-- #12024 — Outsets at edges (resolved Aug 20, 2025)
-- #12540 — Renamed rule-paint-order → rule-overlap (resolved Aug 6, 2025)
+- #11492: Auto repeater behavior (resolved Jan 31, 2025)
+- #11494: Computed value with none/hidden (resolved Jan 31, 2025)
+- #11496: Shorthand grammar (resolved Apr 3, 2025)
+- #12024: Outsets at edges (resolved Aug 20, 2025)
+- #12540: Renamed rule-paint-order → rule-overlap (resolved Aug 6, 2025)
 
 **30 issues filed. 24 resolved.** This feedback loop between implementation and spec is the engine that drove progress. We couldn't have built the CSSWG without it.
 
@@ -104,7 +104,7 @@ Implementation surfaced questions -> We filed issues -> We worked with the CSSWG
 ## Slide 7: Standards Work Is Slow by Design
 **Pillars:** CSSWG
 **Part:** 2 — Iteration.
-**Subtitle:** The Other Side
+**Subtitle:** The other side of the coin
 
 ### Standards work is slow by design
 
@@ -132,13 +132,13 @@ Visual: timeline bars showing deliberation length for 3 issues (#11491: 14 month
 
 ### The MainGap / CrossGap split
 
-- [CL 6819000](https://chromium-review.googlesource.com/c/chromium/src/+/6819000) (Aug 2025) — introduced separate Main and Cross gap classes.
+- [CL 6819000](https://chromium-review.googlesource.com/c/chromium/src/+/6819000) (Aug 2025): introduced separate Main and Cross gap classes.
 - The original intersection-based model computed everything together.
 - Splitting by axis unlocked:
   - Better performance (process only the axis that changed)
   - Grid track expansion and fragmentation support
   - Cleaner multicol integration
-- This was a major refactor — followed by per-layout optimized CLs for [grid](https://chromium-review.googlesource.com/c/chromium/src/+/6854089), [flex](https://chromium-review.googlesource.com/c/chromium/src/+/6850590), and [multicol](https://chromium-review.googlesource.com/c/chromium/src/+/6885245).
+- This was a major refactor, followed by per-layout optimized CLs for [grid](https://chromium-review.googlesource.com/c/chromium/src/+/6854089), [flex](https://chromium-review.googlesource.com/c/chromium/src/+/6850590), and [multicol](https://chromium-review.googlesource.com/c/chromium/src/+/6885245).
 
 **Links:**
 - [CL 6819000](https://chromium-review.googlesource.com/c/chromium/src/+/6819000)
@@ -159,7 +159,7 @@ Nobody on the team had worked in Blink's paint code before. We needed decoration
 
 Philip Rogers (pdr), a paint owner, guided us through 4 CLs and **120+ review comments**. Every patchset was a lesson in how the rendering pipeline actually works.
 
-Visual: before/after comparison — broken clipped grid vs. working gap decorations
+Visual: before/after comparison, broken clipped grid vs. working gap decorations
 
 **Links:**
 - [CL 6451833](https://chromium-review.googlesource.com/c/chromium/src/+/6451833)
@@ -201,18 +201,18 @@ Dev trial launched in Chrome/Edge 139 (June 2025). Developer feedback reshaped t
 ## Slide 12: From Intersections to Segments
 **Pillars:** CSSWG | Design
 **Part:** 3 — Resolving Loose Ends.
-**Subtitle:** The Model Was Wrong
+**Subtitle:** The Model Was Grid-specific.
 
 ### From intersections to segments
 
-**Sep 11, 2025** — #12784: multicol intersection points don't generalize.
-Offline TPAC 2025 discussion revealed the model was fundamentally wrong.
+**Sep 11, 2025**: #12784, multicol intersection points don't generalize.
+Offline TPAC 2025 discussion revealed the model was biased towards grid.
 
 Visual: Two side-by-side diagrams of a grid (cells 1-6, item 3 spanning 2 cols):
-- **Old: Intersections** — column rules broken at each row gap junction, crosses at every intersection point (8 crosses)
-- **New: Segments** — column rules are continuous segments spanning full height, crosses only at segment endpoints (6 crosses)
+- **Old: Intersections**: column rules broken at each row gap junction, crosses at every intersection point (8 crosses)
+- **New: Segments**: column rules are continuous segments spanning full height, crosses only at segment endpoints (6 crosses)
 
-**Nov 2025** — Kevin posts the new proposal. **Feb 2026** — PR #13299 merges. The biggest spec change since the initial draft.
+**Nov 2025**: We post the new proposal. **Feb 2026**: PR #13299 merges. The biggest spec change since the initial draft.
 
 **Links:**
 - [#12784](https://github.com/w3c/csswg-drafts/issues/12784)
@@ -220,19 +220,19 @@ Visual: Two side-by-side diagrams of a grid (cells 1-6, item 3 spanning 2 cols):
 
 ---
 
-## Slide 13: January 28, 2026 F2F
+## Slide 13: January 28, 2026 CSSWG Face-To-Face
 **Pillars:** CSSWG | Design | Implementation
 **Part:** 3 — Resolving Loose Ends.
 
 ### Four issues resolved in one session
 
-1. Rename `spanning-item` → `normal` — #13127
-2. Initial inset value → `0` — #13137 — devs said rule-break changes had no visible effect
-3. Alignment space contributes to gap size — #12922 — whiteboard session with Alison Maher
-4. Gap suppression with spanners — no change needed — #13362
+1. Rename `spanning-item` → `normal`, #13127
+2. Initial inset value → `0`, #13137. Devs said rule-break changes had no visible effect.
+3. Alignment space contributes to gap size, #12922. Whiteboard session with Alison Maher.
+4. Gap suppression with spanners, no change needed, #13362
 
 **11 CLs + 2 spec PRs within 5 weeks.**
-Participants: javierct, oSamDavis, kbabbitt, alisonmaher, TabAtkins, fantasai, and others.
+Participants: Microsoft, other browser vendors, web developers.
 
 **Links:**
 - [#13127](https://github.com/w3c/csswg-drafts/issues/13127)
@@ -270,6 +270,6 @@ Sam Davis Omekara · Javier Contreras · Kevin Babbitt · Alison Maher · Kurt C
 - Gap decorations forced us to learn paint, layout, and style in depth
 - The spec changed because implementation revealed real problems
 - Developer feedback during dev trial directly shaped the final design
-- Standards work isn't overhead — it's how you get the design right
+- Standards work isn't overhead. It's how you get the design right.
 
 [w3.org/TR/css-gaps-1](https://www.w3.org/TR/css-gaps-1/)
