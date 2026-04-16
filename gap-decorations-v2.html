@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS Gap Decorations — BlinkOn 21</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Satoshi:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0c0f14;
+  --surface: #13161d;
+  --card: #1a1e28;
+  --text: #e4e8ef;
+  --dim: #8a91a3;
+  --muted: #555c6e;
+  --border: rgba(255,255,255,0.06);
+  /* Pillars — muted, sophisticated */
+  --design: hsl(155, 45%, 52%);
+  --design-bg: hsla(155, 45%, 45%, 0.08);
+  --design-border: hsla(155, 45%, 45%, 0.2);
+  --impl: hsl(220, 65%, 60%);
+  --impl-bg: hsla(220, 65%, 55%, 0.08);
+  --impl-border: hsla(220, 65%, 55%, 0.2);
+  --wg: hsl(40, 65%, 58%);
+  --wg-bg: hsla(40, 65%, 50%, 0.08);
+  --wg-border: hsla(40, 65%, 50%, 0.2);
+  --accent: hsl(270, 50%, 62%);
+  --font-display: 'Instrument Serif', serif;
+  --font-body: 'Satoshi', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 18px; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+a:hover { opacity: 0.8; }
+
+/* ═══ SLIDE ENGINE ═══ */
+.deck { position: relative; width: 100vw; height: 100vh; }
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 80px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.45s ease;
+  z-index: 1;
+}
+.slide.active { opacity: 1; pointer-events: auto; z-index: 2; }
+.slide.active .reveal { animation: revealUp 0.55s ease-out both; }
+.slide.active .reveal-d1 { animation-delay: 0.12s; }
+.slide.active .reveal-d2 { animation-delay: 0.24s; }
+.slide.active .reveal-d3 { animation-delay: 0.36s; }
+.slide.active .reveal-d4 { animation-delay: 0.48s; }
+.slide.active .reveal-d5 { animation-delay: 0.6s; }
+.slide.active .reveal-d6 { animation-delay: 0.72s; }
+@keyframes revealUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══ PILLAR BADGES ═══ */
+.pillars { position: absolute; top: 28px; left: 40px; display: flex; gap: 8px; z-index: 10; }
+.pill {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: 100px;
+  border: 1px solid;
+}
+.pill-design { color: var(--design); border-color: var(--design-border); background: var(--design-bg); }
+.pill-impl { color: var(--impl); border-color: var(--impl-border); background: var(--impl-bg); }
+.pill-wg { color: var(--wg); border-color: var(--wg-border); background: var(--wg-bg); }
+
+/* Act badge */
+.act-badge {
+  position: absolute;
+  top: 28px;
+  right: 40px;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  z-index: 10;
+}
+
+/* ═══ COUNTER & PROGRESS ═══ */
+.counter {
+  position: fixed;
+  bottom: 24px;
+  right: 40px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--muted);
+  z-index: 100;
+  letter-spacing: 1px;
+}
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--design), var(--impl), var(--wg));
+  transition: width 0.4s ease;
+  z-index: 100;
+}
+
+/* ═══ TYPOGRAPHY ═══ */
+.s-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+.s-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 400;
+  line-height: 1.15;
+  margin-bottom: 20px;
+  max-width: 900px;
+}
+.s-title em { font-style: italic; }
+.s-title .hl-design { color: var(--design); }
+.s-title .hl-impl { color: var(--impl); }
+.s-title .hl-wg { color: var(--wg); }
+.s-title .hl-accent { color: var(--accent); }
+.s-subtitle {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  color: var(--dim);
+  font-weight: 300;
+  max-width: 700px;
+  line-height: 1.6;
+}
+.s-body {
+  font-size: 0.95rem;
+  color: var(--dim);
+  line-height: 1.75;
+  max-width: 750px;
+  font-weight: 400;
+}
+.s-body strong { color: var(--text); font-weight: 600; }
+.s-body code {
+  font-family: var(--font-mono);
+  font-size: 0.82em;
+  color: var(--impl);
+  background: var(--impl-bg);
+  padding: 2px 7px;
+  border-radius: 4px;
+  border: 1px solid var(--impl-border);
+}
+.s-body ul { list-style: none; padding: 0; }
+.s-body ul li {
+  padding: 6px 0;
+  padding-left: 20px;
+  position: relative;
+}
+.s-body ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 14px;
+  width: 6px;
+  height: 1px;
+  background: var(--muted);
+}
+.s-body a {
+  color: var(--impl);
+  text-decoration: underline;
+  text-decoration-color: var(--impl-border);
+  text-underline-offset: 3px;
+}
+.s-body a:hover { text-decoration-color: var(--impl); }
+.s-quote {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-style: italic;
+  color: var(--text);
+  line-height: 1.5;
+  max-width: 680px;
+  padding-left: 24px;
+  border-left: 2px solid var(--muted);
+  margin: 16px 0;
+}
+.s-quote cite {
+  display: block;
+  font-style: normal;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--muted);
+  margin-top: 12px;
+  letter-spacing: 1px;
+}
+.s-big-num {
+  font-family: var(--font-display);
+  font-size: 4.5rem;
+  font-weight: 400;
+  line-height: 1;
+}
+.s-stat-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* ═══ LAYOUT ═══ */
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  width: 100%;
+  max-width: 1060px;
+  align-items: center;
+}
+.split-wide {
+  display: grid;
+  grid-template-columns: 1.3fr 0.7fr;
+  gap: 60px;
+  width: 100%;
+  max-width: 1060px;
+  align-items: start;
+}
+.center-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.left-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+.stats-row {
+  display: flex;
+  gap: 40px;
+  margin-top: 24px;
+}
+.stat-item { text-align: center; }
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  max-width: 550px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.stats-grid .stat {
+  background: var(--card);
+  padding: 24px 16px;
+  text-align: center;
+}
+
+/* ═══ DIAGRAMS ═══ */
+/* Blink layers */
+.layers-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 280px;
+}
+.layer-item {
+  padding: 16px 24px;
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-align: center;
+}
+.layer-style { background: var(--design-bg); border: 1px solid var(--design-border); color: var(--design); }
+.layer-layout { background: var(--impl-bg); border: 1px solid var(--impl-border); color: var(--impl); }
+.layer-paint { background: var(--wg-bg); border: 1px solid var(--wg-border); color: var(--wg); }
+
+/* Timeline */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+  max-width: 700px;
+}
+.timeline-item {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 20px;
+  padding: 12px 0;
+  border-left: 1px solid var(--border);
+  margin-left: 44px;
+  padding-left: 20px;
+  position: relative;
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -4px;
+  top: 18px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--muted);
+}
+.timeline-date {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--muted);
+  letter-spacing: 1px;
+  padding-top: 2px;
+}
+.timeline-text {
+  font-size: 0.88rem;
+  color: var(--dim);
+  line-height: 1.5;
+}
+.timeline-text strong { color: var(--text); }
+
+/* Transition slides */
+.slide-transition {
+  background: linear-gradient(135deg, var(--bg) 0%, var(--surface) 100%);
+}
+.transition-line {
+  width: 60px;
+  height: 1px;
+  background: var(--muted);
+  margin: 20px 0;
+}
+
+/* F2F grid */
+.f2f-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  width: 100%;
+  max-width: 800px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.f2f-item {
+  background: var(--card);
+  padding: 24px;
+}
+.f2f-item .f2f-num {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.f2f-item .f2f-title {
+  font-size: 0.85rem;
+  color: var(--dim);
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+.f2f-item .f2f-issue {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--muted);
+}
+.f2f-item .f2f-issue a { color: var(--impl); }
+
+/* Gap decoration demos — using REAL CSS Gap Decorations */
+.gap-demo {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 12px;
+  width: 240px;
+  height: 140px;
+  border-radius: 8px;
+  overflow: hidden;
+  column-rule-style: solid;
+  column-rule-width: 2px;
+  column-rule-color: var(--design);
+  row-rule-style: solid;
+  row-rule-width: 2px;
+  row-rule-color: var(--impl);
+}
+.gap-demo-cell {
+  background: var(--card);
+  border-radius: 4px;
+}
+
+/* Paint CLs table */
+.paint-table {
+  width: 100%;
+  max-width: 700px;
+  border-collapse: collapse;
+}
+.paint-table th {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: left;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+}
+.paint-table td {
+  font-size: 0.82rem;
+  color: var(--dim);
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+}
+.paint-table td a { color: var(--impl); }
+.paint-table td:first-child { font-family: var(--font-mono); font-size: 0.75rem; }
+.paint-table .total-row td {
+  color: var(--text);
+  font-weight: 600;
+  border-bottom: none;
+}
+
+/* Animated gap demo (slide 9) — REAL CSS Gap Decorations */
+.anim-demo {
+  display: grid;
+  grid-template-columns: repeat(3, 72px);
+  grid-template-rows: repeat(3, 48px);
+  gap: 10px;
+  border-radius: 8px;
+  overflow: hidden;
+  column-rule-style: solid;
+  column-rule-width: 2px;
+  column-rule-color: var(--design), var(--impl);
+  row-rule-style: solid;
+  row-rule-width: 2px;
+  row-rule-color: var(--wg);
+  animation: animGapDemo 4s ease-in-out infinite alternate;
+}
+.anim-demo-cell {
+  background: var(--card);
+  border-radius: 4px;
+}
+@keyframes animGapDemo {
+  0%   { column-rule-color: var(--design), var(--impl); column-rule-width: 2px; row-rule-width: 1px; row-rule-color: var(--wg); }
+  33%  { column-rule-color: var(--impl), var(--wg); column-rule-width: 3px; row-rule-width: 3px; row-rule-color: var(--design); }
+  66%  { column-rule-color: var(--wg), var(--accent); column-rule-width: 1px; row-rule-width: 2px; row-rule-color: var(--impl); }
+  100% { column-rule-color: var(--accent), var(--design); column-rule-width: 2px; row-rule-width: 1px; row-rule-color: var(--wg); }
+}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+<div class="counter" id="counter"></div>
+
+<div class="deck" id="deck">
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SLIDE 1: TITLE -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="slide active">
+  <div class="center-col">
+    <div class="s-label reveal">BlinkOn 21</div>
+    <div class="s-title reveal reveal-d1" style="font-size: clamp(2.4rem, 5vw, 4rem);">CSS Gap Decorations</div>
+    <div class="s-subtitle reveal reveal-d2" style="margin-top: 8px;">From spec proposal to cross-layer implementation in Blink</div>
+    <div style="margin-top: 32px; display: flex; gap: 40px;" class="reveal reveal-d3">
+      <div class="stat-item">
+        <div class="s-big-num" style="font-size: 2.5rem; color: var(--impl);">191</div>
+        <div class="s-stat-label">CLs</div>
+      </div>
+      <div class="stat-item">
+        <div class="s-big-num" style="font-size: 2.5rem; color: var(--wg);">22</div>
+        <div class="s-stat-label">Spec PRs</div>
+      </div>
+      <div class="stat-item">
+        <div class="s-big-num" style="font-size: 2.5rem; color: var(--design);">30</div>
+        <div class="s-stat-label">CSSWG Issues</div>
+      </div>
+    </div>
+    <div class="reveal reveal-d4" style="margin-top: 28px; font-size: 0.8rem; color: var(--muted);">
+      Javier Contreras &middot; Sam Davis Omekara &middot; Kevin Babbitt
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SLIDE 2: THE FIRST THREAD (Act 1) -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="pillars"><span class="pill pill-wg">CSSWG</span></div>
+  <div class="act-badge">Act 1 &mdash; Origins</div>
+  <div class="left-col" style="max-width: 800px;">
+    <div class="s-label reveal">The First Thread</div>
+    <div class="s-title reveal reveal-d1">Six years before a single line of code</div>
+    <div class="s-body reveal reveal-d2">
+      <ul>
+        <li><strong>June 7, 2018</strong> &mdash; fantasai files <a href="https://github.com/w3c/csswg-drafts/issues/2748" target="_blank">CSSWG #2748</a>: "Styling Gaps/Gutters"</li>
+        <li>The idea sat in the issue tracker for six years</li>
+        <li>No spec, no implementation, no resolution &mdash; just a direction</li>
+      </ul>
+    </div>
+    <div class="s-quote reveal reveal-d3">
+      Proposed adding styling capabilities to CSS gaps/gutters.
+      <cite>&mdash; fantasai, CSSWG #2748</cite>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SLIDE 3: THE PROPOSAL -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="pillars"><span class="pill pill-wg">CSSWG</span><span class="pill pill-design">Design</span></div>
+  <div class="act-badge">Act 1 &mdash; Origins</div>
+  <div class="left-col" style="max-width: 800px;">
+    <div class="s-label reveal">The Proposal</div>
+    <div class="s-title reveal reveal-d1">Kevin Babbitt picks up the thread</div>
+    <div class="s-body reveal reveal-d2">
+      <ul>
+        <li><strong>June 5, 2024</strong> &mdash; <a href="https://github.com/w3c/csswg-drafts/issues/10393" target="_blank">CSSWG #10393</a>: formal proposal for CSS Gap Decorations Level 1</li>
+        <li><strong>June 12, 2024</strong> &mdash; CSSWG resolves to adopt the spec with Kevin as editor</li>
+        <li><strong>Dec 13, 2024</strong> &mdash; <a href="https://github.com/w3c/csswg-drafts/pull/11115" target="_blank">PR #11115</a>: first editor's draft published</li>
+      </ul>
+    </div>
+    <div class="s-body reveal reveal-d3" style="margin-top: 16px;">
+      <ul>
+        <li><strong>Nov 6, 2024</strong> &mdash; Sam Davis Omekara lands the <a href="https://chromium-review.googlesource.com/c/chromium/src/+/5990892" target="_blank">first CL</a>. Implementation begins.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SLIDE 4: THREE LAYERS -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="pillars"><span class="pill pill-design">Design</span><span class="pill pill-impl">Implementation</span></div>
+  <div class="act-badge">Act 1 &mdash; Origins</div>
+  <div class="split">
+    <div class="left-col">
+      <div class="s-label reveal">Why This Feature Is Hard</div>
+      <div class="s-title reveal reveal-d1">Style &rarr; Layout &rarr; Paint</div>
+      <div class="s-body reveal reveal-d2">
+        Gap decorations span all three layers of Blink's rendering pipeline:
+        <ul>
+          <li><strong>Style</strong> &mdash; parse <code>column-rule</code>, <code>row-rule</code>, shorthands, repeaters, lists</li>
+          <li><strong>Layout</strong> &mdash; compute gap geometry for grid, flex, and multicol</li>
+          <li><strong>Paint</strong> &mdash; draw decorations with correct clipping, overflow, and scrolling</li>
+        </ul>
+      </div>
+      <div class="s-body reveal reveal-d3" style="margin-top: 12px;">
+        Most CSS features live in one layer. This one touches all three.
+      </div>
+    </div>
+    <div class="center-col reveal reveal-d2">
+      <div class="layers-stack">
+        <div class="layer-item layer-style">Style</div>
+        <div class="layer-item layer-layout">Layout</div>
+        <div class="layer-item layer-paint" style="border-color: var(--accent); color: var(--accent); background: hsla(270,50%,55%,0.08);">Paint</div>
+      </div>
+      <div style="margin-top: 16px; font-family: var(--font-mono); font-size: 0.6rem; color: var(--muted); letter-spacing: 1px;">BLINK RENDERING PIPELINE</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SLIDE 5: TRANSITION 1 -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="slide slide-transition">
+  <div class="center-col">
+    <div class="transition-line reveal"></div>
+    <div class="s-title reveal reveal-d1" style="max-width: 600px;">The initial implementation created open questions &mdash; on both the design and implementation sides</div>
+    <div class="transition-line reveal reveal-d2"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SLIDE 6: CSSWG DISCUSSIONS (Act 2) -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="pillars"><span class="pill pill-wg">CSSWG</span><span class="pill pill-design">Design</span></div>
+  <div class="act-badge">Act 2 &mdash; Evolution</div>
+  <div class="left-col" style="max-width: 800px;">
+    <div class="s-label reveal">Working with Standards</div>
+    <div class="s-title reveal reveal-d1">The spec evolved alongside the code</div>
+    <div class="s-body reveal reveal-d2">
+      Implementation surfaced questions. We filed issues. The CSSWG resolved them. We updated the code.
+      <ul>
+        <li><a href="https://github.com/w3c/csswg-drafts/issues/11492" target="_blank">#11492</a> &mdash; Auto repeater behavior (resolved Jan 31, 2025)</li>
+        <li><a href="https://github.com/w3c/csswg-drafts/issues/11494" target="_blank">#11494</a> &mdash; Computed value with none/hidden (resolved Jan 31, 2025)</li>
+        <li><a href="https://github.com/w3c/csswg-drafts/issues/11496" target="_blank">#11496</a> &mdash; Shorthand grammar (resolved Apr 3, 2025)</li>
+        <li><a href="https://github.com/w3c/csswg-drafts/issues/12024" target="_blank">#12024</a> &mdash; Outsets at edges (resolved Aug 20, 2025)</li>
+        <li><a href="https://github.com/w3c/csswg-drafts/issues/12540" target="_blank">#12540</a> &mdash; Renamed rule-paint-order &rarr; rule-overlap (resolved Aug 6, 2025)</li>
+      </ul>
+    </div>
+    <div class="s-body reveal reveal-d3" style="margin-top: 12px;">
+      <strong>30 issues filed. 24 resolved.</strong> This feedback loop between implementation and spec is the engine that made the feature work.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SLIDE 6b: COST OF STANDARDS -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="pillars"><span class="pill pill-wg">CSSWG</span></div>
+  <div class="act-badge">Act 2 &mdash; Evolution</div>
+  <div class="split">
+    <div class="left-col">
+      <div class="s-label reveal">The Other Side</div>
+      <div class="s-title reveal reveal-d1">Standards work is slow by design</div>
+      <div class="s-body reveal reveal-d2">
+        <ul>
+          <li><a href="https://github.com/w3c/csswg-drafts/issues/11491" target="_blank">#11491</a> &mdash; bikeshedding rule-break names took <strong>14 months</strong> to close with no change</li>
+          <li>Some issues need multiple F2F meetings to converge</li>
+          <li>Implementation can be blocked on a naming discussion</li>
+        </ul>
+      </div>
+      <div class="s-body reveal reveal-d3" style="margin-top: 12px;">
+        The deliberation is frustrating, but it's also what produces a spec that <strong>multiple engines can implement consistently</strong>. That's the tradeoff.
+      </div>
+    </div>
+    <div class="center-col reveal reveal-d3">
+      <!-- Visual: timeline showing deliberation length -->
+      <div style="display: flex; flex-direction: column; gap: 10px; width: 240px;">
+        <div style="background: var(--card); border-radius: 6px; padding: 14px 16px; border-left: 3px solid var(--wg);">
+          <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--wg); letter-spacing: 1px;">#11491</div>
+          <div style="font-size: 0.78rem; color: var(--dim); margin-top: 4px;">Rule-break naming</div>
+          <div style="font-family: var(--font-mono); font-size: 0.6rem; color: var(--muted); margin-top: 6px;">Jan 2025 &rarr; Mar 2026</div>
+          <div style="height: 3px; background: var(--wg); border-radius: 2px; margin-top: 6px; opacity: 0.4;"></div>
+        </div>
+        <div style="background: var(--card); border-radius: 6px; padding: 14px 16px; border-left: 3px solid var(--design);">
+          <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--design); letter-spacing: 1px;">#12848</div>
+          <div style="font-size: 0.78rem; color: var(--dim); margin-top: 4px;">Outset &rarr; inset rename</div>
+          <div style="font-family: var(--font-mono); font-size: 0.6rem; color: var(--muted); margin-top: 6px;">Sep 2025 &rarr; Nov 2025</div>
+          <div style="height: 3px; background: var(--design); border-radius: 2px; margin-top: 6px; width: 30%; opacity: 0.4;"></div>
+        </div>
+        <div style="background: var(--card); border-radius: 6px; padding: 14px 16px; border-left: 3px solid var(--impl);">
+          <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--impl); letter-spacing: 1px;">#12431</div>
+          <div style="font-size: 0.78rem; color: var(--dim); margin-top: 4px;">Interpolation behavior</div>
+          <div style="font-family: var(--font-mono); font-size: 0.6rem; color: var(--muted); margin-top: 6px;">Jul 2025 &rarr; Aug 2025</div>
+          <div style="height: 3px; background: var(--impl); border-radius: 2px; margin-top: 6px; width: 15%; opacity: 0.4;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SLIDE 7: MAIN/CROSS SPLIT -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="pillars"><span class="pill pill-impl">Implementation</span></div>
+  <div class="act-badge">Act 2 &mdash; Evolution</div>
+  <div class="left-col" style="max-width: 800px;">
+    <div class="s-label reveal">Architecture</div>
+    <div class="s-title reveal reveal-d1">The MainGap / CrossGap split</div>
+    <div class="s-body reveal reveal-d2">
+      <ul>
+        <li><a href="https://chromium-review.googlesource.com/c/chromium/src/+/6819000" target="_blank">CL 6819000</a> (Aug 2025) &mdash; introduced separate Main and Cross gap classes</li>
+        <li>The original intersection-based model computed everything together</li>
+        <li>Splitting by axis unlocked:
+          <ul style="margin-top: 4px;">
+            <li>Better performance (process only the axis that changed)</li>
+            <li>Grid track expansion and fragmentation support</li>
+            <li>Cleaner multicol integration</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="s-body reveal reveal-d3" style="margin-top: 12px;">
+      This was a major refactor &mdash; followed by per-layout optimized CLs for <a href="https://chromium-review.googlesource.com/c/chromium/src/+/6854089" target="_blank">grid</a>, <a href="https://chromium-review.googlesource.com/c/chromium/src/+/6850590" target="_blank">flex</a>, and <a href="https://chromium-review.googlesource.com/c/chromium/src/+/6885245" target="_blank">multicol</a>.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SLIDE 8: PAINT FIXES -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="pillars"><span class="pill pill-impl">Implementation</span></div>
+  <div class="act-badge">Act 2 &mdash; Evolution</div>
+  <div class="split">
+    <div class="left-col">
+      <div class="s-label reveal">Into Unfamiliar Territory</div>
+      <div class="s-title reveal reveal-d1">Learning paint from scratch</div>
+      <div class="s-body reveal reveal-d2">
+        Nobody on the team had worked in Blink's paint code before. We needed decorations to clip, scroll, resize, and fragment correctly.
+      </div>
+      <div class="s-body reveal reveal-d3" style="margin-top: 16px;">
+        Philip Rogers (pdr), a paint owner, guided us through <a href="https://chromium-review.googlesource.com/c/chromium/src/+/6451833" target="_blank">4 CLs</a> and <strong>120+ review comments</strong>. Every patchset was a lesson in how the rendering pipeline actually works.
+      </div>
+    </div>
+    <div class="center-col reveal reveal-d2">
+      <!-- Visual: broken → fixed paint scenarios -->
+      <div style="display: flex; flex-direction: column; gap: 12px; width: 260px;">
+        <div style="position: relative; background: var(--card); border-radius: 8px; padding: 16px; border: 1px solid var(--border);">
+          <div style="font-family: var(--font-mono); font-size: 0.55rem; color: hsl(0,50%,55%); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px;">Before</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 30px 30px; gap: 0; border-radius: 4px; overflow: hidden; position: relative;">
+            <div style="background: hsla(220,30%,22%,0.5);"></div><div style="background: hsla(220,30%,22%,0.5);"></div><div style="background: hsla(220,30%,22%,0.5);"></div>
+            <div style="background: hsla(220,30%,22%,0.5);"></div><div style="background: hsla(220,30%,22%,0.5);"></div><div style="background: hsla(220,30%,22%,0.5);"></div>
+          </div>
+          <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--muted); margin-top: 8px;">decorations clipped on scroll</div>
+        </div>
+        <div style="position: relative; background: var(--card); border-radius: 8px; padding: 16px; border: 1px solid var(--design-border);">
+          <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--design); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px;">After</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 30px 30px; gap: 8px; border-radius: 4px; overflow: hidden; column-rule-style: solid; column-rule-width: 2px; column-rule-color: var(--design); row-rule-style: solid; row-rule-width: 2px; row-rule-color: var(--impl);">
+            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div><div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div><div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
+            <div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div><div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div><div style="background: hsla(220,30%,22%,0.5); border-radius: 3px;"></div>
+          </div>
+          <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--muted); margin-top: 8px;">ink overflow, scroll, resize — all correct</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SLIDE 9: INTERPOLATION -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="pillars"><span class="pill pill-wg">CSSWG</span><span class="pill pill-impl">Implementation</span></div>
+  <div class="act-badge">Act 2 &mdash; Evolution</div>
+  <div class="split">
+    <div class="left-col">
+      <div class="s-label reveal">Animation Support</div>
+      <div class="s-title reveal reveal-d1">Lists, repeaters, and LCM interpolation</div>
+      <div class="s-body reveal reveal-d2">
+        <ul>
+          <li>Properties accept <strong>lists</strong> with auto repeaters</li>
+          <li>We assumed we'd never need to expand repeaters</li>
+          <li><a href="https://github.com/w3c/csswg-drafts/issues/12431" target="_blank">#12431</a> resolved: animate using <strong>LCM</strong> alignment</li>
+          <li>V2 interpolation: <a href="https://chromium-review.googlesource.com/c/chromium/src/+/6961880" target="_blank">CL 6961880</a>, <a href="https://chromium-review.googlesource.com/c/chromium/src/+/7078855" target="_blank">CL 7078855</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="center-col reveal reveal-d3">
+      <!-- Animated gap decoration demo -->
+      <div class="anim-demo">
+        <div class="anim-demo-cell"></div><div class="anim-demo-cell"></div><div class="anim-demo-cell"></div>
+        <div class="anim-demo-cell"></div><div class="anim-demo-cell"></div><div class="anim-demo-cell"></div>
+        <div class="anim-demo-cell"></div><div class="anim-demo-cell"></div><div class="anim-demo-cell"></div>
+      </div>
+      <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--muted); margin-top: 12px; letter-spacing: 1px;">
+        column-rule-color: <span class="anim-label-color">animating…</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SLIDE 10: TRANSITION 2 -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="slide slide-transition">
+  <div class="center-col">
+    <div class="transition-line reveal"></div>
+    <div class="s-title reveal reveal-d1" style="max-width: 640px;">Dev trial launched in Chrome/Edge 139 (June 2025). Developer feedback reshaped the spec.</div>
+    <div class="transition-line reveal reveal-d2"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SLIDE 11: TPAC & SEGMENTS (Act 3) -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="pillars"><span class="pill pill-wg">CSSWG</span><span class="pill pill-design">Design</span></div>
+  <div class="act-badge">Act 3 &mdash; Convergence</div>
+  <div class="left-col" style="max-width: 800px;">
+    <div class="s-label reveal">The Model Was Wrong</div>
+    <div class="s-title reveal reveal-d1">From intersections to segments</div>
+    <div class="s-body reveal reveal-d2">
+      <ul>
+        <li><strong>Sep 11, 2025</strong> &mdash; <a href="https://github.com/w3c/csswg-drafts/issues/12784" target="_blank">#12784</a>: multicol intersection points don't generalize</li>
+        <li>Offline TPAC 2025 discussion revealed the intersection-based model was fundamentally wrong for containers with rows and spanners</li>
+        <li><strong>Nov 11, 2025</strong> &mdash; Kevin posts a new proposal: segments-based model</li>
+        <li><strong>Feb 2026</strong> &mdash; <a href="https://github.com/w3c/csswg-drafts/pull/13299" target="_blank">PR #13299</a> merged: decorations are now <em>segments</em>, not intersection pairs</li>
+      </ul>
+    </div>
+    <div class="s-body reveal reveal-d3" style="margin-top: 12px;">
+      This was the biggest spec change since the initial draft &mdash; the realization came from trying to implement multicol correctly.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SLIDE 12: JANUARY F2F -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="pillars"><span class="pill pill-wg">CSSWG</span><span class="pill pill-design">Design</span><span class="pill pill-impl">Implementation</span></div>
+  <div class="act-badge">Act 3 &mdash; Convergence</div>
+  <div class="left-col" style="max-width: 900px;">
+    <div class="s-label reveal">January 28, 2026 F2F</div>
+    <div class="s-title reveal reveal-d1">Four issues resolved in one session</div>
+    <div class="f2f-grid reveal reveal-d2">
+      <div class="f2f-item">
+        <div class="f2f-num">1</div>
+        <div class="f2f-title">Rename <code style="font-family: var(--font-mono); font-size: 0.8em; color: var(--impl);">spanning-item</code> &rarr; <code style="font-family: var(--font-mono); font-size: 0.8em; color: var(--impl);">normal</code></div>
+        <div class="f2f-issue"><a href="https://github.com/w3c/csswg-drafts/issues/13127" target="_blank">#13127</a></div>
+      </div>
+      <div class="f2f-item">
+        <div class="f2f-num">2</div>
+        <div class="f2f-title">Initial inset value &rarr; <code style="font-family: var(--font-mono); font-size: 0.8em; color: var(--impl);">0</code></div>
+        <div class="f2f-issue"><a href="https://github.com/w3c/csswg-drafts/issues/13137" target="_blank">#13137</a> &mdash; devs said rule-break changes had no visible effect</div>
+      </div>
+      <div class="f2f-item">
+        <div class="f2f-num">3</div>
+        <div class="f2f-title">Alignment space contributes to gap size</div>
+        <div class="f2f-issue"><a href="https://github.com/w3c/csswg-drafts/issues/12922" target="_blank">#12922</a> &mdash; whiteboard session with Alison Maher</div>
+      </div>
+      <div class="f2f-item">
+        <div class="f2f-num">4</div>
+        <div class="f2f-title">Gap suppression with spanners &mdash; no change needed</div>
+        <div class="f2f-issue"><a href="https://github.com/w3c/csswg-drafts/issues/13362" target="_blank">#13362</a></div>
+      </div>
+    </div>
+    <div class="s-body reveal reveal-d3" style="margin-top: 16px;">
+      <strong>11 CLs + 2 spec PRs within 5 weeks.</strong><br>
+      Participants: javierct, oSamDavis, kbabbitt, alisonmaher, TabAtkins, fantasai, and others.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SLIDE 13: BY THE NUMBERS -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="center-col">
+    <div class="s-label reveal">By the Numbers</div>
+    <div class="s-title reveal reveal-d1">Two years of work</div>
+    <div class="stats-grid reveal reveal-d2">
+      <div class="stat">
+        <div class="s-big-num" style="font-size: 3rem; color: var(--impl);">191</div>
+        <div class="s-stat-label">Chromium CLs</div>
+      </div>
+      <div class="stat">
+        <div class="s-big-num" style="font-size: 3rem; color: var(--wg);">22</div>
+        <div class="s-stat-label">Spec PRs</div>
+      </div>
+      <div class="stat">
+        <div class="s-big-num" style="font-size: 3rem; color: var(--design);">30</div>
+        <div class="s-stat-label">CSSWG Issues</div>
+      </div>
+      <div class="stat">
+        <div class="s-big-num" style="font-size: 3rem; color: var(--text);">5</div>
+        <div class="s-stat-label">Contributors</div>
+      </div>
+      <div class="stat">
+        <div class="s-big-num" style="font-size: 3rem; color: var(--text);">3</div>
+        <div class="s-stat-label">Layout Types</div>
+      </div>
+      <div class="stat">
+        <div class="s-big-num" style="font-size: 3rem; color: var(--text);">3</div>
+        <div class="s-stat-label">Blink Layers</div>
+      </div>
+    </div>
+    <div class="s-body reveal reveal-d3" style="margin-top: 20px; text-align: center;">
+      Sam Davis Omekara &middot; Javier Contreras &middot; Kevin Babbitt &middot; Alison Maher &middot; Kurt Catti-Schmidt
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SLIDE 14: CONCLUSION -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="center-col">
+    <div class="s-label reveal">Final Thoughts</div>
+    <div class="s-title reveal reveal-d1" style="max-width: 700px;">The feature that touches everything</div>
+    <div class="s-body reveal reveal-d2" style="text-align: center; max-width: 600px;">
+      <ul style="text-align: left;">
+        <li>Gap decorations forced us to learn paint, layout, and style in depth</li>
+        <li>The spec changed because implementation revealed real problems</li>
+        <li>Developer feedback during dev trial directly shaped the final design</li>
+        <li>Standards work isn't overhead &mdash; it's how you get the design right</li>
+      </ul>
+    </div>
+    <div class="s-body reveal reveal-d3" style="text-align: center; margin-top: 20px; color: var(--muted);">
+      <a href="https://www.w3.org/TR/css-gaps-1/" target="_blank" style="color: var(--impl);">w3.org/TR/css-gaps-1</a>
+    </div>
+  </div>
+</div>
+
+</div><!-- .deck -->
+
+<script>
+const deck = document.getElementById('deck');
+const slides = deck.querySelectorAll('.slide');
+const counter = document.getElementById('counter');
+const progress = document.getElementById('progress');
+let current = 0;
+const total = slides.length;
+
+function go(n) {
+  if (n < 0 || n >= total) return;
+  slides[current].classList.remove('active');
+  current = n;
+  slides[current].classList.add('active');
+  counter.textContent = `${current + 1} / ${total}`;
+  progress.style.width = `${((current + 1) / total) * 100}%`;
+}
+
+function next() { go(current + 1); }
+function prev() { go(current - 1); }
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') { e.preventDefault(); next(); }
+  if (e.key === 'ArrowLeft' || e.key === 'Backspace') { e.preventDefault(); prev(); }
+  if (e.key === 'Home') { e.preventDefault(); go(0); }
+  if (e.key === 'End') { e.preventDefault(); go(total - 1); }
+});
+
+deck.addEventListener('click', e => {
+  if (e.clientX > window.innerWidth / 2) next(); else prev();
+});
+
+go(0);
+</script>
+</body>
+</html>
