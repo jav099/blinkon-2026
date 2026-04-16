@@ -6,24 +6,24 @@
 
 **BlinkOn 21**
 
-# CSS Gap Decorations
+# The Story of CSS Gap Decorations
 From spec proposal to cross-layer implementation in Blink
 
 - 191 CLs
 - 22 Spec PRs
 - 30 CSSWG Issues
 
-Javier Contreras · Sam Davis Omekara · Kevin Babbitt
+Javier Contreras · Sam Davis Omekara
 
 ---
 
 ## Slide 2: The First Thread
 **Pillars:** CSSWG
-**Act:** 1 — Origins
+**Part:** 1 — The Origin.
 
-- **June 7, 2018** — fantasai files CSSWG #2748: "Styling Gaps/Gutters"
+- **June 7, 2018**: The initial CSSWG #2748: "Styling Gaps/Gutters" issue is opened.
 - The idea sat in the issue tracker for six years
-- No spec, no implementation, no resolution — just a direction
+- No spec, no implementation, no resolution, just brainstorming and interest from the community.
 
 > "Proposed adding styling capabilities to CSS gaps/gutters."
 > — fantasai, CSSWG #2748
@@ -34,12 +34,12 @@ Javier Contreras · Sam Davis Omekara · Kevin Babbitt
 
 ## Slide 3: The Proposal
 **Pillars:** CSSWG | Design
-**Act:** 1 — Origins
+**Part:** 1 — The Origin.
 
 - **June 5, 2024** — CSSWG #10393: formal proposal for CSS Gap Decorations Level 1
-- **June 12, 2024** — CSSWG resolves to adopt the spec with Kevin as editor
-- **Dec 13, 2024** — PR #11115: first editor's draft published
-- **Nov 6, 2024** — Sam Davis Omekara lands the first CL. Implementation begins.
+- **June 12, 2024** — CSSWG resolves to adopt the spec and assigns one of our teammates as editor.
+- **Dec 13, 2024** — PR #11115: first editor's draft published.
+- **Nov 6, 2024** — Sam Davis lands the first CL. Implementation begins.
 
 **Links:**
 - [CSSWG #10393](https://github.com/w3c/csswg-drafts/issues/10393)
@@ -50,17 +50,15 @@ Javier Contreras · Sam Davis Omekara · Kevin Babbitt
 
 ## Slide 4: Three Layers
 **Pillars:** Design | Implementation
-**Act:** 1 — Origins
+**Part:** 1 — The Origin.
 
 ### Style → Layout → Paint
 
-Gap decorations span all three layers of Blink's rendering pipeline:
+Gap decorations span three layers of Blink's rendering pipeline:
 
-- **Style** — parse column-rule, row-rule, shorthands, repeaters, lists
+- **Style** — parse properties: column-rule, row-rule, shorthands, repeaters, lists
 - **Layout** — compute gap geometry for grid, flex, and multicol
 - **Paint** — draw decorations with correct clipping, overflow, and scrolling
-
-Most CSS features live in one layer. This one touches all three.
 
 ---
 
@@ -68,7 +66,7 @@ Most CSS features live in one layer. This one touches all three.
 **Pillars:** —
 **Act:** Transition
 
-The initial implementation created open questions — on both the design and implementation sides.
+The initial implementation led to open questions, on both the design and implementation sides.
 
 ---
 
@@ -76,7 +74,7 @@ The initial implementation created open questions — on both the design and imp
 **Pillars:** CSSWG | Design
 **Act:** 2 — Evolution
 
-Implementation surfaced questions. We filed issues. The CSSWG resolved them. We updated the code.
+Implementation surfaced questions -> We filed issues -> We worked with the CSSWG to resolve them -> We updated the code.
 
 - #11492 — Auto repeater behavior (resolved Jan 31, 2025)
 - #11494 — Computed value with none/hidden (resolved Jan 31, 2025)
@@ -84,7 +82,7 @@ Implementation surfaced questions. We filed issues. The CSSWG resolved them. We 
 - #12024 — Outsets at edges (resolved Aug 20, 2025)
 - #12540 — Renamed rule-paint-order → rule-overlap (resolved Aug 6, 2025)
 
-**30 issues filed. 24 resolved.** This feedback loop between implementation and spec is the engine that made the feature work.
+**30 issues filed. 24 resolved.** This feedback loop between implementation and spec is the engine that drove progress. We couldn't have built the CSSWG without it.
 
 **Links:**
 - [#11492](https://github.com/w3c/csswg-drafts/issues/11492)
@@ -101,9 +99,9 @@ Implementation surfaced questions. We filed issues. The CSSWG resolved them. We 
 
 The other side of the standards coin:
 
-- #11491 — bikeshedding rule-break names took **14 months** to close with no change
-- Some issues need multiple F2F meetings to converge
-- Implementation can be blocked on a naming discussion
+- #11491: bikeshedding rule-break names took **14 months** to resolve with no change.
+- Some issues need multiple face-to-face meetings to resolve.
+- Implementation can be blocked on a naming discussion.
 
 The deliberation is frustrating, but it's also what produces a spec that **multiple engines can implement consistently**. That's the tradeoff.
 
@@ -116,7 +114,27 @@ Visual: timeline bars showing deliberation length for 3 issues (#11491: 14 month
 
 ---
 
-## Slide 8: Learning Paint from Scratch
+## Slide 8: The MainGap / CrossGap Split
+**Pillars:** Implementation
+**Act:** 2 — Evolution
+
+- [CL 6819000](https://chromium-review.googlesource.com/c/chromium/src/+/6819000) (Aug 2025) — introduced separate Main and Cross gap classes.
+- The original intersection-based model computed everything together.
+- Splitting by axis unlocked:
+  - Better performance (process only the axis that changed)
+  - Grid track expansion and fragmentation support
+  - Cleaner multicol integration
+- This was a major refactor — followed by per-layout optimized CLs for [grid](https://chromium-review.googlesource.com/c/chromium/src/+/6854089), [flex](https://chromium-review.googlesource.com/c/chromium/src/+/6850590), and [multicol](https://chromium-review.googlesource.com/c/chromium/src/+/6885245).
+
+**Links:**
+- [CL 6819000](https://chromium-review.googlesource.com/c/chromium/src/+/6819000)
+- [CL 6854089](https://chromium-review.googlesource.com/c/chromium/src/+/6854089)
+- [CL 6850590](https://chromium-review.googlesource.com/c/chromium/src/+/6850590)
+- [CL 6885245](https://chromium-review.googlesource.com/c/chromium/src/+/6885245)
+
+---
+
+## Slide 9: Learning Paint from Scratch
 **Pillars:** Implementation
 **Act:** 2 — Evolution
 
@@ -134,7 +152,7 @@ Visual: before/after comparison — broken clipped grid vs. working gap decorati
 
 ---
 
-## Slide 9: Lists, Repeaters, and LCM Interpolation
+## Slide 10: Lists, Repeaters, and LCM Interpolation
 **Pillars:** CSSWG | Implementation
 **Act:** 2 — Evolution
 
@@ -152,7 +170,7 @@ Visual: animated 3×3 grid with cycling column-rule colors and pulsing row-rule 
 
 ---
 
-## Slide 10: Transition
+## Slide 11: Transition
 **Pillars:** —
 **Act:** Transition
 
@@ -160,16 +178,18 @@ Dev trial launched in Chrome/Edge 139 (June 2025). Developer feedback reshaped t
 
 ---
 
-## Slide 11: From Intersections to Segments
+## Slide 12: From Intersections to Segments
 **Pillars:** CSSWG | Design
 **Act:** 3 — Convergence
 
-- **Sep 11, 2025** — #12784: multicol intersection points don't generalize
-- Offline TPAC 2025 discussion revealed the intersection-based model was fundamentally wrong for containers with rows and spanners
-- **Nov 11, 2025** — Kevin posts a new proposal: segments-based model
-- **Feb 2026** — PR #13299 merged: decorations are now segments, not intersection pairs
+**Sep 11, 2025** — #12784: multicol intersection points don't generalize.
+Offline TPAC 2025 discussion revealed the model was fundamentally wrong.
 
-This was the biggest spec change since the initial draft — the realization came from trying to implement multicol correctly.
+Visual: Two side-by-side diagrams of a grid (cells 1-6, item 3 spanning 2 cols):
+- **Old: Intersections** — column rules broken at each row gap junction, crosses at every intersection point (8 crosses)
+- **New: Segments** — column rules are continuous segments spanning full height, crosses only at segment endpoints (6 crosses)
+
+**Nov 2025** — Kevin posts the new proposal. **Feb 2026** — PR #13299 merges. The biggest spec change since the initial draft.
 
 **Links:**
 - [#12784](https://github.com/w3c/csswg-drafts/issues/12784)
@@ -177,7 +197,7 @@ This was the biggest spec change since the initial draft — the realization cam
 
 ---
 
-## Slide 12: January 28, 2026 F2F
+## Slide 13: January 28, 2026 F2F
 **Pillars:** CSSWG | Design | Implementation
 **Act:** 3 — Convergence
 
@@ -199,7 +219,7 @@ Participants: javierct, oSamDavis, kbabbitt, alisonmaher, TabAtkins, fantasai, a
 
 ---
 
-## Slide 13: By the Numbers
+## Slide 14: By the Numbers
 **Pillars:** —
 **Act:** —
 
@@ -233,7 +253,7 @@ Sam Davis Omekara · Javier Contreras · Kevin Babbitt · Alison Maher · Kurt C
 
 ---
 
-## Slide 15: Final Thoughts
+## Slide 16: Final Thoughts
 **Pillars:** —
 **Act:** —
 
