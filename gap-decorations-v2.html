@@ -287,25 +287,7 @@ a:hover { opacity: 0.8; }
   align-items: flex-start;
   text-align: left;
 }
-.stats-row {
-  display: flex;
-  gap: 40px;
-  margin-top: 24px;
-}
 .stat-item { text-align: center; }
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
-  max-width: 550px;
-  border-radius: 10px;
-  overflow: hidden;
-}
-.stats-grid .stat {
-  background: var(--card);
-  padding: 24px 16px;
-  text-align: center;
-}
 
 /* ═══ DIAGRAMS ═══ */
 /* Blink layers */
@@ -328,53 +310,12 @@ a:hover { opacity: 0.8; }
 .layer-layout { background: var(--impl-bg); border: 1px solid var(--impl-border); color: var(--impl); }
 .layer-paint { background: hsla(270,50%,52%,0.08); border: 1px solid hsla(270,50%,52%,0.2); color: var(--accent); }
 
-/* Timeline */
-.timeline {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  width: 100%;
-  max-width: 700px;
-}
-.timeline-item {
-  display: grid;
-  grid-template-columns: 90px 1fr;
-  gap: 20px;
-  padding: 12px 0;
-  border-left: 1px solid var(--border);
-  margin-left: 44px;
-  padding-left: 20px;
-  position: relative;
-}
-.timeline-item::before {
-  content: '';
-  position: absolute;
-  left: -4px;
-  top: 18px;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--dot-color, var(--muted));
-}
-.timeline-date {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  color: var(--muted);
-  letter-spacing: 1px;
-  padding-top: 2px;
-}
-.timeline-text {
-  font-size: 0.88rem;
-  color: var(--dim);
-  line-height: 1.5;
-}
-.timeline-text strong { color: var(--text); }
-
 /* Transition slides */
 .slide-transition {
   background: linear-gradient(135deg, var(--bg) 0%, var(--surface) 100%);
 }
-.slide-transition::before { display: none; }.transition-line {
+.slide-transition::before { display: none; }
+.transition-line {
   width: 60px;
   height: 1px;
   background: var(--muted);
@@ -383,92 +324,6 @@ a:hover { opacity: 0.8; }
 
 /* Full-bleed slides — no surface card */
 .slide-fullbleed::before { display: none; }
-
-/* F2F grid */
-.f2f-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2px;
-  width: 100%;
-  max-width: 800px;
-  border-radius: 10px;
-  overflow: hidden;
-}
-.f2f-item {
-  background: var(--card);
-  padding: 24px;
-}
-.f2f-item .f2f-num {
-  font-family: var(--font-display);
-  font-size: 1.8rem;
-  color: var(--text);
-  margin-bottom: 6px;
-}
-.f2f-item .f2f-title {
-  font-size: 0.85rem;
-  color: var(--dim);
-  line-height: 1.4;
-  margin-bottom: 8px;
-}
-.f2f-item .f2f-issue {
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  color: var(--muted);
-}
-.f2f-item .f2f-issue a { color: var(--impl); }
-
-/* Gap decoration demos — using REAL CSS Gap Decorations */
-.gap-demo {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 12px;
-  width: 240px;
-  height: 140px;
-  border-radius: 8px;
-  overflow: hidden;
-  column-rule-style: solid;
-  column-rule-width: 2px;
-  column-rule-color: var(--design);
-  row-rule-style: solid;
-  row-rule-width: 2px;
-  row-rule-color: var(--impl);
-}
-.gap-demo-cell {
-  background: var(--card);
-  border-radius: 4px;
-}
-
-/* Paint CLs table */
-.paint-table {
-  width: 100%;
-  max-width: 700px;
-  border-collapse: collapse;
-}
-.paint-table th {
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  font-weight: 500;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--muted);
-  text-align: left;
-  padding: 8px 12px;
-  border-bottom: 1px solid var(--border);
-}
-.paint-table td {
-  font-size: 0.82rem;
-  color: var(--dim);
-  padding: 10px 12px;
-  border-bottom: 1px solid var(--border);
-}
-.paint-table td a { color: var(--impl); }
-.paint-table td:first-child { font-family: var(--font-mono); font-size: 0.75rem; }
-.paint-table .total-row td {
-  color: var(--text);
-  font-weight: 600;
-  border-bottom: none;
-}
 
 /* Animated gap demo (slide 9) — REAL CSS Gap Decorations */
 .anim-demo {
@@ -491,10 +346,24 @@ a:hover { opacity: 0.8; }
   border-radius: 4px;
 }
 @keyframes animGapDemo {
-  0%   { column-rule-color: var(--design), var(--impl); column-rule-width: 2px; row-rule-width: 1px; row-rule-color: var(--wg); }
-  33%  { column-rule-color: var(--impl), var(--wg); column-rule-width: 3px; row-rule-width: 3px; row-rule-color: var(--design); }
-  66%  { column-rule-color: var(--wg), var(--accent); column-rule-width: 1px; row-rule-width: 2px; row-rule-color: var(--impl); }
-  100% { column-rule-color: var(--accent), var(--design); column-rule-width: 2px; row-rule-width: 1px; row-rule-color: var(--wg); }
+  0%   { column-rule-color: var(--design), var(--impl); column-rule-width: 2px; row-rule-width: 1px; row-rule-color: var(--wg); column-rule-inset: 0; row-rule-inset: 0; }
+  33%  { column-rule-color: var(--impl), var(--wg); column-rule-width: 3px; row-rule-width: 3px; row-rule-color: var(--design); column-rule-inset: 12px; row-rule-inset: 18px; }
+  66%  { column-rule-color: var(--wg), var(--accent); column-rule-width: 1px; row-rule-width: 2px; row-rule-color: var(--impl); column-rule-inset: -12px; row-rule-inset: -8px; }
+  100% { column-rule-color: var(--accent), var(--design); column-rule-width: 2px; row-rule-width: 1px; row-rule-color: var(--wg); column-rule-inset: 0; row-rule-inset: 0; }
+}
+.anim-label-color::after {
+  content: '';
+  display: inline-block;
+  width: 1.2em;
+  text-align: left;
+  animation: animDots 1.4s steps(4, end) infinite;
+}
+@keyframes animDots {
+  0%   { content: ''; }
+  25%  { content: '.'; }
+  50%  { content: '..'; }
+  75%  { content: '...'; }
+  100% { content: ''; }
 }
 
 /* Intersection vs Segments diagrams (slide 11) — real gap decorations on flex */
@@ -584,10 +453,10 @@ a:hover { opacity: 0.8; }
         <div class="s-stat-label">CSSWG Issues</div>
       </div>
     </div>
-    <div class="reveal reveal-d4" style="margin-top: 28px; font-size: 1.1rem; color: var(--text); font-weight: 500; font-family: var(--font-body);">
+    <div class="reveal reveal-d4" style="margin-top: 28px; font-family: var(--font-display); font-size: 1.25rem; color: var(--text);">
       Javier Contreras &middot; Sam Davis Omekara
     </div>
-    <div class="reveal reveal-d5" style="margin-top: 8px; font-size: 0.75rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase;">
+    <div class="reveal reveal-d5" style="margin-top: 6px; font-family: var(--font-mono); font-size: 0.6rem; color: var(--dim); letter-spacing: 2px; text-transform: uppercase; font-weight: 500;">
       Microsoft Web Platform
     </div>
   </div>
@@ -598,16 +467,63 @@ a:hover { opacity: 0.8; }
 <!-- ═══════════════════════════════════════════════════ -->
 <div class="slide">
   <div class="act-badge">Part 1 &mdash; The Origin</div>
-  <div class="left-col">
+  <div class="center-col" style="max-width: 1100px; width: 100%;">
     <div class="s-label reveal">The Building Blocks</div>
-    <div class="s-title reveal reveal-d1">Containers</div>
-    <div class="s-body reveal reveal-d2">
-      On the Web, container types help developers achieve their desired layout:
-      <ul>
-        <li><strong>Flex</strong>: 1D placement &mdash; items flow in a single direction</li>
-        <li><strong>Grid</strong>: 2D placement &mdash; items placed across rows and columns</li>
-        <li><strong>Multicol</strong>: triggered not by <code>display</code>, but by specifying the number of columns</li>
-      </ul>
+    <div class="s-title reveal reveal-d1" style="text-align: center;">Containers</div>
+    <div class="s-body reveal reveal-d2" style="text-align: center; margin-bottom: 32px;">
+      On the Web, container types help developers achieve their desired layout.
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; width: 100%; max-width: 920px; column-rule-style: dotted; column-rule-width: 1px; column-rule-color: var(--muted); column-rule-inset: 20px;">
+      <!-- FLEX: 1D row with arrow showing flow direction -->
+      <div class="reveal reveal-d2" style="background: var(--card); border-radius: 10px; padding: 22px;">
+        <div style="display: flex; gap: 8px; align-items: center; height: 80px; position: relative;">
+          <div style="background: var(--design); height: 38px; flex: 1; border-radius: 4px;"></div>
+          <div style="background: var(--design); height: 38px; flex: 1; border-radius: 4px; opacity: 0.85;"></div>
+          <div style="background: var(--design); height: 38px; flex: 1; border-radius: 4px; opacity: 0.7;"></div>
+          <div style="background: var(--design); height: 38px; flex: 1; border-radius: 4px; opacity: 0.55;"></div>
+          <div style="position: absolute; right: -4px; top: 56px; font-family: var(--font-mono); font-size: 0.6rem; color: var(--design);">&rarr;</div>
+        </div>
+        <div style="margin-top: 16px;">
+          <div style="font-family: var(--font-display); font-size: 1.4rem; color: var(--text);">Flex</div>
+          <div style="font-size: 0.8rem; color: var(--dim); margin-top: 4px; line-height: 1.5;">1D placement. Items flow in a single direction.</div>
+        </div>
+      </div>
+      <!-- GRID: 2D, 3x2 cells -->
+      <div class="reveal reveal-d3" style="background: var(--card); border-radius: 10px; padding: 22px;">
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 1fr); gap: 6px; height: 80px;">
+          <div style="background: var(--impl); border-radius: 4px;"></div>
+          <div style="background: var(--impl); border-radius: 4px; opacity: 0.85;"></div>
+          <div style="background: var(--impl); border-radius: 4px; opacity: 0.7;"></div>
+          <div style="background: var(--impl); border-radius: 4px; opacity: 0.85;"></div>
+          <div style="background: var(--impl); border-radius: 4px; opacity: 0.7;"></div>
+          <div style="background: var(--impl); border-radius: 4px; opacity: 0.55;"></div>
+        </div>
+        <div style="margin-top: 16px;">
+          <div style="font-family: var(--font-display); font-size: 1.4rem; color: var(--text);">Grid</div>
+          <div style="font-size: 0.8rem; color: var(--dim); margin-top: 4px; line-height: 1.5;">2D placement. Items placed across rows and columns.</div>
+        </div>
+      </div>
+      <!-- MULTICOL: 3 columns of fake text lines -->
+      <div class="reveal reveal-d4" style="background: var(--card); border-radius: 10px; padding: 22px;">
+        <div style="column-count: 3; column-gap: 8px; height: 80px;">
+          <div style="background: var(--wg); height: 4px; border-radius: 2px; margin-bottom: 4px; width: 90%;"></div>
+          <div style="background: var(--wg); height: 4px; border-radius: 2px; margin-bottom: 4px; width: 100%; opacity: 0.85;"></div>
+          <div style="background: var(--wg); height: 4px; border-radius: 2px; margin-bottom: 4px; width: 70%; opacity: 0.7;"></div>
+          <div style="background: var(--wg); height: 4px; border-radius: 2px; margin-bottom: 4px; width: 100%; opacity: 0.85;"></div>
+          <div style="background: var(--wg); height: 4px; border-radius: 2px; margin-bottom: 4px; width: 95%; opacity: 0.7;"></div>
+          <div style="background: var(--wg); height: 4px; border-radius: 2px; margin-bottom: 4px; width: 60%; opacity: 0.55;"></div>
+          <div style="background: var(--wg); height: 4px; border-radius: 2px; margin-bottom: 4px; width: 90%; opacity: 0.85;"></div>
+          <div style="background: var(--wg); height: 4px; border-radius: 2px; margin-bottom: 4px; width: 100%; opacity: 0.7;"></div>
+          <div style="background: var(--wg); height: 4px; border-radius: 2px; margin-bottom: 4px; width: 75%; opacity: 0.55;"></div>
+          <div style="background: var(--wg); height: 4px; border-radius: 2px; margin-bottom: 4px; width: 85%; opacity: 0.85;"></div>
+          <div style="background: var(--wg); height: 4px; border-radius: 2px; margin-bottom: 4px; width: 90%; opacity: 0.7;"></div>
+          <div style="background: var(--wg); height: 4px; border-radius: 2px; margin-bottom: 4px; width: 50%; opacity: 0.55;"></div>
+        </div>
+        <div style="margin-top: 16px;">
+          <div style="font-family: var(--font-display); font-size: 1.4rem; color: var(--text);">Multicol</div>
+          <div style="font-size: 0.8rem; color: var(--dim); margin-top: 4px; line-height: 1.5;">Triggered not by <code>display</code>, but by setting <code>column-count</code>.</div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -618,16 +534,30 @@ a:hover { opacity: 0.8; }
 <div class="slide" data-pillar="wg">
   <div class="pillars"><span class="pill pill-wg">CSSWG</span></div>
   <div class="act-badge">Part 1 &mdash; The Origin</div>
-  <div class="left-col">
-    <div class="s-label reveal">The Problem</div>
-    <div class="s-title reveal reveal-d1">Gutters exist &mdash; but only one container could style them</div>
-    <div class="s-body reveal reveal-d2">
-      <ul>
-        <li>These containers can have <strong>gutters</strong>, but only <strong>Multicol</strong> provided a way to style them: the <code>column-rule</code> property.</li>
-        <li><code>column-rule</code> lets you set style, color, and width &mdash; similar to borders.</li>
-        <li>There was clamor for this to be extended to Flex and Grid.</li>
-        <li><strong>June 7, 2018</strong>: <a href="https://github.com/w3c/csswg-drafts/issues/2748" target="_blank">CSSWG #2748</a> &mdash; "Styling Gaps/Gutters" is filed. The idea sat for six years with significant discussion but no spec.</li>
-      </ul>
+  <div class="split">
+    <div class="left-col">
+      <div class="s-label reveal">The Problem</div>
+      <div class="s-title reveal reveal-d1">Gutters exist, but only one container could style them</div>
+      <div class="s-body reveal reveal-d2">
+        <ul>
+          <li>These containers can have <strong>gutters</strong>, but only <strong>Multicol</strong> had a way to style them: the <code>column-rule</code> property.</li>
+          <li><code>column-rule</code> lets you set style, color, and width, similar to borders.</li>
+          <li>People wanted the same thing for Flex and Grid.</li>
+          <li><strong>June 7, 2018</strong>: <a href="https://github.com/w3c/csswg-drafts/issues/2748" target="_blank">CSSWG #2748</a> ("Styling Gaps/Gutters") is filed. The idea sat for six years. Lots of discussion, no spec.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="center-col reveal reveal-d3">
+      <!-- Multicol with column-rule demo (real CSS column rule, not gap decorations) -->
+      <div style="background: var(--card); border-radius: 8px; padding: 20px; width: 280px;">
+        <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--wg); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px;">multicol with column-rule</div>
+        <div style="column-count: 3; column-gap: 18px; column-rule: 2px solid var(--wg); font-size: 0.7rem; line-height: 1.5; color: var(--dim);">
+          Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam.
+        </div>
+        <div style="margin-top: 14px; font-family: var(--font-mono); font-size: 0.55rem; color: var(--muted); line-height: 1.6;">
+          <span style="color: var(--impl);">column-rule</span>: 2px solid;
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -638,22 +568,32 @@ a:hover { opacity: 0.8; }
 <div class="slide" data-pillar="wg-design">
   <div class="pillars"><span class="pill pill-wg">CSSWG</span><span class="pill pill-design">Design</span></div>
   <div class="act-badge">Part 1 &mdash; The Origin</div>
-  <div class="left-col">
+  <div class="left-col" style="max-width: 1100px; width: 100%;">
     <div class="s-label reveal">The Spec</div>
     <div class="s-title reveal reveal-d1">From draft to editor&rsquo;s draft</div>
-    <div class="s-body reveal reveal-d2">
-      <ul>
-        <li>Mats Palmgreen from Mozilla had a first stab at writing a spec, which informed the current spec.</li>
-        <li>Written by <strong>Kevin Babbitt</strong>, a member of our team at Microsoft.</li>
-        <li>4 key things Kevin had in mind when designing this spec:
-          <ol>
-            <li>[TBD]</li>
-            <li>[TBD]</li>
-            <li>[TBD]</li>
-            <li>[TBD]</li>
-          </ol>
-        </li>
-      </ul>
+    <div class="s-body reveal reveal-d2" style="margin-bottom: 20px;">
+      Mats Palmgreen (Mozilla) took the first stab. <strong>Kevin Babbitt</strong> from our team at Microsoft picked it up and wrote it. Three things he had in mind:
+    </div>
+    <!-- 1x3 grid with real gap decorations -->
+    <div class="reveal reveal-d3" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; width: 100%; max-width: 980px; column-rule-style: dashed; column-rule-width: 1px; column-rule-color: var(--design); column-rule-break: intersection; column-rule-inset: 0;">
+      <div style="padding: 18px 22px;">
+        <div style="font-family: var(--font-display); font-size: 1.6rem; color: var(--design); line-height: 1;">01</div>
+        <div style="font-size: 0.95rem; color: var(--text); margin-top: 6px; font-weight: 500;">Author use cases</div>
+        <div style="font-size: 0.78rem; color: var(--dim); margin-top: 4px; line-height: 1.5;">Grounded in real developer needs, with references collected in the Explainer.</div>
+      </div>
+      <div style="padding: 18px 22px;">
+        <div style="font-family: var(--font-display); font-size: 1.6rem; color: var(--wg); line-height: 1;">02</div>
+        <div style="font-size: 0.95rem; color: var(--text); margin-top: 6px; font-weight: 500;">Precedents</div>
+        <div style="font-size: 0.78rem; color: var(--dim); margin-top: 4px; line-height: 1.5;">Existing <code>column-rule</code> support, <code>repeat()</code> from Grid, and list-ified properties.</div>
+      </div>
+      <div style="padding: 18px 22px;">
+        <div style="font-family: var(--font-display); font-size: 1.6rem; color: var(--impl); line-height: 1;">03</div>
+        <div style="font-size: 0.95rem; color: var(--text); margin-top: 6px; font-weight: 500;">Scope and extensibility</div>
+        <div style="font-size: 0.78rem; color: var(--dim); margin-top: 4px; line-height: 1.5;">What ships in V1 vs. what gets deferred, shaped to leave room for future levels.</div>
+      </div>
+    </div>
+    <div class="reveal reveal-d4" style="margin-top: 14px; font-family: var(--font-mono); font-size: 0.55rem; color: var(--muted); letter-spacing: 1px;">
+      &#8593; this grid uses real gap decorations
     </div>
   </div>
 </div>
@@ -664,38 +604,82 @@ a:hover { opacity: 0.8; }
 <div class="slide" data-pillar="design-impl">
   <div class="pillars"><span class="pill pill-design">Design</span><span class="pill pill-impl">Implementation</span></div>
   <div class="act-badge">Part 1 &mdash; The Origin</div>
-  <div class="split">
-    <div class="left-col">
-      <div class="s-label reveal">The Feature in Blink</div>
-      <div class="s-title reveal reveal-d1">Style &rarr; Layout &rarr; Paint</div>
-      <div class="s-body reveal reveal-d2">
-        As Kevin was speccing, we started getting used to the machine that is Blink Core. Gap decorations touch three core layers:
-        <ul>
-          <li><strong>Style</strong>: parse properties &mdash; <code>column-rule</code>, <code>row-rule</code>, shorthands, repeaters, lists</li>
-          <li><strong>Layout</strong>: compute gap geometry for grid, flex, and multicol</li>
-          <li><strong>Paint</strong>: draw decorations with correct clipping, overflow, and scrolling</li>
-        </ul>
-        <p style="margin-top: 12px; color: var(--dim);">Every CL touches at least one of these. Some touch all three.</p>
+  <div class="center-col" style="max-width: 1100px; width: 100%;">
+    <div class="s-label reveal">The Feature in Blink</div>
+    <div class="s-title reveal reveal-d1" style="text-align: center;">Style &rarr; Layout &rarr; Paint</div>
+    <div class="s-body reveal reveal-d2" style="text-align: center; margin-bottom: 28px;">
+      While Kevin was speccing, we started getting familiar with Blink Core. Gap decorations touch three layers.
+    </div>
+    <!-- 3 mini-cards (echoes slide 4 pattern) -->
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; width: 100%; max-width: 920px;">
+      <!-- STYLE: code tokens (parsing) -->
+      <div class="reveal reveal-d2" style="background: var(--card); border-radius: 10px; padding: 22px; border-top: 2px solid var(--design);">
+        <div style="height: 64px; display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 0.7rem; line-height: 1.5;">
+          <div>
+            <span style="color: var(--design);">column-rule</span><span style="color: var(--dim);">:</span> <span style="color: var(--text);">2px solid</span><span style="color: var(--dim);">;</span><br>
+            <span style="color: var(--design);">row-rule</span><span style="color: var(--dim);">:</span> <span style="color: var(--text);">dashed</span><span style="color: var(--dim);">;</span>
+          </div>
+        </div>
+        <div style="margin-top: 14px;">
+          <div style="font-family: var(--font-display); font-size: 1.4rem; color: var(--design);">Style</div>
+          <div style="font-size: 0.78rem; color: var(--dim); margin-top: 4px; line-height: 1.5;">Parse the properties: <code>column-rule</code>, <code>row-rule</code>, shorthands, repeaters, lists.</div>
+        </div>
+      </div>
+      <!-- LAYOUT: box with gap measurement -->
+      <div class="reveal reveal-d3" style="background: var(--card); border-radius: 10px; padding: 22px; border-top: 2px solid var(--impl);">
+        <div style="height: 64px; display: flex; align-items: center; justify-content: center;">
+          <div style="display: grid; grid-template-columns: 36px 14px 36px; grid-template-rows: 26px 6px 26px; gap: 0;">
+            <div style="background: var(--impl); opacity: 0.55; border-radius: 3px;"></div>
+            <div></div>
+            <div style="background: var(--impl); opacity: 0.55; border-radius: 3px;"></div>
+            <div></div>
+            <div style="position: relative;">
+              <div style="position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--impl);"></div>
+              <div style="position: absolute; left: -2px; top: 0; bottom: 0; width: 1px; background: var(--impl);"></div>
+              <div style="position: absolute; right: -2px; top: 0; bottom: 0; width: 1px; background: var(--impl);"></div>
+            </div>
+            <div></div>
+            <div style="background: var(--impl); opacity: 0.55; border-radius: 3px;"></div>
+            <div></div>
+            <div style="background: var(--impl); opacity: 0.55; border-radius: 3px;"></div>
+          </div>
+        </div>
+        <div style="margin-top: 14px;">
+          <div style="font-family: var(--font-display); font-size: 1.4rem; color: var(--impl);">Layout</div>
+          <div style="font-size: 0.78rem; color: var(--dim); margin-top: 4px; line-height: 1.5;">Compute gap geometry for grid, flex, and multicol.</div>
+        </div>
+      </div>
+      <!-- PAINT: cells with rule lines drawn through gaps -->
+      <div class="reveal reveal-d4" style="background: var(--card); border-radius: 10px; padding: 22px; border-top: 2px solid var(--accent);">
+        <div style="height: 64px; display: flex; align-items: center; justify-content: center;">
+          <div style="position: relative; display: grid; grid-template-columns: repeat(2, 30px); grid-template-rows: repeat(2, 26px); gap: 8px;">
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="position: absolute; left: 50%; top: -2px; bottom: -2px; width: 2px; background: var(--accent); transform: translateX(-50%); border-radius: 1px;"></div>
+            <div style="position: absolute; top: 50%; left: -2px; right: -2px; height: 2px; background: var(--accent); transform: translateY(-50%); border-radius: 1px;"></div>
+          </div>
+        </div>
+        <div style="margin-top: 14px;">
+          <div style="font-family: var(--font-display); font-size: 1.4rem; color: var(--accent);">Paint</div>
+          <div style="font-size: 0.78rem; color: var(--dim); margin-top: 4px; line-height: 1.5;">Draw decorations with correct clipping, overflow, and scrolling.</div>
+        </div>
       </div>
     </div>
-    <div class="center-col reveal reveal-d2">
-      <div class="layers-stack">
-        <div class="layer-item layer-style">Style</div>
-        <div class="layer-item layer-layout">Layout</div>
-        <div class="layer-item layer-paint" style="border-color: var(--accent); color: var(--accent); background: hsla(270,50%,55%,0.08);">Paint</div>
-      </div>
-      <div style="margin-top: 16px; font-family: var(--font-mono); font-size: 0.6rem; color: var(--muted); letter-spacing: 1px;">BLINK RENDERING PIPELINE</div>
+    <div class="reveal reveal-d5" style="margin-top: 22px; font-size: 0.95rem; color: var(--dim); text-align: center;">
+      Every CL touches at least one of these. Some touch all three.
     </div>
   </div>
 </div>
 
 <!-- ═══════════════════════════════════════════════════ -->
-<!-- SLIDE 5: TRANSITION 1 -->
+<!-- SLIDE 6: TRANSITION 1 -->
 <!-- ═══════════════════════════════════════════════════ -->
 <div class="slide slide-transition">
   <div class="center-col">
     <div class="transition-line reveal"></div>
-    <div class="s-title reveal reveal-d1" style="max-width: 600px;">With initial spec and implementation, interesting questions were raised &mdash; which ushered us into the world of Standards</div>
+    <div class="s-title reveal reveal-d1" style="max-width: 600px;">Once we had an initial spec and implementation, interesting questions started coming up. That&rsquo;s when we got pulled into Standards work.</div>
     <div class="transition-line reveal reveal-d2"></div>
   </div>
 </div>
@@ -710,8 +694,8 @@ a:hover { opacity: 0.8; }
     <div class="s-label reveal">Working with Standards</div>
     <div class="s-title reveal reveal-d1">The spec evolved alongside the code</div>
     <div class="s-body reveal reveal-d2" style="text-align: center; margin-bottom: 24px;">
-      Implementation surfaced questions &#8594; We filed issues &#8594; We worked with the CSSWG to resolve them &#8594; We updated the code.<br>
-      Our goal was to position the WG as a <strong>partner</strong>, not a gatekeeper.
+      Implementation surfaced questions. We filed issues. We worked with the CSSWG to resolve them. We updated the code.<br>
+      We tried to treat the WG as a partner, not a checkpoint to get past.
     </div>
     <!-- Issue cards grid -->
     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; width: 100%; max-width: 820px; column-rule-style: dotted; column-rule-width: 1px; column-rule-color: var(--wg);" class="reveal reveal-d3">
@@ -741,14 +725,14 @@ a:hover { opacity: 0.8; }
         <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--design); margin-top: 8px;">&#10003; Aug 6, 2025</div>
       </div>
       <div style="background: var(--surface); border-radius: 8px; padding: 14px 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
-        <div style="font-family: var(--font-display); font-size: 1.6rem; color: var(--text);">30</div>
+        <div style="font-family: var(--font-display); font-size: 1.6rem; color: var(--design);">30</div>
         <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--muted); letter-spacing: 1px; margin-top: 2px;">ISSUES FILED</div>
-        <div style="font-family: var(--font-display); font-size: 1.6rem; color: var(--design); margin-top: 6px;">24</div>
+        <div style="font-family: var(--font-display); font-size: 1.6rem; color: var(--text); margin-top: 6px;">24</div>
         <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--muted); letter-spacing: 1px; margin-top: 2px;">RESOLVED</div>
       </div>
     </div>
     <div class="s-body reveal reveal-d4" style="margin-top: 16px; text-align: center; color: var(--muted); font-size: 0.82rem;">
-      &#9888; <a href="https://github.com/w3c/csswg-drafts/issues/11491" target="_blank">#11491</a>: bikeshedding rule-break names took <strong style="color: var(--wg);">14 months</strong> to resolve with no change. The deliberation is frustrating &mdash; but it&rsquo;s what produces a spec multiple engines can implement consistently.
+      &#9888; <a href="https://github.com/w3c/csswg-drafts/issues/11491" target="_blank">#11491</a>: bikeshedding rule-break names took <strong style="color: var(--wg);">14 months</strong> to resolve. No change in the end. The deliberation is frustrating, but it&rsquo;s what produces a spec multiple engines can implement consistently.
     </div>
   </div>
 </div>
@@ -765,17 +749,45 @@ a:hover { opacity: 0.8; }
       <div class="s-title reveal reveal-d1">The Old Model</div>
       <div class="s-body reveal reveal-d2">
         <ul>
-          <li><strong>Intersections as first-class objects.</strong> Each gap had a list of intersection points.</li>
+          <li><strong>Intersections as first-class objects.</strong> Each gap stored a list of intersection points.</li>
           <li>2D vectors of gaps &times; intersections.</li>
-          <li>Storage: <span style="font-family: var(--font-mono); color: hsl(0,50%,55%);">O(m &times; n)</span> &mdash; every intersection stored as an (x, y) pair.</li>
+          <li>Storage: <span style="font-family: var(--font-mono); color: hsl(0,50%,55%);">O(m &times; n)</span>. Every intersection stored as an (x, y) pair.</li>
           <li>Simple for grid, but expensive at scale.</li>
         </ul>
       </div>
     </div>
     <div class="center-col reveal reveal-d3">
-      <!-- Memory cost stat callouts -->
-      <div style="display: flex; flex-direction: column; gap: 10px; width: 280px;">
-        <div style="background: var(--card); border-radius: 8px; padding: 18px; border-left: 3px solid hsl(0,50%,55%); text-align: center;">
+      <div style="display: flex; gap: 16px; align-items: stretch;">
+        <!-- BEFORE: 12 intersection pairs diagram -->
+        <div style="background: var(--card); border-radius: 8px; padding: 16px; border: 1px solid var(--border); width: 220px;">
+          <div style="font-family: var(--font-mono); font-size: 0.55rem; color: hsl(0,50%,55%); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px;">Before: 12 pairs</div>
+          <div style="position: relative; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 38px); gap: 10px; column-rule-style: solid; column-rule-width: 1px; column-rule-color: hsla(0,40%,55%,0.3); row-rule-style: solid; row-rule-width: 1px; row-rule-color: hsla(0,40%,55%,0.3);">
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div class="md-cross" style="top: -4px; left: calc((100% - 20px) / 3 + 1px);"></div>
+            <div class="md-cross" style="top: -4px; left: calc((100% - 20px) / 3 * 2 + 11px);"></div>
+            <div class="md-cross" style="top: 40px; left: -4px;"></div>
+            <div class="md-cross" style="top: 40px; left: calc((100% - 20px) / 3 + 1px);"></div>
+            <div class="md-cross" style="top: 40px; left: calc((100% - 20px) / 3 * 2 + 11px);"></div>
+            <div class="md-cross" style="top: 40px; right: -4px;"></div>
+            <div class="md-cross" style="top: 88px; left: -4px;"></div>
+            <div class="md-cross" style="top: 88px; left: calc((100% - 20px) / 3 + 1px);"></div>
+            <div class="md-cross" style="top: 88px; left: calc((100% - 20px) / 3 * 2 + 11px);"></div>
+            <div class="md-cross" style="top: 88px; right: -4px;"></div>
+            <div class="md-cross" style="bottom: -4px; left: calc((100% - 20px) / 3 + 1px);"></div>
+            <div class="md-cross" style="bottom: -4px; left: calc((100% - 20px) / 3 * 2 + 11px);"></div>
+          </div>
+          <div style="font-family: var(--font-mono); font-size: 0.5rem; color: var(--muted); margin-top: 10px;">every intersection stored as (x, y)</div>
+        </div>
+        <!-- Memory cost stat callouts -->
+        <div style="background: var(--card); border-radius: 8px; padding: 18px; border-left: 3px solid hsl(0,50%,55%); text-align: center; width: 200px;">
           <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px;">Memory at O(m &times; n)</div>
           <div style="display: flex; flex-direction: column; gap: 12px;">
             <div>
@@ -810,14 +822,14 @@ a:hover { opacity: 0.8; }
     <div class="s-title reveal reveal-d1">Why Grid forced the issue</div>
     <div class="s-body reveal reveal-d2">
       <ul>
-        <li>Grid tracks use <strong>compressed abstractions</strong> &mdash; <code>GridRanges</code> and <code>GridSets</code>.</li>
-        <li>Grid avoids expanding tracks into individual positions. This is by design.</li>
+        <li>Grid tracks use <strong>compressed abstractions</strong>: <code>GridRanges</code> and <code>GridSets</code>.</li>
+        <li>Grid avoids expanding tracks into individual positions. That&rsquo;s by design.</li>
         <li>But the old gap decoration model needed expansion via <code>ComputeExpandedPositions</code>.</li>
-        <li>We were <strong>fighting the grid engine&rsquo;s philosophy</strong> &mdash; forcing it to do what it was specifically designed not to do.</li>
+        <li>We were <strong>fighting the grid engine</strong>, asking it to do the one thing it was built not to do.</li>
       </ul>
     </div>
     <div class="s-body reveal reveal-d3" style="margin-top: 16px;">
-      The mismatch was untenable. We needed a model that respected how grid (and flex, and multicol) actually work internally.
+      It wasn&rsquo;t going to work long-term. We needed a model that fit how grid (and flex, and multicol) actually work inside.
     </div>
   </div>
 </div>
@@ -834,7 +846,7 @@ a:hover { opacity: 0.8; }
       <div class="s-title reveal reveal-d1">The Anchor / Dependent Model</div>
       <div class="s-body reveal reveal-d2">
         <ul>
-          <li><strong>Two-direction model.</strong> Anchor Gaps (primary) + Dependent Gaps (orthogonal).</li>
+          <li><strong>Two-direction model.</strong> Anchor Gaps (primary) plus Dependent Gaps (orthogonal).</li>
           <li>Intersections computed <strong>on-demand</strong>, not stored.</li>
           <li>Storage: <span style="font-family: var(--font-mono); color: var(--design);">O(m + n)</span></li>
           <li><a href="https://chromium-review.googlesource.com/c/chromium/src/+/6819000" target="_blank">CL 6819000</a>: introduced separate Main and Cross gap classes</li>
@@ -922,17 +934,17 @@ a:hover { opacity: 0.8; }
         <div class="anim-demo-cell"></div><div class="anim-demo-cell"></div><div class="anim-demo-cell"></div>
       </div>
       <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--muted); margin-top: 12px; letter-spacing: 1px;">
-        column-rule-color, column-rule-width: <span class="anim-label-color">animating…</span>
+        column-rule-color, column-rule-width, rule-inset: <span class="anim-label-color">animating</span>
       </div>
     </div>
     <div class="left-col">
       <div class="s-label reveal">Property Lists</div>
-      <div class="s-title reveal reveal-d1">Do not expand &mdash; except for animations</div>
+      <div class="s-title reveal reveal-d1">Do not expand, except for animations</div>
       <div class="s-body reveal reveal-d2">
         <ul>
-          <li><code>GapDataListIterator</code> traverses property lists <strong>without expanding</strong>.</li>
+          <li><code>GapDataListIterator</code> walks property lists <strong>without expanding</strong> them.</li>
           <li>Three regions: <strong>Leading</strong>, <strong>Auto</strong>, <strong>Trailing</strong>.</li>
-          <li>But animations (<a href="https://github.com/w3c/csswg-drafts/issues/12431" target="_blank">CSSWG #12431</a>) need expansion. LCM alignment for interpolating lists of different lengths.</li>
+          <li>Animations (<a href="https://github.com/w3c/csswg-drafts/issues/12431" target="_blank">CSSWG #12431</a>) are the exception. They need expansion. LCM alignment for interpolating lists of different lengths.</li>
           <li>Led to V2 interpolation: <a href="https://chromium-review.googlesource.com/c/chromium/src/+/6961880" target="_blank">CL 6961880</a>, <a href="https://chromium-review.googlesource.com/c/chromium/src/+/7078855" target="_blank">CL 7078855</a></li>
         </ul>
       </div>
@@ -946,53 +958,98 @@ a:hover { opacity: 0.8; }
 <div class="slide" data-pillar="impl">
   <div class="pillars"><span class="pill pill-impl">Implementation</span></div>
   <div class="act-badge">Part 2 &mdash; Iteration</div>
-  <div class="split">
-    <div class="center-col reveal reveal-d2">
-      <!-- Visual: broken → fixed paint scenarios (kept from old paint slide) -->
-      <div style="display: flex; flex-direction: column; gap: 12px; width: 260px;">
-        <div style="position: relative; background: var(--card); border-radius: 8px; padding: 16px; border: 1px solid var(--border);">
-          <div style="font-family: var(--font-mono); font-size: 0.55rem; color: hsl(0,50%,55%); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px;">Before</div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 30px 30px; gap: 0; border-radius: 4px; overflow: hidden; position: relative;">
-            <div style="background: hsla(220,20%,80%,0.6);"></div><div style="background: hsla(220,20%,80%,0.6);"></div><div style="background: hsla(220,20%,80%,0.6);"></div>
-            <div style="background: hsla(220,20%,80%,0.6);"></div><div style="background: hsla(220,20%,80%,0.6);"></div><div style="background: hsla(220,20%,80%,0.6);"></div>
-          </div>
-          <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--muted); margin-top: 8px;">decorations clipped on scroll</div>
-        </div>
-        <div style="position: relative; background: var(--card); border-radius: 8px; padding: 16px; border: 1px solid var(--design-border);">
-          <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--design); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px;">After</div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 30px 30px; gap: 8px; border-radius: 4px; overflow: hidden; column-rule-style: solid; column-rule-width: 2px; column-rule-color: var(--design); row-rule-style: solid; row-rule-width: 2px; row-rule-color: var(--impl);">
-            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div><div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div><div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
-            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div><div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div><div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
-          </div>
-          <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--muted); margin-top: 8px;">ink overflow, scroll, resize — all correct</div>
-        </div>
-      </div>
+  <div class="center-col" style="max-width: 1100px; width: 100%;">
+    <div class="s-label reveal">Into Unfamiliar Territory</div>
+    <div class="s-title reveal reveal-d1" style="text-align: center;">Paint Land: fun but subtle</div>
+    <div class="s-body reveal reveal-d2" style="text-align: center; max-width: 720px; margin-bottom: 28px;">
+      Geometry from layout &rarr; rects &rarr; paint ops (<code>BoxFragmentPainter</code>). Five subtleties we had to figure out:
     </div>
-    <div class="left-col">
-      <div class="s-label reveal">Into Unfamiliar Territory</div>
-      <div class="s-title reveal reveal-d1">Paint Land &mdash; fun but subtle</div>
-      <div class="s-body reveal reveal-d2">
-        Geometry from layout &rarr; rects &rarr; paint ops (<code>BoxFragmentPainter</code>). Subtleties we had to solve:
-        <ul>
-          <li><strong>Ink overflow</strong> &mdash; decorations extending past content box</li>
-          <li><strong>Overflow &amp; clipping</strong> &mdash; scrollable containers</li>
-          <li><strong>Paint invalidation</strong> &mdash; knowing when to repaint</li>
-          <li><strong>Resize repaint</strong> &mdash; responsive reflow</li>
-          <li><strong>Multicol paint</strong> &mdash; fragmented columns</li>
-        </ul>
+    <!-- Five vignettes: ink overflow, clipping, invalidation, resize, multicol -->
+    <div class="reveal reveal-d3" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; width: 100%; max-width: 1040px;">
+
+      <!-- 1. Ink overflow: decoration extends past content box -->
+      <div style="background: var(--card); border-radius: 8px; padding: 14px;">
+        <div style="position: relative; height: 80px; display: flex; align-items: center; justify-content: center;">
+          <div style="position: relative; width: 70px; height: 50px; border: 1px dashed var(--muted); border-radius: 3px;">
+            <!-- decoration line extending past the box on both sides -->
+            <div style="position: absolute; left: -14px; right: -14px; top: 50%; height: 3px; background: var(--impl); transform: translateY(-50%); border-radius: 1px;"></div>
+          </div>
+        </div>
+        <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--impl); letter-spacing: 1px; text-transform: uppercase; margin-top: 8px;">Ink overflow</div>
+        <div style="font-size: 0.7rem; color: var(--dim); margin-top: 4px; line-height: 1.4;">Decorations extend past the content box.</div>
       </div>
-      <div class="s-body reveal reveal-d3" style="margin-top: 12px;">
-        Shoutout to <strong>Philip Rogers (pdr)</strong>, a paint owner, who guided us through <strong>120+ review comments</strong>.
+
+      <!-- 2. Overflow & clipping: scrollable container, decoration clips at edge -->
+      <div style="background: var(--card); border-radius: 8px; padding: 14px;">
+        <div style="position: relative; height: 80px; display: flex; align-items: center; justify-content: center;">
+          <div style="position: relative; width: 70px; height: 60px; border: 1px solid var(--muted); border-radius: 3px; overflow: hidden;">
+            <!-- decoration line, clipped by container -->
+            <div style="position: absolute; left: 14px; top: -8px; bottom: -8px; width: 3px; background: var(--impl); border-radius: 1px;"></div>
+            <!-- scroll indicator on right -->
+            <div style="position: absolute; right: 3px; top: 8px; bottom: 8px; width: 2px; background: var(--muted); border-radius: 1px; opacity: 0.5;"></div>
+          </div>
+        </div>
+        <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--impl); letter-spacing: 1px; text-transform: uppercase; margin-top: 8px;">Clipping</div>
+        <div style="font-size: 0.7rem; color: var(--dim); margin-top: 4px; line-height: 1.4;">Scrollable containers clip correctly at edges.</div>
       </div>
-      <div class="reveal reveal-d4" style="margin-top: 12px; font-family: var(--font-mono); font-size: 0.6rem; color: var(--muted); line-height: 2;">
-        CLs: <a href="https://chromium-review.googlesource.com/c/chromium/src/+/6101656" target="_blank" style="color: var(--impl);">6101656</a> &middot;
-        <a href="https://chromium-review.googlesource.com/c/chromium/src/+/6451833" target="_blank" style="color: var(--impl);">6451833</a> &middot;
-        <a href="https://chromium-review.googlesource.com/c/chromium/src/+/6506379" target="_blank" style="color: var(--impl);">6506379</a> &middot;
-        <a href="https://chromium-review.googlesource.com/c/chromium/src/+/6625941" target="_blank" style="color: var(--impl);">6625941</a> &middot;
-        <a href="https://chromium-review.googlesource.com/c/chromium/src/+/6618134" target="_blank" style="color: var(--impl);">6618134</a> &middot;
-        <a href="https://chromium-review.googlesource.com/c/chromium/src/+/6907139" target="_blank" style="color: var(--impl);">6907139</a> &middot;
-        <a href="https://chromium-review.googlesource.com/c/chromium/src/+/6848348" target="_blank" style="color: var(--impl);">6848348</a>
+
+      <!-- 3. Paint invalidation: dirty region marker -->
+      <div style="background: var(--card); border-radius: 8px; padding: 14px;">
+        <div style="position: relative; height: 80px; display: flex; align-items: center; justify-content: center;">
+          <div style="position: relative; width: 70px; height: 50px; border: 1px solid var(--muted); border-radius: 3px;">
+            <!-- two decoration lines, one with "stale" marker -->
+            <div style="position: absolute; left: 22px; top: 4px; bottom: 4px; width: 2px; background: var(--impl); border-radius: 1px;"></div>
+            <div style="position: absolute; left: 44px; top: 4px; bottom: 4px; width: 2px; background: var(--impl); opacity: 0.3; border-radius: 1px;"></div>
+            <!-- highlighted dirty region around stale line -->
+            <div style="position: absolute; left: 38px; top: -3px; bottom: -3px; width: 14px; border: 1px dashed hsl(0,55%,55%); border-radius: 2px;"></div>
+          </div>
+        </div>
+        <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--impl); letter-spacing: 1px; text-transform: uppercase; margin-top: 8px;">Invalidation</div>
+        <div style="font-size: 0.7rem; color: var(--dim); margin-top: 4px; line-height: 1.4;">Knowing what to repaint when state changes.</div>
       </div>
+
+      <!-- 4. Resize repaint: container with arrows showing growth -->
+      <div style="background: var(--card); border-radius: 8px; padding: 14px;">
+        <div style="position: relative; height: 80px; display: flex; align-items: center; justify-content: center;">
+          <div style="position: relative; width: 60px; height: 50px; border: 1px solid var(--muted); border-radius: 3px;">
+            <!-- two decoration lines -->
+            <div style="position: absolute; left: 18px; top: 4px; bottom: 4px; width: 2px; background: var(--impl); border-radius: 1px;"></div>
+            <div style="position: absolute; left: 38px; top: 4px; bottom: 4px; width: 2px; background: var(--impl); border-radius: 1px;"></div>
+          </div>
+          <!-- resize arrows on the right -->
+          <div style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); font-family: var(--font-mono); font-size: 0.7rem; color: var(--muted);">&harr;</div>
+        </div>
+        <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--impl); letter-spacing: 1px; text-transform: uppercase; margin-top: 8px;">Resize</div>
+        <div style="font-size: 0.7rem; color: var(--dim); margin-top: 4px; line-height: 1.4;">Decorations reflow when the layout changes.</div>
+      </div>
+
+      <!-- 5. Multicol paint: fragmented across columns -->
+      <div style="background: var(--card); border-radius: 8px; padding: 14px;">
+        <div style="position: relative; height: 80px; display: flex; align-items: center; justify-content: center; gap: 4px;">
+          <!-- two columns side-by-side, each with own decoration -->
+          <div style="position: relative; width: 26px; height: 60px; border: 1px solid var(--muted); border-radius: 3px;">
+            <div style="position: absolute; left: 50%; top: 6px; bottom: 6px; width: 2px; background: var(--impl); transform: translateX(-50%); border-radius: 1px;"></div>
+          </div>
+          <div style="position: relative; width: 26px; height: 60px; border: 1px solid var(--muted); border-radius: 3px;">
+            <div style="position: absolute; left: 50%; top: 6px; bottom: 6px; width: 2px; background: var(--impl); transform: translateX(-50%); border-radius: 1px;"></div>
+          </div>
+        </div>
+        <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--impl); letter-spacing: 1px; text-transform: uppercase; margin-top: 8px;">Multicol</div>
+        <div style="font-size: 0.7rem; color: var(--dim); margin-top: 4px; line-height: 1.4;">Fragmented columns each paint their own.</div>
+      </div>
+
+    </div>
+    <div class="s-body reveal reveal-d4" style="text-align: center; margin-top: 24px; max-width: 720px;">
+      Big shoutout to <strong>Philip Rogers (pdr)</strong>, a paint owner. He walked us through many rounds of review.
+    </div>
+    <div class="reveal reveal-d5" style="margin-top: 14px; font-family: var(--font-mono); font-size: 0.6rem; color: var(--muted); text-align: center;">
+      CLs: <a href="https://chromium-review.googlesource.com/c/chromium/src/+/6101656" target="_blank" style="color: var(--impl);">6101656</a> &middot;
+      <a href="https://chromium-review.googlesource.com/c/chromium/src/+/6451833" target="_blank" style="color: var(--impl);">6451833</a> &middot;
+      <a href="https://chromium-review.googlesource.com/c/chromium/src/+/6506379" target="_blank" style="color: var(--impl);">6506379</a> &middot;
+      <a href="https://chromium-review.googlesource.com/c/chromium/src/+/6625941" target="_blank" style="color: var(--impl);">6625941</a> &middot;
+      <a href="https://chromium-review.googlesource.com/c/chromium/src/+/6618134" target="_blank" style="color: var(--impl);">6618134</a> &middot;
+      <a href="https://chromium-review.googlesource.com/c/chromium/src/+/6907139" target="_blank" style="color: var(--impl);">6907139</a> &middot;
+      <a href="https://chromium-review.googlesource.com/c/chromium/src/+/6848348" target="_blank" style="color: var(--impl);">6848348</a>
     </div>
   </div>
 </div>
@@ -1109,8 +1166,8 @@ a:hover { opacity: 0.8; }
     <div class="s-label reveal">The Model Was Grid-specific</div>
     <div class="s-title reveal reveal-d1" style="margin-bottom: 8px;">From intersections to segments</div>
     <div class="s-body reveal reveal-d2" style="text-align: center; margin-bottom: 20px; max-width: 720px;">
-      The intersection model was biased toward grid &mdash; it didn&rsquo;t generalize for multicol and flex.
-      The spec moved to a <strong>segments-based model</strong>. The biggest spec rewrite since the initial draft.
+      The intersection model leaned too heavily on grid. It didn&rsquo;t generalize for multicol and flex.
+      The spec moved to a <strong>segments-based model</strong>. Biggest spec rewrite since the initial draft.
       (<a href="https://github.com/w3c/csswg-drafts/issues/12784" target="_blank">#12784</a>)
     </div>
     <!-- Diagrams side by side, scaled up -->
@@ -1193,13 +1250,13 @@ a:hover { opacity: 0.8; }
         </li>
         <li style="display: flex; gap: 16px; align-items: baseline; padding: 0;">
           <span style="font-family: var(--font-display); font-size: 1.6rem; color: var(--wg); flex-shrink: 0; width: 28px;">4</span>
-          <span style="line-height: 1.5;">Gap suppression with spanners &mdash; no change needed. <a href="https://github.com/w3c/csswg-drafts/issues/13362" target="_blank" style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--impl);">#13362</a></span>
+          <span style="line-height: 1.5;">Gap suppression with spanners. No change needed. <a href="https://github.com/w3c/csswg-drafts/issues/13362" target="_blank" style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--impl);">#13362</a></span>
         </li>
       </ol>
     </div>
     <div class="s-body reveal reveal-d3" style="margin-top: 16px;">
-      <strong>11 CLs + 2 spec PRs within 5 weeks.</strong><br>
-      When you get the right people in a room, things move fast.
+      <strong>11 CLs and 2 spec PRs in 5 weeks.</strong><br>
+      Get the right people in a room and things move fast.
     </div>
   </div>
 </div>
@@ -1208,6 +1265,7 @@ a:hover { opacity: 0.8; }
 <!-- SLIDE 17: BY THE NUMBERS -->
 <!-- ═══════════════════════════════════════════════════ -->
 <div class="slide">
+  <div class="act-badge">Wrap</div>
   <div class="center-col">
     <div class="s-label reveal">By the Numbers</div>
     <div class="s-title reveal reveal-d1">Two years of work</div>
@@ -1252,9 +1310,9 @@ a:hover { opacity: 0.8; }
     <div class="s-title reveal reveal-d1" style="max-width: 700px;">The feature that touches everything</div>
     <div class="s-body reveal reveal-d2" style="text-align: center; max-width: 600px;">
       <ul style="text-align: left;">
-        <li>Gap decorations forced us to learn paint, layout, and style in depth</li>
-        <li>The spec changed because implementation revealed real problems</li>
-        <li>Developer feedback during dev trial directly shaped the final design</li>
+        <li>Gap decorations forced us to learn paint, layout, and style in depth.</li>
+        <li>The spec changed because implementation kept finding real problems.</li>
+        <li>Developer feedback during dev trial shaped the final design.</li>
         <li>Standards work isn't overhead. It's how you get the design right.</li>
       </ul>
     </div>
@@ -1275,7 +1333,7 @@ a:hover { opacity: 0.8; }
       Gap decorations are available behind a flag today. Try it. Break it. File issues.
     </div>
     <div class="s-body reveal reveal-d3" style="text-align: center; max-width: 620px; margin-top: 16px; color: var(--dim);">
-      The feature that started as a <a href="https://github.com/w3c/csswg-drafts/issues/2748" target="_blank" style="color: var(--wg);">2018 CSSWG issue</a> is now real &mdash; and it&rsquo;s better because developers pushed back and helped shape it.
+      The feature that started as a <a href="https://github.com/w3c/csswg-drafts/issues/2748" target="_blank" style="color: var(--wg);">2018 CSSWG issue</a> is real now. It&rsquo;s better because developers pushed back and helped shape it.
     </div>
     <div class="reveal reveal-d4" style="margin-top: 28px; font-family: var(--font-mono); font-size: 0.85rem; color: var(--impl); letter-spacing: 1px;">
       <code style="background: var(--impl-bg); padding: 4px 10px; border-radius: 4px; border: 1px solid var(--impl-border);">column-rule</code>

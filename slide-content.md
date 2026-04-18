@@ -39,12 +39,12 @@ On the Web, container types help developers achieve their desired layout:
 **Part:** 1 — The Origin
 **Label:** The Problem
 
-### Gutters exist — but only one container could style them
+### Gutters exist, but only one container could style them
 
-- These containers can have **gutters**, but only **Multicol** provided a way to style them: the `column-rule` property.
-- `column-rule` lets you set style, color, and width — similar to borders.
-- There was clamor for this to be extended to Flex and Grid.
-- **June 7, 2018**: CSSWG #2748 — "Styling Gaps/Gutters" is filed. The idea sat for six years with significant discussion but no spec.
+- These containers can have **gutters**, but only **Multicol** had a way to style them: the `column-rule` property.
+- `column-rule` lets you set style, color, and width, similar to borders.
+- People wanted the same thing for Flex and Grid.
+- **June 7, 2018**: CSSWG #2748 ("Styling Gaps/Gutters") is filed. The idea sat for six years. Lots of discussion, no spec.
 
 **Links:** [CSSWG #2748](https://github.com/w3c/csswg-drafts/issues/2748)
 
@@ -57,13 +57,12 @@ On the Web, container types help developers achieve their desired layout:
 
 ### From draft to editor's draft
 
-- Mats Palmgreen from Mozilla had a first stab at writing a spec, which informed the current spec.
-- Written by **Kevin Babbitt**, a member of our team at Microsoft.
-- 4 key things Kevin had in mind when designing this spec:
-  1. [TBD]
-  2. [TBD]
-  3. [TBD]
-  4. [TBD]
+- Mats Palmgreen (Mozilla) took the first stab. **Kevin Babbitt** from our team at Microsoft picked it up and wrote it. Three things he had in mind:
+  1. **Author use cases** — grounded in real developer needs, with references collected in the Explainer.
+  2. **Precedents** — existing `column-rule` support, `repeat()` from Grid, and list-ified properties.
+  3. **Scope and extensibility** — what ships in V1 vs. what gets deferred, shaped to leave room for future levels.
+
+**Diagram:** the 3-card grid uses real gap decorations (dashed column-rule, rule-break: intersection, rule-inset: 0).
 
 **Links:**
 - [CSSWG #10393](https://github.com/w3c/csswg-drafts/issues/10393)
@@ -78,9 +77,9 @@ On the Web, container types help developers achieve their desired layout:
 
 ### Style → Layout → Paint
 
-As Kevin was speccing, we started getting used to the machine that is Blink Core. Gap decorations touch three core layers:
+While Kevin was speccing, we started getting familiar with Blink Core. Gap decorations touch three layers:
 
-- **Style**: parse properties — `column-rule`, `row-rule`, shorthands, repeaters, lists
+- **Style**: parse the properties (`column-rule`, `row-rule`, shorthands, repeaters, lists)
 - **Layout**: compute gap geometry for grid, flex, and multicol
 - **Paint**: draw decorations with correct clipping, overflow, and scrolling
 
@@ -94,7 +93,7 @@ Every CL touches at least one of these. Some touch all three.
 **Pillars:** —
 **Part:** Transition
 
-With initial spec and implementation, interesting questions were raised — which ushered us into the world of Standards.
+Once we had an initial spec and implementation, interesting questions started coming up. That's when we got pulled into Standards work.
 
 ---
 
@@ -105,8 +104,8 @@ With initial spec and implementation, interesting questions were raised — whic
 
 ### The spec evolved alongside the code
 
-- Implementation surfaced questions → We filed issues → We worked with the CSSWG to resolve them → We updated the code.
-- Our goal was to position the WG as a **partner**, not a gatekeeper.
+- Implementation surfaced questions. We filed issues. We worked with the CSSWG to resolve them. We updated the code.
+- We tried to treat the WG as a partner, not a checkpoint to get past.
 - Key issues:
   - #11492: Auto repeater behavior (✓ Jan 31, 2025)
   - #11494: Computed value with none/hidden (✓ Jan 31, 2025)
@@ -114,7 +113,7 @@ With initial spec and implementation, interesting questions were raised — whic
   - #12024: Outsets at edges (✓ Aug 20, 2025)
   - #12540: Renamed rule-paint-order → rule-overlap (✓ Aug 6, 2025)
 - **30 issues filed. 24 resolved.**
-- The other side: #11491 bikeshedding rule-break names took **14 months** to resolve with no change. The deliberation is frustrating — but it's what produces a spec multiple engines can implement consistently.
+- The other side: #11491, bikeshedding rule-break names, took **14 months** to resolve. No change in the end. The deliberation is frustrating, but it's what produces a spec multiple engines can implement consistently.
 
 **Links:**
 - [#11492](https://github.com/w3c/csswg-drafts/issues/11492)
@@ -133,9 +132,9 @@ With initial spec and implementation, interesting questions were raised — whic
 
 ### The Old Model
 
-- **Intersections as first-class objects.** Each gap had a list of intersection points.
+- **Intersections as first-class objects.** Each gap stored a list of intersection points.
 - 2D vectors of gaps × intersections.
-- Storage: O(m × n) — every intersection stored as an (x, y) pair.
+- Storage: O(m × n). Every intersection stored as an (x, y) pair.
 - Simple for grid, but expensive at scale.
 
 **Memory at O(m × n):**
@@ -144,6 +143,8 @@ With initial spec and implementation, interesting questions were raised — whic
 | 100 × 100 | 160 KB |
 | 1,000 × 1,000 | 16 MB |
 | 5,000 × 5,000 | 400 MB |
+
+**Diagram:** "Before: 12 pairs" — a 3×3 grid with every intersection marked as a red cross, shown next to the memory cost callouts.
 
 ---
 
@@ -154,11 +155,11 @@ With initial spec and implementation, interesting questions were raised — whic
 
 ### Why Grid forced the issue
 
-- Grid tracks use **compressed abstractions** — `GridRanges` and `GridSets`.
-- Grid avoids expanding tracks into individual positions. This is by design.
+- Grid tracks use **compressed abstractions**: `GridRanges` and `GridSets`.
+- Grid avoids expanding tracks into individual positions. That's by design.
 - But the old gap decoration model needed expansion via `ComputeExpandedPositions`.
-- We were **fighting the grid engine's philosophy** — forcing it to do what it was specifically designed not to do.
-- The mismatch was untenable. We needed a model that respected how grid (and flex, and multicol) actually work internally.
+- We were **fighting the grid engine**, asking it to do the one thing it was built not to do.
+- It wasn't going to work long-term. We needed a model that fit how grid (and flex, and multicol) actually work inside.
 
 ---
 
@@ -169,11 +170,11 @@ With initial spec and implementation, interesting questions were raised — whic
 
 ### The Anchor / Dependent Model
 
-- **Two-direction model.** Anchor Gaps (primary) + Dependent Gaps (orthogonal).
+- **Two-direction model.** Anchor Gaps (primary) plus Dependent Gaps (orthogonal).
 - Intersections computed **on-demand**, not stored.
-- Storage: O(m + n)
-- CL 6819000: introduced separate Main and Cross gap classes
-- ~75% memory reduction (grid), ~50% reduction (flex)
+- Storage: O(m + n).
+- CL 6819000: introduced separate Main and Cross gap classes.
+- About 75% memory reduction on grid, 50% on flex.
 
 **Diagram:** Before: 12 pairs — every intersection stored as (x, y). After: 2 + 2 offsets — column offsets + row offsets, stored separately.
 
@@ -187,14 +188,14 @@ With initial spec and implementation, interesting questions were raised — whic
 **Part:** 2 — Iteration
 **Label:** Property Lists
 
-### Do not expand — except for animations
+### Do not expand, except for animations
 
-- `GapDataListIterator` traverses property lists **without expanding**.
+- `GapDataListIterator` walks property lists **without expanding** them.
 - Three regions: **Leading**, **Auto**, **Trailing**.
-- But animations (CSSWG #12431) need expansion. LCM alignment for interpolating lists of different lengths.
-- Led to V2 interpolation: CL 6961880, CL 7078855
+- Animations (CSSWG #12431) are the exception. They need expansion. LCM alignment for interpolating lists of different lengths.
+- Led to V2 interpolation: CL 6961880, CL 7078855.
 
-**Animation demo caption:** column-rule-color, column-rule-width: animating…
+**Animation demo caption:** column-rule-color, column-rule-width, rule-inset: animating
 
 **Links:**
 - [CL 6773829](https://chromium-review.googlesource.com/c/chromium/src/+/6773829)
@@ -209,19 +210,19 @@ With initial spec and implementation, interesting questions were raised — whic
 **Part:** 2 — Iteration
 **Label:** Into Unfamiliar Territory
 
-### Paint Land — fun but subtle
+### Paint Land: fun but subtle
 
-Geometry from layout → rects → paint ops (`BoxFragmentPainter`). Subtleties we had to solve:
+Geometry from layout → rects → paint ops (`BoxFragmentPainter`). Five subtleties we had to figure out:
 
-- **Ink overflow** — decorations extending past content box
-- **Overflow & clipping** — scrollable containers
-- **Paint invalidation** — knowing when to repaint
-- **Resize repaint** — responsive reflow
-- **Multicol paint** — fragmented columns
+- **Ink overflow**: decorations extend past the content box
+- **Clipping**: scrollable containers clip correctly at edges
+- **Invalidation**: knowing what to repaint when state changes
+- **Resize**: decorations reflow when the layout changes
+- **Multicol**: fragmented columns each paint their own
 
-Shoutout to **Philip Rogers (pdr)**, a paint owner, who guided us through **120+ review comments**.
+Big shoutout to **Philip Rogers (pdr)**, a paint owner. He walked us through many rounds of review.
 
-**Paint diagram:** Before: decorations clipped on scroll. After: ink overflow, scroll, resize — all correct.
+**Diagram:** five small vignettes — Ink overflow, Clipping, Invalidation, Resize, Multicol — each a tiny illustration.
 
 **Links:**
 - [CL 6101656](https://chromium-review.googlesource.com/c/chromium/src/+/6101656)
@@ -291,14 +292,13 @@ Dev trial launched in Chrome/Edge 139, June 2025. We put the feature behind a fl
 
 ### From intersections to segments
 
-- The intersection model was biased toward grid — it didn't generalize for multicol and flex.
-- The spec moved to a **segments-based model**. The biggest spec rewrite since the initial draft.
+- The intersection model leaned too heavily on grid. It didn't generalize for multicol and flex.
+- The spec moved to a **segments-based model**. Biggest spec rewrite since the initial draft.
 
 **Diagram:** Old: Intersections (grid-style cross marks at every junction). New: Segments (paired segment endpoints per rule line).
 
 **Links:**
 - [#12784](https://github.com/w3c/csswg-drafts/issues/12784)
-- [PR #13299](https://github.com/w3c/csswg-drafts/pull/13299)
 
 ---
 
@@ -312,16 +312,16 @@ Dev trial launched in Chrome/Edge 139, June 2025. We put the feature behind a fl
 1. Rename `spanning-item` → `normal` [#13127](https://github.com/w3c/csswg-drafts/issues/13127)
 2. Initial inset value → `0`. Devs said rule-break changes had no visible effect. [#13137](https://github.com/w3c/csswg-drafts/issues/13137)
 3. Alignment space contributes to gap size. Whiteboard session with Alison Maher. [#12922](https://github.com/w3c/csswg-drafts/issues/12922)
-4. Gap suppression with spanners — no change needed. [#13362](https://github.com/w3c/csswg-drafts/issues/13362)
+4. Gap suppression with spanners. No change needed. [#13362](https://github.com/w3c/csswg-drafts/issues/13362)
 
-**11 CLs + 2 spec PRs within 5 weeks.**
-When you get the right people in a room, things move fast.
+**11 CLs and 2 spec PRs in 5 weeks.**
+Get the right people in a room and things move fast.
 
 ---
 
 ## Slide 17: By the Numbers
 **Pillars:** —
-**Part:** —
+**Part:** Wrap
 **Label:** By the Numbers
 
 ### Two years of work
@@ -345,9 +345,9 @@ Sam Davis Omekara · Javier Contreras · Kevin Babbitt · Alison Maher · Kurt C
 
 ### The feature that touches everything
 
-- Gap decorations forced us to learn paint, layout, and style in depth
-- The spec changed because implementation revealed real problems
-- Developer feedback during dev trial directly shaped the final design
+- Gap decorations forced us to learn paint, layout, and style in depth.
+- The spec changed because implementation kept finding real problems.
+- Developer feedback during dev trial shaped the final design.
 - Standards work isn't overhead. It's how you get the design right.
 
 **Links:**
@@ -363,7 +363,7 @@ Sam Davis Omekara · Javier Contreras · Kevin Babbitt · Alison Maher · Kurt C
 ### Go build something with it
 
 - Gap decorations are available behind a flag today. Try it. Break it. File issues.
-- The feature that started as a [2018 CSSWG issue](https://github.com/w3c/csswg-drafts/issues/2748) is now real — and it's better because developers pushed back and helped shape it.
+- The feature that started as a [2018 CSSWG issue](https://github.com/w3c/csswg-drafts/issues/2748) is real now. It's better because developers pushed back and helped shape it.
 - `column-rule` · `row-rule` · gap decorations API
 
 **Links:**
