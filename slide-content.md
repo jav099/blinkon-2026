@@ -187,14 +187,14 @@ Once we had an initial spec and implementation, interesting questions started co
 
 ---
 
-## Slide 12: The Great Rewrite — Anchor/Dependent Model
+## Slide 12: The Great Rewrite — MainGap/CrossGap Model
 **Pillars:** Implementation
 **Part:** 2 — Iteration
 **Label:** The Great Rewrite
 
 ### MainGap / CrossGap model
 
-- **Two-direction model.** Anchor Gaps (primary) plus Dependent Gaps (orthogonal).
+- **Two-direction model.** Main Gaps (primary) plus Cross Gaps (orthogonal).
 - Intersections computed **on-demand**, not stored.
 - Storage: O(m + n).
 - CL 6819000: introduced separate Main and Cross gap classes.
@@ -389,6 +389,7 @@ Sam Davis Omekara · Javier Contreras · Kevin Babbitt · Alison Maher · Kurt C
 ### Go build something with it
 
 - Gap decorations are available behind a flag today. Try it. Break it. File issues.
+- Enable **Experimental Web Platform features** in `chrome://flags`, or launch with `--enable-features=CSSGapDecoration`.
 - The feature that started as a [2018 CSSWG issue](https://github.com/w3c/csswg-drafts/issues/2748) is real now. It's better because developers pushed back and helped shape it.
 - `column-rule` · `row-rule` · gap decorations API
 

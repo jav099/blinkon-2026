@@ -442,9 +442,9 @@ a:hover { opacity: 0.8; }
     <div class="reveal reveal-d2" style="margin-top: 4px; font-family: var(--font-mono); font-size: 0.7rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase;">From spec proposal to cross-layer implementation in Blink</div>
     <div class="reveal reveal-d3" style="margin-top: 32px; display: flex; gap: 14px; align-items: center;">
       <div style="width: 80px; height: 4px; background: var(--wg); border-radius: 2px;"></div>
-      <div style="width: 80px; height: 4px; background: var(--design); border-radius: 2px;"></div>
       <div style="width: 80px; height: 4px; background: var(--impl); border-radius: 2px;"></div>
-      <div style="width: 80px; height: 4px; background: var(--accent); border-radius: 2px;"></div>
+      <div style="width: 80px; height: 4px; background: var(--wg); border-radius: 2px;"></div>
+      <div style="width: 80px; height: 4px; background: var(--impl); border-radius: 2px;"></div>
     </div>
     <div class="reveal reveal-d4" style="margin-top: 32px; font-family: var(--font-display); font-size: 1.25rem; color: var(--text);">
       Javier Contreras &middot; Sam Davis Omekara
@@ -820,6 +820,14 @@ a:hover { opacity: 0.8; }
           <li><a href="https://github.com/w3c/csswg-drafts/issues/11520" target="_blank">CSSWG #11520</a> resolved: <strong>suppress gaps at fragment breaks</strong>. The break itself already acts as a visual separator, so drawing a decoration there is redundant.</li>
         </ul>
       </div>
+      <div class="reveal reveal-d3" style="margin-top: 18px; display: inline-flex; align-items: center; gap: 10px; background: var(--card); border: 1px solid var(--wg-border); border-left: 3px solid var(--wg); border-radius: 6px; padding: 10px 14px;">
+        <kbd style="font-family: var(--font-mono); font-size: 0.75rem; background: var(--impl-bg); border: 1px solid var(--impl-border); border-radius: 4px; padding: 3px 8px; color: var(--impl);">&#8984;</kbd>
+        <span style="color: var(--muted);">/</span>
+        <kbd style="font-family: var(--font-mono); font-size: 0.75rem; background: var(--impl-bg); border: 1px solid var(--impl-border); border-radius: 4px; padding: 3px 8px; color: var(--impl);">Ctrl</kbd>
+        <span style="color: var(--muted);">+</span>
+        <kbd style="font-family: var(--font-mono); font-size: 0.75rem; background: var(--impl-bg); border: 1px solid var(--impl-border); border-radius: 4px; padding: 3px 8px; color: var(--impl);">P</kbd>
+        <span style="font-size: 0.72rem; color: var(--dim); margin-left: 4px;">can fragment the page</span>
+      </div>
     </div>
     <div class="center-col reveal reveal-d3">
       <div style="display: flex; flex-direction: column; gap: 14px; width: 280px;">
@@ -971,9 +979,6 @@ a:hover { opacity: 0.8; }
           <li>But to draw decorations, we had to expand every track to find where gaps lived. The result? Every intersection stored as an (x,&thinsp;y) pair, the O(m&thinsp;&times;&thinsp;n) cost from the previous slide.</li>
         </ul>
       </div>
-      <div class="s-body reveal reveal-d3" style="margin-top: 16px;">
-        We needed a model that fit how grid (and flex, and multicol) actually work inside.
-      </div>
     </div>
     <div class="center-col reveal reveal-d3">
       <div style="display: flex; flex-direction: column; gap: 16px; width: 300px;">
@@ -1026,7 +1031,7 @@ a:hover { opacity: 0.8; }
 </div>
 
 <!-- ═══════════════════════════════════════════════════ -->
-<!-- SLIDE 12: ANCHOR/DEPENDENT MODEL -->
+<!-- SLIDE 12: MAIN/CROSS GAP MODEL -->
 <!-- ═══════════════════════════════════════════════════ -->
 <div class="slide" data-pillar="impl">
   <div class="pillars"><span class="pill pill-impl">Implementation</span></div>
@@ -1037,7 +1042,7 @@ a:hover { opacity: 0.8; }
       <div class="s-title reveal reveal-d1">MainGap / CrossGap model</div>
       <div class="s-body reveal reveal-d2">
         <ul>
-          <li><strong>Two-direction model.</strong> Anchor Gaps (primary) plus Dependent Gaps (orthogonal).</li>
+          <li><strong>Two-direction model.</strong> Main Gaps (primary) plus Cross Gaps (orthogonal).</li>
           <li>Intersections computed <strong>on-demand</strong>, not stored.</li>
           <li>Storage: <span style="font-family: var(--font-mono); color: var(--design);">O(m + n)</span></li>
           <li><a href="https://chromium-review.googlesource.com/c/chromium/src/+/6819000" target="_blank">CL 6819000</a>: introduced separate Main and Cross gap classes</li>
@@ -1512,15 +1517,16 @@ a:hover { opacity: 0.8; }
     <div class="s-body reveal reveal-d2" style="text-align: center; max-width: 620px; line-height: 1.8;">
       Gap decorations are available behind a flag today. Try it. Break it. File issues.
     </div>
-    <div class="s-body reveal reveal-d3" style="text-align: center; max-width: 620px; margin-top: 16px; color: var(--dim);">
-      The feature that started as a <a href="https://github.com/w3c/csswg-drafts/issues/2748" target="_blank" style="color: var(--wg);">2018 CSSWG issue</a> is real now. It&rsquo;s better because developers pushed back and helped shape it.
+    <div class="reveal reveal-d3" style="margin-top: 22px; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+      <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); letter-spacing: 1px;">
+        Enable <code style="background: var(--impl-bg); padding: 2px 8px; border-radius: 4px; border: 1px solid var(--impl-border); color: var(--impl);">Experimental Web Platform features</code> in <code style="background: var(--impl-bg); padding: 2px 8px; border-radius: 4px; border: 1px solid var(--impl-border); color: var(--impl);">chrome://flags</code>
+      </div>
+      <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); letter-spacing: 1px;">
+        or launch with <code style="background: var(--impl-bg); padding: 2px 8px; border-radius: 4px; border: 1px solid var(--impl-border); color: var(--impl);">--enable-features=CSSGapDecoration</code>
+      </div>
     </div>
-    <div class="reveal reveal-d4" style="margin-top: 28px; font-family: var(--font-mono); font-size: 0.85rem; color: var(--impl); letter-spacing: 1px;">
-      <code style="background: var(--impl-bg); padding: 4px 10px; border-radius: 4px; border: 1px solid var(--impl-border);">column-rule</code>
-      <span style="color: var(--muted); margin: 0 8px;">&middot;</span>
-      <code style="background: var(--impl-bg); padding: 4px 10px; border-radius: 4px; border: 1px solid var(--impl-border);">row-rule</code>
-      <span style="color: var(--muted); margin: 0 8px;">&middot;</span>
-      <span style="font-size: 0.78rem; color: var(--dim);">gap decorations API</span>
+    <div class="s-body reveal reveal-d4" style="text-align: center; max-width: 620px; margin-top: 20px; color: var(--dim);">
+      The feature that started as a <a href="https://github.com/w3c/csswg-drafts/issues/2748" target="_blank" style="color: var(--wg);">2018 CSSWG issue</a> is real now. It&rsquo;s better because developers pushed back and helped shape it.
     </div>
     <div class="reveal reveal-d5" style="margin-top: 20px;">
       <a href="https://www.w3.org/TR/css-gaps-1/" target="_blank" style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--impl); letter-spacing: 1px; text-decoration: underline; text-underline-offset: 3px;">w3.org/TR/css-gaps-1</a>
