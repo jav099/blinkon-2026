@@ -565,7 +565,7 @@ a:hover { opacity: 0.8; }
     <div class="s-label reveal">The Spec</div>
     <div class="s-title reveal reveal-d1">From draft to editor&rsquo;s draft</div>
     <div class="s-body reveal reveal-d2" style="margin-bottom: 20px;">
-      Mats Palmgreen (Mozilla) took the first stab. <strong>Kevin Babbitt</strong> from our team at Microsoft picked it up and wrote it. Three things he had in mind:
+      Mats Palmgreen (Mozilla) took the first stab. This initial stab inspired the current spec which <strong>Kevin Babbitt</strong> from our team authored and drove. Three things he had in mind:
     </div>
     <!-- 1x3 grid with real gap decorations -->
     <div class="reveal reveal-d3" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; width: 100%; max-width: 980px; column-rule-style: dashed; column-rule-width: 1px; column-rule-color: var(--design); column-rule-break: intersection; column-rule-inset: 0;">
@@ -826,47 +826,53 @@ a:hover { opacity: 0.8; }
         <!-- 3x3 grid with row rules — break falls on the row gap between row 1 and row 2 -->
         <div style="background: var(--card); border-radius: 8px; padding: 14px; border: 1px solid var(--design-border);">
           <div style="font-family: var(--font-mono); font-size: 0.5rem; color: var(--design); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px;">3 &times; 3 Grid</div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 32px 32px 32px; gap: 8px; row-rule-style: solid; row-rule-width: 2px; row-rule-color: var(--impl); column-rule-style: solid; column-rule-width: 1px; column-rule-color: var(--impl);">
-            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
-            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
-            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
-            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
-            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
-            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
-            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
-            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
-            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 32px 32px 32px; column-gap: 8px; row-gap: 20px; row-rule-style: dotted; row-rule-width: 2px; row-rule-color: hsl(0,55%,55%); column-rule-style: solid; column-rule-width: 1px; column-rule-color: var(--impl); background: hsla(45,90%,60%,0.25); padding: 4px; border-radius: 4px;">
+            <div style="background: hsl(220,15%,70%); border-radius: 3px;"></div>
+            <div style="background: hsl(220,15%,70%); border-radius: 3px;"></div>
+            <div style="background: hsl(220,15%,70%); border-radius: 3px;"></div>
+            <div style="background: hsl(220,15%,70%); border-radius: 3px;"></div>
+            <div style="background: hsl(220,15%,70%); border-radius: 3px;"></div>
+            <div style="background: hsl(220,15%,70%); border-radius: 3px;"></div>
+            <div style="background: hsl(220,15%,70%); border-radius: 3px;"></div>
+            <div style="background: hsl(220,15%,70%); border-radius: 3px;"></div>
+            <div style="background: hsl(220,15%,70%); border-radius: 3px;"></div>
           </div>
         </div>
-        <!-- Fragment break on the row gap -->
+        <!-- Fragment breaks on every row gap -->
         <div style="position: relative; display: flex; align-items: center; gap: 8px;">
           <div style="flex: 1; height: 1px; border-top: 2px dashed hsl(0,55%,55%);"></div>
-          <div style="font-family: var(--font-mono); font-size: 0.5rem; color: hsl(0,55%,55%); letter-spacing: 1px; white-space: nowrap;">BREAK ON ROW GAP</div>
+          <div style="font-family: var(--font-mono); font-size: 0.5rem; color: hsl(0,55%,55%); letter-spacing: 1px; white-space: nowrap;">BREAK ON EVERY ROW GAP</div>
           <div style="flex: 1; height: 1px; border-top: 2px dashed hsl(0,55%,55%);"></div>
         </div>
-        <!-- Result: two fragments, gap between them suppressed -->
+        <!-- Result: three fragments, no row rules in any of them -->
         <div style="display: flex; flex-direction: column; gap: 6px;">
           <!-- Fragment 1: first row -->
           <div style="background: var(--card); border-radius: 8px; padding: 14px; border: 1px solid var(--border);">
             <div style="font-family: var(--font-mono); font-size: 0.45rem; color: var(--muted); letter-spacing: 1px; margin-bottom: 8px;">FRAGMENT 1</div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 32px; gap: 8px; column-rule-style: solid; column-rule-width: 1px; column-rule-color: var(--impl);">
-              <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
-              <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
-              <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 32px; gap: 8px; column-rule-style: solid; column-rule-width: 1px; column-rule-color: var(--impl); background: hsla(45,90%,60%,0.25); padding: 4px 4px 10px 4px; border-radius: 4px;">
+              <div style="background: hsl(220,15%,70%); border-radius: 3px;"></div>
+              <div style="background: hsl(220,15%,70%); border-radius: 3px;"></div>
+              <div style="background: hsl(220,15%,70%); border-radius: 3px;"></div>
             </div>
           </div>
-          <!-- Fragment 2: remaining rows, no row rule at top -->
+          <!-- Fragment 2: second row -->
           <div style="background: var(--card); border-radius: 8px; padding: 14px; border: 1px solid var(--border);">
             <div style="font-family: var(--font-mono); font-size: 0.45rem; color: var(--muted); letter-spacing: 1px; margin-bottom: 8px;">FRAGMENT 2</div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 32px 32px; gap: 8px; row-rule-style: solid; row-rule-width: 2px; row-rule-color: var(--impl); column-rule-style: solid; column-rule-width: 1px; column-rule-color: var(--impl);">
-              <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
-              <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
-              <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
-              <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
-              <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
-              <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 32px; gap: 8px; column-rule-style: solid; column-rule-width: 1px; column-rule-color: var(--impl); background: hsla(45,90%,60%,0.25); padding: 4px 4px 10px 4px; border-radius: 4px;">
+              <div style="background: hsl(220,15%,70%); border-radius: 3px;"></div>
+              <div style="background: hsl(220,15%,70%); border-radius: 3px;"></div>
+              <div style="background: hsl(220,15%,70%); border-radius: 3px;"></div>
             </div>
-            <div style="font-family: var(--font-mono); font-size: 0.45rem; color: hsl(0,50%,55%); margin-top: 8px;">row gap at break &rarr; suppressed</div>
+          </div>
+          <!-- Fragment 3: third row -->
+          <div style="background: var(--card); border-radius: 8px; padding: 14px; border: 1px solid var(--border);">
+            <div style="font-family: var(--font-mono); font-size: 0.45rem; color: var(--muted); letter-spacing: 1px; margin-bottom: 8px;">FRAGMENT 3</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 32px; gap: 8px; column-rule-style: solid; column-rule-width: 1px; column-rule-color: var(--impl); background: hsla(45,90%,60%,0.25); padding: 4px; border-radius: 4px;">
+              <div style="background: hsl(220,15%,70%); border-radius: 3px;"></div>
+              <div style="background: hsl(220,15%,70%); border-radius: 3px;"></div>
+              <div style="background: hsl(220,15%,70%); border-radius: 3px;"></div>
+            </div>
+            <div style="font-family: var(--font-mono); font-size: 0.45rem; color: hsl(0,50%,55%); margin-top: 8px;">all row gaps at breaks &rarr; suppressed</div>
           </div>
         </div>
       </div>

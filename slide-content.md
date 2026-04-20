@@ -52,7 +52,7 @@ On the Web, container types help developers build the layouts they want:
 
 ### From draft to editor's draft
 
-- Mats Palmgreen (Mozilla) took the first stab. **Kevin Babbitt** from our team at Microsoft picked it up and wrote it. Three things he had in mind:
+- Mats Palmgreen (Mozilla) took the first stab. This initial stab inspired the current spec which **Kevin Babbitt** from our team authored and drove. Three things he had in mind:
   1. **Author use cases**. Grounded in real developer needs, with references collected in the Explainer.
   2. **Precedents**. Existing `column-rule` support, `repeat()` from Grid, and list-ified properties.
   3. **Scope and extensibility**. What ships in V1 vs. what gets deferred, shaped to leave room for future levels.
