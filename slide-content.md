@@ -26,10 +26,10 @@ Microsoft Web Platform
 
 ### Containers
 
-On the Web, container types help developers achieve their desired layout:
+On the Web, container types help developers build the layouts they want:
 
-- **Flex**: 1D placement — items flow in a single direction
-- **Grid**: 2D placement — items placed across rows and columns
+- **Flex**: 1D placement. Items flow in a single direction.
+- **Grid**: 2D placement. Items placed across rows and columns.
 - **Multicol**: triggered not by `display`, but by specifying the number of columns
 
 ---
@@ -58,9 +58,9 @@ On the Web, container types help developers achieve their desired layout:
 ### From draft to editor's draft
 
 - Mats Palmgreen (Mozilla) took the first stab. **Kevin Babbitt** from our team at Microsoft picked it up and wrote it. Three things he had in mind:
-  1. **Author use cases** — grounded in real developer needs, with references collected in the Explainer.
-  2. **Precedents** — existing `column-rule` support, `repeat()` from Grid, and list-ified properties.
-  3. **Scope and extensibility** — what ships in V1 vs. what gets deferred, shaped to leave room for future levels.
+  1. **Author use cases**. Grounded in real developer needs, with references collected in the Explainer.
+  2. **Precedents**. Existing `column-rule` support, `repeat()` from Grid, and list-ified properties.
+  3. **Scope and extensibility**. What ships in V1 vs. what gets deferred, shaped to leave room for future levels.
 
 **Diagram:** the 3-card grid uses real gap decorations (dashed column-rule, rule-break: intersection, rule-inset: 0).
 
@@ -77,9 +77,9 @@ On the Web, container types help developers achieve their desired layout:
 
 ### What the spec gave us
 
-CSS Gap Decorations Level 1 introduced three key capabilities beyond basic `column-rule`.
+CSS Gap Decorations Level 1 added three things on top of basic `column-rule`.
 
-- **Varying Styles**: List-valued properties let each gap carry a different style, width, and color—for both rows and columns.
+- **Varying Styles**: List-valued properties let each gap carry a different style, width, and color, for both rows and columns.
 - **Rule Break**: Control how decorations break at intersections: `none`, `spanning-item`, or `intersection`.
 - **Rule Inset**: Shorten or extend decorations from gap edges with positive or negative inset values.
 
@@ -97,13 +97,11 @@ CSS Gap Decorations Level 1 introduced three key capabilities beyond basic `colu
 
 ### Style → Layout → Paint
 
-While Kevin was speccing, we started getting familiar with Blink Core. Gap decorations touch three layers:
+While Kevin was writing the spec, we started getting familiar with Blink core. Gap decorations touch three layers:
 
 - **Style**: parse the properties (`column-rule`, `row-rule`, shorthands, repeaters, lists)
 - **Layout**: compute gap geometry for grid, flex, and multicol
 - **Paint**: draw decorations with correct clipping, overflow, and scrolling
-
-Every CL touches at least one of these. Some touch all three.
 
 **Diagram:** BLINK RENDERING PIPELINE — Style → Layout → Paint layer stack
 
@@ -126,12 +124,12 @@ Once we had an initial spec and implementation, interesting questions started co
 
 - Implementation surfaced questions. We filed issues. We worked with the CSSWG to resolve them. We updated the code.
 - We tried to treat the WG as a partner, not a checkpoint to get past.
-- Key issues:
-  - #11492: Auto repeater behavior (✓ Jan 31, 2025)
-  - #11494: Computed value with none/hidden (✓ Jan 31, 2025)
-  - #11496: Shorthand grammar (✓ Apr 3, 2025)
-  - #12024: Outsets at edges (✓ Aug 20, 2025)
-  - #12540: Renamed rule-paint-order → rule-overlap (✓ Aug 6, 2025)
+- A few of them:
+  - #11492: Auto repeater behavior (✓ Feb 1, 2025)
+  - #11494: Computed value with none/hidden (✓ Nov 11, 2025)
+  - #11496: Shorthand grammar (✓ Apr 12, 2025)
+  - #12024: Outsets at edges (✓ Dec 17, 2025)
+  - #12540: Renamed rule-paint-order → rule-overlap (✓ Aug 8, 2025)
 - **30 issues filed. 24 resolved.**
 **Links:**
 - [#11492](https://github.com/w3c/csswg-drafts/issues/11492)
@@ -150,7 +148,7 @@ Once we had an initial spec and implementation, interesting questions started co
 ### Gap suppression across fragment breaks
 
 - When a container is **fragmented** (e.g. across pages or columns), gaps can land right at a break point.
-- CSSWG #11520 resolved: **suppress gaps at fragment breaks**. The break itself already acts as a visual separator—drawing a decoration there is redundant.
+- CSSWG #11520 resolved: **suppress gaps at fragment breaks**. The break itself already acts as a visual separator, so drawing a decoration there is redundant.
 **Links:**
 - [CSSWG #11520](https://github.com/w3c/csswg-drafts/issues/11520)
 
@@ -166,7 +164,7 @@ Once we had an initial spec and implementation, interesting questions started co
 - **Intersections as first-class objects.** Each gap stored a list of intersection points.
 - 2D vectors of gaps × intersections.
 - Storage: O(m × n). Every intersection stored as an (x, y) pair.
-- Simple for grid, but expensive at scale.
+- Simple, but expensive at scale.
 
 **Memory at O(m × n):**
 | Grid Size | Memory |
@@ -186,9 +184,9 @@ Once we had an initial spec and implementation, interesting questions started co
 
 ### Why Grid forced the issue
 
-- In Blink, **gaps were throw-away values**—their positions were never stored. Layout computed them, used them, and discarded them.
+- In Blink, **gaps were throw-away values**. Their positions were never stored. Layout computed them, used them, and discarded them.
 - Grid tracks live as **compressed abstractions** (`GridRanges`, `GridSets`) to avoid expanding repeaters into individual positions.
-- But to draw decorations, we had to expand every track to find where gaps lived. The result? Every intersection stored as an (x, y) pair—the O(m × n) cost from the previous slide.
+- But to draw decorations, we had to expand every track to find where gaps lived. The result? Every intersection stored as an (x, y) pair, the O(m × n) cost from the previous slide.
 
 **Diagram:** Split layout. Left: text. Right: two stacked cards — "Grid's world: compressed" showing 2 ranges each containing 2 sets as (offset, count) pairs vs. "What we needed: expanded" showing every track position enumerated.
 
@@ -374,7 +372,7 @@ Sam Davis Omekara · Javier Contreras · Kevin Babbitt · Alison Maher · Kurt C
 
 ### What it takes to draw a line
 
-- Gap decorations forced us to learn paint, layout, and style in depth.
+- Gap decorations forced us to learn paint, layout, and style.
 - The spec changed because implementation kept finding real problems.
 - Developer feedback during dev trial shaped the final design.
 - Standards work isn't overhead. It's how you get the design right.

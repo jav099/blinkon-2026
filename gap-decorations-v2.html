@@ -471,7 +471,7 @@ a:hover { opacity: 0.8; }
     <div class="s-label reveal">The Building Blocks</div>
     <div class="s-title reveal reveal-d1" style="text-align: center;">Containers</div>
     <div class="s-body reveal reveal-d2" style="text-align: center; margin-bottom: 32px;">
-      On the Web, container types help developers achieve their desired layout.
+      On the Web, container types help developers build the layouts they want.
     </div>
     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; width: 100%; max-width: 920px; column-rule-style: dotted; column-rule-width: 1px; column-rule-color: var(--muted); column-rule-inset: 20px;">
       <!-- FLEX: 1D row with arrow showing flow direction -->
@@ -608,7 +608,7 @@ a:hover { opacity: 0.8; }
     <div class="s-label reveal">The Initial Feature</div>
     <div class="s-title reveal reveal-d1" style="text-align: center;">What the spec gave us</div>
     <div class="s-body reveal reveal-d2" style="text-align: center; margin-bottom: 32px;">
-      CSS Gap Decorations Level 1 introduced three key capabilities beyond basic <code>column-rule</code>.
+      CSS Gap Decorations Level 1 added three things on top of basic <code>column-rule</code>.
     </div>
     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; width: 100%; max-width: 960px; column-rule-style: dashed; column-rule-width: 1px; column-rule-color: var(--muted); column-rule-inset: 20px;">
       <!-- Card 1: Varying styles -->
@@ -620,7 +620,7 @@ a:hover { opacity: 0.8; }
         </div>
         <div style="margin-top: 16px;">
           <div style="font-family: var(--font-display); font-size: 1.4rem; color: var(--text);">Varying Styles</div>
-          <div style="font-size: 0.8rem; color: var(--dim); margin-top: 4px; line-height: 1.5;">List-valued properties let each gap carry a different style, width, and color&mdash;for both rows and columns.</div>
+          <div style="font-size: 0.8rem; color: var(--dim); margin-top: 4px; line-height: 1.5;">List-valued properties let each gap carry a different style, width, and color, for both rows and columns.</div>
         </div>
       </div>
       <!-- Card 2: Rule Break -->
@@ -674,9 +674,20 @@ a:hover { opacity: 0.8; }
   <div class="act-badge">Part 1 &mdash; The Origin</div>
   <div class="center-col" style="max-width: 1100px; width: 100%;">
     <div class="s-label reveal">The Feature in Blink</div>
-    <div class="s-title reveal reveal-d1" style="text-align: center;">Style &rarr; Layout &rarr; Paint</div>
-    <div class="s-body reveal reveal-d2" style="text-align: center; margin-bottom: 28px;">
-      While Kevin was speccing, we started getting familiar with Blink Core. Gap decorations touch three layers.
+    <div class="reveal reveal-d1" style="display: flex; align-items: baseline; justify-content: center; gap: 14px; flex-wrap: wrap; margin-top: 6px;">
+      <span style="font-family: var(--font-mono); font-size: 0.95rem; color: var(--muted); opacity: 0.55; letter-spacing: 1px; text-transform: uppercase;">Parsing</span>
+      <span style="font-family: var(--font-mono); font-size: 0.95rem; color: var(--muted); opacity: 0.55;">&rarr;</span>
+      <span style="font-family: var(--font-mono); font-size: 0.95rem; color: var(--muted); opacity: 0.55; letter-spacing: 1px; text-transform: uppercase;">DOM</span>
+      <span style="font-family: var(--font-mono); font-size: 0.95rem; color: var(--muted); opacity: 0.55;">&rarr;</span>
+      <span class="s-title" style="font-size: clamp(2rem, 3.6vw, 3rem); margin: 0;">Style &rarr; Layout &rarr; Paint</span>
+      <span style="font-family: var(--font-mono); font-size: 0.95rem; color: var(--muted); opacity: 0.55;">&rarr;</span>
+      <span style="font-family: var(--font-mono); font-size: 0.95rem; color: var(--muted); opacity: 0.55; letter-spacing: 1px; text-transform: uppercase;">Raster</span>
+      <span style="font-family: var(--font-mono); font-size: 0.95rem; color: var(--muted); opacity: 0.55;">&rarr;</span>
+      <span style="font-family: var(--font-mono); font-size: 0.95rem; color: var(--muted); opacity: 0.55; letter-spacing: 1px; text-transform: uppercase;">GPU</span>
+      <span style="font-family: var(--font-mono); font-size: 0.95rem; color: var(--muted); opacity: 0.55;">&hellip;</span>
+    </div>
+    <div class="s-body reveal reveal-d2" style="text-align: center; margin-top: 16px; margin-bottom: 28px;">
+      While Kevin was writing the spec, we started getting familiar with Blink core. Gap decorations touch three layers.
     </div>
     <!-- 3 mini-cards (echoes slide 4 pattern) -->
     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; width: 100%; max-width: 920px;">
@@ -735,9 +746,6 @@ a:hover { opacity: 0.8; }
         </div>
       </div>
     </div>
-    <div class="reveal reveal-d5" style="margin-top: 22px; font-size: 0.95rem; color: var(--dim); text-align: center;">
-      Every CL touches at least one of these. Some touch all three.
-    </div>
   </div>
 </div>
 
@@ -770,27 +778,27 @@ a:hover { opacity: 0.8; }
       <div style="background: var(--card); border-radius: 8px; padding: 14px 16px; border-top: 2px solid var(--wg);">
         <div style="font-family: var(--font-mono); font-size: 0.6rem; color: var(--wg); letter-spacing: 1px;"><a href="https://github.com/w3c/csswg-drafts/issues/11492" target="_blank">#11492</a></div>
         <div style="font-size: 0.78rem; color: var(--dim); margin-top: 6px;">Auto repeater behavior</div>
-        <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--design); margin-top: 8px;">&#10003; Jan 31, 2025</div>
+        <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--design); margin-top: 8px;">&#10003; Feb 1, 2025</div>
       </div>
       <div style="background: var(--card); border-radius: 8px; padding: 14px 16px; border-top: 2px solid var(--wg);">
         <div style="font-family: var(--font-mono); font-size: 0.6rem; color: var(--wg); letter-spacing: 1px;"><a href="https://github.com/w3c/csswg-drafts/issues/11494" target="_blank">#11494</a></div>
         <div style="font-size: 0.78rem; color: var(--dim); margin-top: 6px;">Computed value with none/hidden</div>
-        <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--design); margin-top: 8px;">&#10003; Jan 31, 2025</div>
+        <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--design); margin-top: 8px;">&#10003; Nov 11, 2025</div>
       </div>
       <div style="background: var(--card); border-radius: 8px; padding: 14px 16px; border-top: 2px solid var(--wg);">
         <div style="font-family: var(--font-mono); font-size: 0.6rem; color: var(--wg); letter-spacing: 1px;"><a href="https://github.com/w3c/csswg-drafts/issues/11496" target="_blank">#11496</a></div>
         <div style="font-size: 0.78rem; color: var(--dim); margin-top: 6px;">Shorthand grammar</div>
-        <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--design); margin-top: 8px;">&#10003; Apr 3, 2025</div>
+        <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--design); margin-top: 8px;">&#10003; Apr 12, 2025</div>
       </div>
       <div style="background: var(--card); border-radius: 8px; padding: 14px 16px; border-top: 2px solid var(--wg);">
         <div style="font-family: var(--font-mono); font-size: 0.6rem; color: var(--wg); letter-spacing: 1px;"><a href="https://github.com/w3c/csswg-drafts/issues/12024" target="_blank">#12024</a></div>
         <div style="font-size: 0.78rem; color: var(--dim); margin-top: 6px;">Outsets at edges</div>
-        <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--design); margin-top: 8px;">&#10003; Aug 20, 2025</div>
+        <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--design); margin-top: 8px;">&#10003; Dec 17, 2025</div>
       </div>
       <div style="background: var(--card); border-radius: 8px; padding: 14px 16px; border-top: 2px solid var(--wg);">
         <div style="font-family: var(--font-mono); font-size: 0.6rem; color: var(--wg); letter-spacing: 1px;"><a href="https://github.com/w3c/csswg-drafts/issues/12540" target="_blank">#12540</a></div>
         <div style="font-size: 0.78rem; color: var(--dim); margin-top: 6px;">Renamed rule-paint-order &rarr; rule-overlap</div>
-        <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--design); margin-top: 8px;">&#10003; Aug 6, 2025</div>
+        <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--design); margin-top: 8px;">&#10003; Aug 8, 2025</div>
       </div>
       <div style="background: var(--surface); border-radius: 8px; padding: 14px 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
         <div style="font-family: var(--font-display); font-size: 1.6rem; color: var(--design);">30</div>
@@ -815,7 +823,7 @@ a:hover { opacity: 0.8; }
       <div class="s-body reveal reveal-d2">
         <ul>
           <li>When a container is <strong>fragmented</strong> (e.g. across pages or columns), gaps can land right at a break point.</li>
-          <li><a href="https://github.com/w3c/csswg-drafts/issues/11520" target="_blank">CSSWG #11520</a> resolved: <strong>suppress gaps at fragment breaks</strong>. The break itself already acts as a visual separator&mdash;drawing a decoration there is redundant.</li>
+          <li><a href="https://github.com/w3c/csswg-drafts/issues/11520" target="_blank">CSSWG #11520</a> resolved: <strong>suppress gaps at fragment breaks</strong>. The break itself already acts as a visual separator, so drawing a decoration there is redundant.</li>
         </ul>
       </div>
     </div>
@@ -887,7 +895,7 @@ a:hover { opacity: 0.8; }
           <li><strong>Intersections as first-class objects.</strong> Each gap stored a list of intersection points.</li>
           <li>2D vectors of gaps &times; intersections.</li>
           <li>Storage: <span style="font-family: var(--font-mono); color: hsl(0,50%,55%);">O(m &times; n)</span>. Every intersection stored as an (x, y) pair.</li>
-          <li>Simple for grid, but expensive at scale.</li>
+          <li>Simple, but expensive at scale.</li>
         </ul>
       </div>
     </div>
@@ -958,9 +966,9 @@ a:hover { opacity: 0.8; }
       <div class="s-title reveal reveal-d1">Why Grid forced the issue</div>
       <div class="s-body reveal reveal-d2">
         <ul>
-          <li>In Blink, <strong>gaps were throw-away values</strong>&mdash;their positions were never stored. Layout computed them, used them, and discarded them.</li>
+          <li>In Blink, <strong>gaps were throw-away values</strong>. Their positions were never stored. Layout computed them, used them, and discarded them.</li>
           <li>Grid tracks live as <strong>compressed abstractions</strong> (<code>GridRanges</code>, <code>GridSets</code>) to avoid expanding repeaters into individual positions.</li>
-          <li>But to draw decorations, we had to expand every track to find where gaps lived. The result? Every intersection stored as an (x,&thinsp;y) pair&mdash;the O(m&thinsp;&times;&thinsp;n) cost from the previous slide.</li>
+          <li>But to draw decorations, we had to expand every track to find where gaps lived. The result? Every intersection stored as an (x,&thinsp;y) pair, the O(m&thinsp;&times;&thinsp;n) cost from the previous slide.</li>
         </ul>
       </div>
       <div class="s-body reveal reveal-d3" style="margin-top: 16px;">
@@ -1150,7 +1158,7 @@ a:hover { opacity: 0.8; }
     <div class="s-label reveal">Into Unfamiliar Territory</div>
     <div class="s-title reveal reveal-d1" style="text-align: center;">Paint Land: fun but subtle</div>
     <div class="s-body reveal reveal-d2" style="text-align: center; max-width: 720px; margin-bottom: 28px;">
-      Geometry from layout &rarr; rects &rarr; paint ops (<code>BoxFragmentPainter</code>). Five subtleties we had to figure out:
+      Geometry from layout &rarr; rects &rarr; paint ops (<code>BoxFragmentPainter</code>). Four subtleties we had to figure out:
     </div>
     <!-- Four vignettes: ink overflow, clipping, invalidation, resize -->
     <div class="reveal reveal-d3" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; width: 100%; max-width: 1040px;">
@@ -1475,7 +1483,7 @@ a:hover { opacity: 0.8; }
     <div class="s-title reveal reveal-d1" style="max-width: 700px;">What it takes to draw a line</div>
     <div class="s-body reveal reveal-d2" style="text-align: center; max-width: 600px;">
       <ul style="text-align: left;">
-        <li>Gap decorations forced us to learn paint, layout, and style in depth.</li>
+        <li>Gap decorations forced us to learn paint, layout, and style.</li>
         <li>The spec changed because implementation kept finding real problems.</li>
         <li>Developer feedback during dev trial shaped the final design.</li>
         <li>Standards work isn't overhead. It's how you get the design right.</li>
