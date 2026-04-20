@@ -6,13 +6,8 @@
 **Label:** BlinkOn 2026
 
 # StoryTime: CSS Gap Decorations
+The long road to draw some lines
 From spec proposal to cross-layer implementation in Blink
-
-| Stat | Value |
-|------|-------|
-| CLs | 191 |
-| Spec PRs | 22 |
-| CSSWG Issues | 30 |
 
 Javier Contreras · Sam Davis Omekara
 Microsoft Web Platform
@@ -30,7 +25,7 @@ On the Web, container types help developers build the layouts they want:
 
 - **Flex**: 1D placement. Items flow in a single direction.
 - **Grid**: 2D placement. Items placed across rows and columns.
-- **Multicol**: triggered not by `display`, but by specifying the number of columns
+- **Multicol**: triggered not by `display`, but by setting `column-count` or `column-width`
 
 ---
 
@@ -44,7 +39,7 @@ On the Web, container types help developers build the layouts they want:
 - These containers can have **gutters**, but only **Multicol** had a way to style them: the `column-rule` property.
 - `column-rule` lets you set style, color, and width, similar to borders.
 - People wanted the same thing for Flex and Grid.
-- **June 7, 2018**: CSSWG #2748 ("Styling Gaps/Gutters") is filed. The idea sat for six years. Lots of discussion, no spec.
+- **June 7, 2018**: CSSWG #2748 ("Styling Gaps/Gutters") is filed.
 
 **Links:** [CSSWG #2748](https://github.com/w3c/csswg-drafts/issues/2748)
 
@@ -127,14 +122,14 @@ Once we had an initial spec and implementation, interesting questions started co
 - A few of them:
   - #11492: Auto repeater behavior (✓ Feb 1, 2025)
   - #11494: Computed value with none/hidden (✓ Nov 11, 2025)
-  - #11496: Shorthand grammar (✓ Apr 12, 2025)
+  - #11520: Suppression of gaps across fragment breaks (✓ Mar 10, 2025)
   - #12024: Outsets at edges (✓ Dec 17, 2025)
   - #12540: Renamed rule-paint-order → rule-overlap (✓ Aug 8, 2025)
-- **30 issues filed. 24 resolved.**
+- **30 issues filed. 388 WPT tests.**
 **Links:**
 - [#11492](https://github.com/w3c/csswg-drafts/issues/11492)
 - [#11494](https://github.com/w3c/csswg-drafts/issues/11494)
-- [#11496](https://github.com/w3c/csswg-drafts/issues/11496)
+- [#11520](https://github.com/w3c/csswg-drafts/issues/11520)
 - [#12024](https://github.com/w3c/csswg-drafts/issues/12024)
 - [#12540](https://github.com/w3c/csswg-drafts/issues/12540)
 
@@ -223,7 +218,11 @@ Once we had an initial spec and implementation, interesting questions started co
 - Three regions: **Leading**, **Auto**, **Trailing**.
 - Animations (CSSWG #12431) are the exception. They need expansion. LCM alignment for interpolating lists of different lengths.
 
-**Example:** interpolating `10px repeat(3, 5px 1px) 10px` to `5px 10px` — expand both, align to LCM, then interpolate.
+**Example:** interpolating `10px repeat(3, 5px 1px) 10px` (8 values) to `5px 10px` (2 values).
+
+1. **Expand** repeaters: `10 5 1 5 1 5 1 10` and `5 10`.
+2. **Align to LCM(8, 2) = 8**: pad shorter list by repeating: `5 10 5 10 5 10 5 10`.
+3. **Interpolate** pairwise across the aligned 8-value lists.
 
 **Animation demo caption:** column-rule-color, column-rule-width, rule-inset: animating
 

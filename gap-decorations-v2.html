@@ -438,22 +438,15 @@ a:hover { opacity: 0.8; }
   <div class="center-col">
     <div class="s-label reveal">BlinkOn 2026</div>
     <div class="s-title reveal reveal-d1" style="font-size: clamp(2.4rem, 5vw, 4rem);">StoryTime: CSS Gap Decorations</div>
-    <div class="s-subtitle reveal reveal-d2" style="margin-top: 8px;">From spec proposal to cross-layer implementation in Blink</div>
-    <div style="margin-top: 32px; display: flex; gap: 40px;" class="reveal reveal-d3">
-      <div class="stat-item">
-        <div class="s-big-num" style="font-size: 2.5rem; color: var(--impl);">191</div>
-        <div class="s-stat-label">CLs</div>
-      </div>
-      <div class="stat-item">
-        <div class="s-big-num" style="font-size: 2.5rem; color: var(--wg);">22</div>
-        <div class="s-stat-label">Spec PRs</div>
-      </div>
-      <div class="stat-item">
-        <div class="s-big-num" style="font-size: 2.5rem; color: var(--design);">30</div>
-        <div class="s-stat-label">CSSWG Issues</div>
-      </div>
+    <div class="s-subtitle reveal reveal-d2" style="margin-top: 8px;">The long road to draw some lines</div>
+    <div class="reveal reveal-d2" style="margin-top: 4px; font-family: var(--font-mono); font-size: 0.7rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase;">From spec proposal to cross-layer implementation in Blink</div>
+    <div class="reveal reveal-d3" style="margin-top: 32px; display: flex; gap: 14px; align-items: center;">
+      <div style="width: 80px; height: 4px; background: var(--wg); border-radius: 2px;"></div>
+      <div style="width: 80px; height: 4px; background: var(--design); border-radius: 2px;"></div>
+      <div style="width: 80px; height: 4px; background: var(--impl); border-radius: 2px;"></div>
+      <div style="width: 80px; height: 4px; background: var(--accent); border-radius: 2px;"></div>
     </div>
-    <div class="reveal reveal-d4" style="margin-top: 28px; font-family: var(--font-display); font-size: 1.25rem; color: var(--text);">
+    <div class="reveal reveal-d4" style="margin-top: 32px; font-family: var(--font-display); font-size: 1.25rem; color: var(--text);">
       Javier Contreras &middot; Sam Davis Omekara
     </div>
     <div class="reveal reveal-d5" style="margin-top: 6px; font-family: var(--font-mono); font-size: 0.6rem; color: var(--dim); letter-spacing: 2px; text-transform: uppercase; font-weight: 500;">
@@ -521,7 +514,7 @@ a:hover { opacity: 0.8; }
         </div>
         <div style="margin-top: 16px;">
           <div style="font-family: var(--font-display); font-size: 1.4rem; color: var(--text);">Multicol</div>
-          <div style="font-size: 0.8rem; color: var(--dim); margin-top: 4px; line-height: 1.5;">Triggered not by <code>display</code>, but by setting <code>column-count</code>.</div>
+          <div style="font-size: 0.8rem; color: var(--dim); margin-top: 4px; line-height: 1.5;">Triggered not by <code>display</code>, but by setting <code>column-count</code> or <code>column-width</code>.</div>
         </div>
       </div>
     </div>
@@ -543,7 +536,7 @@ a:hover { opacity: 0.8; }
           <li>These containers can have <strong>gutters</strong>, but only <strong>Multicol</strong> had a way to style them: the <code>column-rule</code> property.</li>
           <li><code>column-rule</code> lets you set style, color, and width, similar to borders.</li>
           <li>People wanted the same thing for Flex and Grid.</li>
-          <li><strong>June 7, 2018</strong>: <a href="https://github.com/w3c/csswg-drafts/issues/2748" target="_blank">CSSWG #2748</a> ("Styling Gaps/Gutters") is filed. The idea sat for six years. Lots of discussion, no spec.</li>
+          <li><strong>June 7, 2018</strong>: <a href="https://github.com/w3c/csswg-drafts/issues/2748" target="_blank">CSSWG #2748</a> ("Styling Gaps/Gutters") is filed.</li>
         </ul>
       </div>
     </div>
@@ -786,9 +779,9 @@ a:hover { opacity: 0.8; }
         <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--design); margin-top: 8px;">&#10003; Nov 11, 2025</div>
       </div>
       <div style="background: var(--card); border-radius: 8px; padding: 14px 16px; border-top: 2px solid var(--wg);">
-        <div style="font-family: var(--font-mono); font-size: 0.6rem; color: var(--wg); letter-spacing: 1px;"><a href="https://github.com/w3c/csswg-drafts/issues/11496" target="_blank">#11496</a></div>
-        <div style="font-size: 0.78rem; color: var(--dim); margin-top: 6px;">Shorthand grammar</div>
-        <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--design); margin-top: 8px;">&#10003; Apr 12, 2025</div>
+        <div style="font-family: var(--font-mono); font-size: 0.6rem; color: var(--wg); letter-spacing: 1px;"><a href="https://github.com/w3c/csswg-drafts/issues/11520" target="_blank">#11520</a></div>
+        <div style="font-size: 0.78rem; color: var(--dim); margin-top: 6px;">Suppression of gaps across fragment breaks</div>
+        <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--design); margin-top: 8px;">&#10003; Mar 10, 2025</div>
       </div>
       <div style="background: var(--card); border-radius: 8px; padding: 14px 16px; border-top: 2px solid var(--wg);">
         <div style="font-family: var(--font-mono); font-size: 0.6rem; color: var(--wg); letter-spacing: 1px;"><a href="https://github.com/w3c/csswg-drafts/issues/12024" target="_blank">#12024</a></div>
@@ -801,10 +794,11 @@ a:hover { opacity: 0.8; }
         <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--design); margin-top: 8px;">&#10003; Aug 8, 2025</div>
       </div>
       <div style="background: var(--surface); border-radius: 8px; padding: 14px 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
-        <div style="font-family: var(--font-display); font-size: 1.6rem; color: var(--design);">30</div>
-        <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--muted); letter-spacing: 1px; margin-top: 2px;">ISSUES FILED</div>
-        <div style="font-family: var(--font-display); font-size: 1.6rem; color: var(--text); margin-top: 6px;">24</div>
-        <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--muted); letter-spacing: 1px; margin-top: 2px;">RESOLVED</div>
+        <div style="font-family: var(--font-display); font-size: 2.6rem; color: var(--impl); line-height: 1;">388</div>
+        <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--muted); letter-spacing: 1px; margin-top: 4px;">WPT TESTS</div>
+        <div style="height: 1px; background: var(--border); width: 60%; margin: 10px 0;"></div>
+        <div style="font-family: var(--font-display); font-size: 1.2rem; color: var(--design);">30</div>
+        <div style="font-family: var(--font-mono); font-size: 0.5rem; color: var(--muted); letter-spacing: 1px;">ISSUES FILED</div>
       </div>
     </div>
   </div>
@@ -1139,9 +1133,16 @@ a:hover { opacity: 0.8; }
         </ul>
         <div style="margin-top: 14px; background: var(--card); border-radius: 8px; padding: 14px 16px; font-family: var(--font-mono); font-size: 0.7rem; line-height: 1.7;">
           <div style="font-size: 0.55rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; font-weight: 500;">Example: interpolating across lengths</div>
-          <div><span style="color: var(--dim);">from:</span> <span style="color: var(--text);">10px repeat(3, 5px 1px) 10px</span></div>
-          <div><span style="color: var(--dim);">to:&nbsp;&nbsp;</span> <span style="color: var(--text);">5px 10px</span></div>
-          <div style="color: var(--dim); margin-top: 6px; font-family: var(--font-body); font-size: 0.72rem; font-style: italic;">expand both, align to LCM, then interpolate.</div>
+          <div><span style="color: var(--dim);">from:</span> <span style="color: var(--text);">10px repeat(3, 5px 1px) 10px</span> <span style="color: var(--muted);">(8 values)</span></div>
+          <div><span style="color: var(--dim);">to:&nbsp;&nbsp;</span> <span style="color: var(--text);">5px 10px</span> <span style="color: var(--muted);">(2 values)</span></div>
+          <div style="height: 1px; background: var(--border); margin: 8px 0;"></div>
+          <div><span style="color: var(--design); font-size: 0.55rem; letter-spacing: 1px; text-transform: uppercase;">1. Expand</span></div>
+          <div><span style="color: var(--dim);">from:</span> <span style="color: var(--design);">10 5 1 5 1 5 1 10</span></div>
+          <div><span style="color: var(--dim);">to:&nbsp;&nbsp;</span> <span style="color: var(--design);">5 10</span></div>
+          <div style="margin-top: 6px;"><span style="color: var(--accent); font-size: 0.55rem; letter-spacing: 1px; text-transform: uppercase;">2. Align to LCM(8, 2) = 8</span></div>
+          <div><span style="color: var(--dim);">from:</span> <span style="color: var(--text);">10 5 1 5 1 5 1 10</span></div>
+          <div><span style="color: var(--dim);">to:&nbsp;&nbsp;</span> <span style="color: var(--accent);">5 10 5 10 5 10 5 10</span></div>
+          <div style="margin-top: 6px;"><span style="color: var(--impl); font-size: 0.55rem; letter-spacing: 1px; text-transform: uppercase;">3. Interpolate pairwise</span></div>
         </div>
       </div>
     </div>
