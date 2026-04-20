@@ -5,6 +5,9 @@
 
 ---
 
+
+Timing: 22 -25 mins
+5 mins for QnA
 ## Opening — The Hook
 
 **[Slide 1: Title]**
@@ -14,32 +17,48 @@
 Hello Everyone, 
 
 My name is Sam Davis Omekara Jr. and I'm here with Javier Contreras Tenorio. We've spent the last year or so
-working on a web platform API & we're here to share mini stories that culminate into the feature.
+working on a web platform API called CSS Gap Decorations & we're here to share mini stories ehich culminate into the feature that is CSS Gap Decorations.
 
+
+T: 30 secs
 ---
 
 ## Act 1 — The Origin
 
 **[Slide 2: Launch the Problem softly: Containers ]**
 
-On the Web, we have container types such as flex and grid that help web developers put stuff together and achieve their desired layout. I guess the two most popular dare I say is flex and grid. In Flex, we have this sort of 1D
-Placement and Grid we establish this sort of 2D placement. Then a not so popular one is one called multi col
-which isn't triggered by the display property but somewhat by specifying the number of columns. 
+On the Web, we have container types such as flex and grid that help web developers put stuff together and achieve their desired layout.
+
+I guess the two most popular dare I say is flex and grid.
+
+In Flex, we have this sort of 1D Placement and Grid we establish this using sort of 2D placement.
+
+Then a not so popular one is one called multi col which isn't triggered by the display property but somewhat by specifying the number of columns.
+
+T: 1 minute
 
 
 **[Slide 3: ] Hard Launch the Problem**
-The thing about these containers is that they could have gutters which creates a nice effect [Find the use of these containers] but only one of them provided a way to style them: Multi Col through the Rule property
-So you could say column-rule and set particular values for the style, color and width similar to borders.
-There was clamor for this to be extended to other containers and the csswg picked this up in issue 
-2748 And the issue was filed in 2018 with significant clamor and discussions going on
+The thing about these containers is that they could have gutters which creates a nice effect [Find the use / importance of gutters on these containers]
 
+Only one of these containers provided a way to style their gutters: Multi Col through the Rule property
+So you could say column-rule and set particular values for the style, color and width similar to borders.
+
+[ Find the history of why multi col had styling]
+
+There was clamor for this to be extended to other containers and this was captured in the original
+csswg issue with use cases varying from x to y to z. And authors clamouring for x
+
+T: 1:30 - 2 mins - 2 : 30
 
 **[Slide 4: Speccing Picks Up the Thread]**
 
-Mats Palmgreen from Mozilla had a first stab at writing a spec for this, and this informed the current spec that
+In response to this clamour, Mats Palmgreen from Mozilla had a first stab at writing a spec for this, and this informed the current spec that
 we have now today which was written by Kevin Babbitt. Since Kevin is a member of our team at Microsoft,
-I decided to get 4 key things he had in mind when designing this spec:
-1, 2, 3, 4. 
+we decided to get 3 key things he had in mind when designing this spec:
+1, 2, 3.
+
+Say something about these three things and how they informed what features we have within the spec
 
 **[Slide 5: Style → Layout → Paint]**
 
