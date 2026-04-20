@@ -325,7 +325,7 @@ a:hover { opacity: 0.8; }
 /* Full-bleed slides — no surface card */
 .slide-fullbleed::before { display: none; }
 
-/* Animated gap demo (slide 9) — REAL CSS Gap Decorations */
+/* Animated gap demo (slide 11) — REAL CSS Gap Decorations */
 .anim-demo {
   display: grid;
   grid-template-columns: repeat(3, 100px);
@@ -366,7 +366,7 @@ a:hover { opacity: 0.8; }
   100% { content: ''; }
 }
 
-/* Intersection vs Segments diagrams (slide 11) — real gap decorations on flex */
+/* Intersection vs Segments diagrams (slide 13) — real gap decorations on flex */
 .md-flex-wrap {
   display: flex;
   flex-wrap: wrap;
@@ -599,7 +599,75 @@ a:hover { opacity: 0.8; }
 </div>
 
 <!-- ═══════════════════════════════════════════════════ -->
-<!-- SLIDE 5: THREE LAYERS -->
+<!-- SLIDE 5: THE INITIAL FEATURE -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="slide" data-pillar="wg-design">
+  <div class="pillars"><span class="pill pill-wg">CSSWG</span><span class="pill pill-design">Design</span></div>
+  <div class="act-badge">Part 1 &mdash; The Origin</div>
+  <div class="center-col" style="max-width: 1100px; width: 100%;">
+    <div class="s-label reveal">The Initial Feature</div>
+    <div class="s-title reveal reveal-d1" style="text-align: center;">What the spec gave us</div>
+    <div class="s-body reveal reveal-d2" style="text-align: center; margin-bottom: 32px;">
+      CSS Gap Decorations Level 1 introduced three key capabilities beyond basic <code>column-rule</code>.
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; width: 100%; max-width: 960px; column-rule-style: dashed; column-rule-width: 1px; column-rule-color: var(--muted); column-rule-inset: 20px;">
+      <!-- Card 1: Varying styles -->
+      <div class="reveal reveal-d2" style="background: var(--card); border-radius: 10px; padding: 22px; border-top: 2px solid var(--design);">
+        <div style="height: 80px; display: flex; align-items: center; justify-content: center; gap: 14px;">
+          <div style="width: 2px; height: 50px; background: var(--design); border-radius: 1px;"></div>
+          <div style="width: 2px; height: 50px; border-left: 2px dashed var(--impl);"></div>
+          <div style="width: 2px; height: 50px; border-left: 2px dotted var(--wg);"></div>
+        </div>
+        <div style="margin-top: 16px;">
+          <div style="font-family: var(--font-display); font-size: 1.4rem; color: var(--text);">Varying Styles</div>
+          <div style="font-size: 0.8rem; color: var(--dim); margin-top: 4px; line-height: 1.5;">List-valued properties let each gap carry a different style, width, and color&mdash;for both rows and columns.</div>
+        </div>
+      </div>
+      <!-- Card 2: Rule Break -->
+      <div class="reveal reveal-d3" style="background: var(--card); border-radius: 10px; padding: 22px; border-top: 2px solid var(--impl);">
+        <div style="height: 80px; display: flex; align-items: center; justify-content: center;">
+          <div style="position: relative; display: grid; grid-template-columns: 28px 28px; grid-template-rows: 28px 28px; gap: 8px;">
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <!-- Vertical rule with break at intersection -->
+            <div style="position: absolute; left: 50%; top: -2px; height: 28px; width: 2px; background: var(--impl); transform: translateX(-50%);"></div>
+            <div style="position: absolute; left: 50%; bottom: -2px; height: 28px; width: 2px; background: var(--impl); transform: translateX(-50%);"></div>
+          </div>
+        </div>
+        <div style="margin-top: 16px;">
+          <div style="font-family: var(--font-display); font-size: 1.4rem; color: var(--text);">Rule Break</div>
+          <div style="font-size: 0.8rem; color: var(--dim); margin-top: 4px; line-height: 1.5;">Control how decorations break at intersections: <code>none</code>, <code>spanning-item</code>, or <code>intersection</code>.</div>
+        </div>
+      </div>
+      <!-- Card 3: Rule Inset -->
+      <div class="reveal reveal-d4" style="background: var(--card); border-radius: 10px; padding: 22px; border-top: 2px solid var(--wg);">
+        <div style="height: 80px; display: flex; align-items: center; justify-content: center;">
+          <div style="position: relative; width: 64px; height: 56px; border: 1px dashed var(--muted); border-radius: 3px;">
+            <!-- Full-length rule (ghosted) -->
+            <div style="position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: var(--muted); opacity: 0.2; transform: translateX(-50%);"></div>
+            <!-- Inset rule -->
+            <div style="position: absolute; left: 50%; top: 12px; bottom: 12px; width: 2px; background: var(--wg); transform: translateX(-50%); border-radius: 1px;"></div>
+            <!-- Inset arrows -->
+            <div style="position: absolute; left: calc(50% + 6px); top: 4px; font-family: var(--font-mono); font-size: 0.5rem; color: var(--wg);">&darr;</div>
+            <div style="position: absolute; left: calc(50% + 6px); bottom: 2px; font-family: var(--font-mono); font-size: 0.5rem; color: var(--wg);">&uarr;</div>
+          </div>
+        </div>
+        <div style="margin-top: 16px;">
+          <div style="font-family: var(--font-display); font-size: 1.4rem; color: var(--text);">Rule Inset</div>
+          <div style="font-size: 0.8rem; color: var(--dim); margin-top: 4px; line-height: 1.5;">Shorten or extend decorations from gap edges with positive or negative inset values.</div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal reveal-d5" style="margin-top: 20px; font-family: var(--font-mono); font-size: 0.6rem; color: var(--muted); text-align: center; letter-spacing: 1px;">
+      <a href="https://www.w3.org/TR/css-gaps-1/" target="_blank" style="color: var(--impl); text-decoration: underline; text-underline-offset: 3px;">w3.org/TR/css-gaps-1</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SLIDE 6: THREE LAYERS -->
 <!-- ═══════════════════════════════════════════════════ -->
 <div class="slide" data-pillar="design-impl">
   <div class="pillars"><span class="pill pill-design">Design</span><span class="pill pill-impl">Implementation</span></div>
@@ -674,18 +742,18 @@ a:hover { opacity: 0.8; }
 </div>
 
 <!-- ═══════════════════════════════════════════════════ -->
-<!-- SLIDE 6: TRANSITION 1 -->
+<!-- SLIDE 7: TRANSITION 1 -->
 <!-- ═══════════════════════════════════════════════════ -->
 <div class="slide slide-transition">
   <div class="center-col">
     <div class="transition-line reveal"></div>
-    <div class="s-title reveal reveal-d1" style="max-width: 600px;">Once we had an initial spec and implementation, interesting questions started coming up. That&rsquo;s when we got pulled into Standards work.</div>
+    <div class="s-title reveal reveal-d1" style="max-width: 600px;">Once we had an initial spec and implementation, interesting questions started coming up. Re: Standards.</div>
     <div class="transition-line reveal reveal-d2"></div>
   </div>
 </div>
 
 <!-- ═══════════════════════════════════════════════════ -->
-<!-- SLIDE 7: WORKING WITH STANDARDS -->
+<!-- SLIDE 8: WORKING WITH STANDARDS -->
 <!-- ═══════════════════════════════════════════════════ -->
 <div class="slide" data-pillar="wg-design">
   <div class="pillars"><span class="pill pill-wg">CSSWG</span><span class="pill pill-design">Design</span></div>
@@ -731,14 +799,81 @@ a:hover { opacity: 0.8; }
         <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--muted); letter-spacing: 1px; margin-top: 2px;">RESOLVED</div>
       </div>
     </div>
-    <div class="s-body reveal reveal-d4" style="margin-top: 16px; text-align: center; color: var(--muted); font-size: 0.82rem;">
-      &#9888; <a href="https://github.com/w3c/csswg-drafts/issues/11491" target="_blank">#11491</a>: bikeshedding rule-break names took <strong style="color: var(--wg);">14 months</strong> to resolve. No change in the end. The deliberation is frustrating, but it&rsquo;s what produces a spec multiple engines can implement consistently.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SLIDE 9: GAP SUPPRESSION & FRAGMENTATION -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="slide" data-pillar="wg-impl">
+  <div class="pillars"><span class="pill pill-wg">CSSWG</span><span class="pill pill-impl">Implementation</span></div>
+  <div class="act-badge">Part 2 &mdash; Iteration</div>
+  <div class="split">
+    <div class="left-col">
+      <div class="s-label reveal">Fragmentation</div>
+      <div class="s-title reveal reveal-d1">Gap suppression across fragment breaks</div>
+      <div class="s-body reveal reveal-d2">
+        <ul>
+          <li>When a container is <strong>fragmented</strong> (e.g. across pages or columns), gaps can land right at a break point.</li>
+          <li><a href="https://github.com/w3c/csswg-drafts/issues/11520" target="_blank">CSSWG #11520</a> resolved: <strong>suppress gaps at fragment breaks</strong>. The break itself already acts as a visual separator&mdash;drawing a decoration there is redundant.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="center-col reveal reveal-d3">
+      <div style="display: flex; flex-direction: column; gap: 14px; width: 280px;">
+        <!-- 3x3 grid with row rules — break falls on the row gap between row 1 and row 2 -->
+        <div style="background: var(--card); border-radius: 8px; padding: 14px; border: 1px solid var(--design-border);">
+          <div style="font-family: var(--font-mono); font-size: 0.5rem; color: var(--design); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px;">3 &times; 3 Grid</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 32px 32px 32px; gap: 8px; row-rule-style: solid; row-rule-width: 2px; row-rule-color: var(--impl); column-rule-style: solid; column-rule-width: 1px; column-rule-color: var(--impl);">
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+          </div>
+        </div>
+        <!-- Fragment break on the row gap -->
+        <div style="position: relative; display: flex; align-items: center; gap: 8px;">
+          <div style="flex: 1; height: 1px; border-top: 2px dashed hsl(0,55%,55%);"></div>
+          <div style="font-family: var(--font-mono); font-size: 0.5rem; color: hsl(0,55%,55%); letter-spacing: 1px; white-space: nowrap;">BREAK ON ROW GAP</div>
+          <div style="flex: 1; height: 1px; border-top: 2px dashed hsl(0,55%,55%);"></div>
+        </div>
+        <!-- Result: two fragments, gap between them suppressed -->
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <!-- Fragment 1: first row -->
+          <div style="background: var(--card); border-radius: 8px; padding: 14px; border: 1px solid var(--border);">
+            <div style="font-family: var(--font-mono); font-size: 0.45rem; color: var(--muted); letter-spacing: 1px; margin-bottom: 8px;">FRAGMENT 1</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 32px; gap: 8px; column-rule-style: solid; column-rule-width: 1px; column-rule-color: var(--impl);">
+              <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+              <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+              <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            </div>
+          </div>
+          <!-- Fragment 2: remaining rows, no row rule at top -->
+          <div style="background: var(--card); border-radius: 8px; padding: 14px; border: 1px solid var(--border);">
+            <div style="font-family: var(--font-mono); font-size: 0.45rem; color: var(--muted); letter-spacing: 1px; margin-bottom: 8px;">FRAGMENT 2</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 32px 32px; gap: 8px; row-rule-style: solid; row-rule-width: 2px; row-rule-color: var(--impl); column-rule-style: solid; column-rule-width: 1px; column-rule-color: var(--impl);">
+              <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+              <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+              <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+              <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+              <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+              <div style="background: hsla(220,20%,80%,0.6); border-radius: 3px;"></div>
+            </div>
+            <div style="font-family: var(--font-mono); font-size: 0.45rem; color: hsl(0,50%,55%); margin-top: 8px;">row gap at break &rarr; suppressed</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
 <!-- ═══════════════════════════════════════════════════ -->
-<!-- SLIDE 8: THE OLD MODEL -->
+<!-- SLIDE 10: THE OLD MODEL -->
 <!-- ═══════════════════════════════════════════════════ -->
 <div class="slide" data-pillar="impl">
   <div class="pillars"><span class="pill pill-impl">Implementation</span></div>
@@ -812,30 +947,78 @@ a:hover { opacity: 0.8; }
 </div>
 
 <!-- ═══════════════════════════════════════════════════ -->
-<!-- SLIDE 9: WHY GRID FORCED THE ISSUE -->
+<!-- SLIDE 11: WHY GRID FORCED THE ISSUE -->
 <!-- ═══════════════════════════════════════════════════ -->
 <div class="slide" data-pillar="impl">
   <div class="pillars"><span class="pill pill-impl">Implementation</span></div>
   <div class="act-badge">Part 2 &mdash; Iteration</div>
-  <div class="left-col">
-    <div class="s-label reveal">The Great Rewrite</div>
-    <div class="s-title reveal reveal-d1">Why Grid forced the issue</div>
-    <div class="s-body reveal reveal-d2">
-      <ul>
-        <li>Grid tracks use <strong>compressed abstractions</strong>: <code>GridRanges</code> and <code>GridSets</code>.</li>
-        <li>Grid avoids expanding tracks into individual positions. That&rsquo;s by design.</li>
-        <li>But the old gap decoration model needed expansion via <code>ComputeExpandedPositions</code>.</li>
-        <li>We were <strong>fighting the grid engine</strong>, asking it to do the one thing it was built not to do.</li>
-      </ul>
+  <div class="split">
+    <div class="left-col">
+      <div class="s-label reveal">The Great Rewrite</div>
+      <div class="s-title reveal reveal-d1">Why Grid forced the issue</div>
+      <div class="s-body reveal reveal-d2">
+        <ul>
+          <li>In Blink, <strong>gaps were throw-away values</strong>&mdash;their positions were never stored. Layout computed them, used them, and discarded them.</li>
+          <li>Grid tracks live as <strong>compressed abstractions</strong> (<code>GridRanges</code>, <code>GridSets</code>) to avoid expanding repeaters into individual positions.</li>
+          <li>But to draw decorations, we had to expand every track to find where gaps lived. The result? Every intersection stored as an (x,&thinsp;y) pair&mdash;the O(m&thinsp;&times;&thinsp;n) cost from the previous slide.</li>
+        </ul>
+      </div>
+      <div class="s-body reveal reveal-d3" style="margin-top: 16px;">
+        We needed a model that fit how grid (and flex, and multicol) actually work inside.
+      </div>
     </div>
-    <div class="s-body reveal reveal-d3" style="margin-top: 16px;">
-      It wasn&rsquo;t going to work long-term. We needed a model that fit how grid (and flex, and multicol) actually work inside.
+    <div class="center-col reveal reveal-d3">
+      <div style="display: flex; flex-direction: column; gap: 16px; width: 300px;">
+        <!-- Compressed: GridRanges containing GridSets -->
+        <div style="background: var(--card); border-radius: 8px; padding: 16px; border: 1px solid var(--design-border);">
+          <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--design); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px;">Grid&rsquo;s world: compressed</div>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <!-- Range 1 with 2 sets -->
+            <div style="border: 1px solid var(--design-border); border-radius: 4px; padding: 6px 8px;">
+              <div style="font-family: var(--font-mono); font-size: 0.45rem; color: var(--muted); margin-bottom: 4px;">Range 1</div>
+              <div style="display: flex; gap: 4px;">
+                <div style="background: var(--design); opacity: 0.7; height: 28px; flex: 1; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 0.45rem; color: white;">(10px, 3)</div>
+                <div style="background: var(--design); opacity: 0.55; height: 28px; flex: 1; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 0.45rem; color: white;">(30px, 7)</div>
+              </div>
+            </div>
+            <!-- Range 2 with 2 sets -->
+            <div style="border: 1px solid var(--design-border); border-radius: 4px; padding: 6px 8px;">
+              <div style="font-family: var(--font-mono); font-size: 0.45rem; color: var(--muted); margin-bottom: 4px;">Range 2</div>
+              <div style="display: flex; gap: 4px;">
+                <div style="background: var(--design); opacity: 0.5; height: 28px; flex: 1; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 0.45rem; color: white;">(40px, 5)</div>
+                <div style="background: var(--design); opacity: 0.4; height: 28px; flex: 1; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 0.45rem; color: white;">(60px, 2)</div>
+              </div>
+            </div>
+          </div>
+          <div style="font-family: var(--font-mono); font-size: 0.5rem; color: var(--muted); margin-top: 8px;">2 ranges, 4 sets, no expansion</div>
+        </div>
+        <!-- Arrow down -->
+        <div style="text-align: center; font-family: var(--font-mono); font-size: 0.7rem; color: var(--muted);">&darr; gap decorations need positions</div>
+        <!-- Expanded: every track enumerated -->
+        <div style="background: var(--card); border-radius: 8px; padding: 16px; border: 1px solid hsl(0,50%,55%,0.3);">
+          <div style="font-family: var(--font-mono); font-size: 0.55rem; color: hsl(0,50%,55%); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px;">What we needed: expanded</div>
+          <div style="display: flex; gap: 2px; align-items: center; flex-wrap: wrap;">
+            <div style="background: hsl(0,50%,55%); opacity: 0.6; height: 16px; width: 16px; border-radius: 2px;"></div>
+            <div style="background: hsl(0,50%,55%); opacity: 0.55; height: 16px; width: 16px; border-radius: 2px;"></div>
+            <div style="background: hsl(0,50%,55%); opacity: 0.5; height: 16px; width: 16px; border-radius: 2px;"></div>
+            <div style="background: hsl(0,50%,55%); opacity: 0.45; height: 16px; width: 16px; border-radius: 2px;"></div>
+            <div style="background: hsl(0,50%,55%); opacity: 0.4; height: 16px; width: 16px; border-radius: 2px;"></div>
+            <div style="background: hsl(0,50%,55%); opacity: 0.35; height: 16px; width: 16px; border-radius: 2px;"></div>
+            <div style="background: hsl(0,50%,55%); opacity: 0.6; height: 16px; width: 16px; border-radius: 2px;"></div>
+            <div style="background: hsl(0,50%,55%); opacity: 0.55; height: 16px; width: 16px; border-radius: 2px;"></div>
+            <div style="background: hsl(0,50%,55%); opacity: 0.5; height: 16px; width: 16px; border-radius: 2px;"></div>
+            <div style="background: hsl(0,50%,55%); opacity: 0.45; height: 16px; width: 16px; border-radius: 2px;"></div>
+            <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--muted); margin-left: 2px;">&hellip;100</div>
+          </div>
+          <div style="font-family: var(--font-mono); font-size: 0.5rem; color: var(--muted); margin-top: 8px;">every track position enumerated</div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
 <!-- ═══════════════════════════════════════════════════ -->
-<!-- SLIDE 10: ANCHOR/DEPENDENT MODEL -->
+<!-- SLIDE 12: ANCHOR/DEPENDENT MODEL -->
 <!-- ═══════════════════════════════════════════════════ -->
 <div class="slide" data-pillar="impl">
   <div class="pillars"><span class="pill pill-impl">Implementation</span></div>
@@ -920,7 +1103,7 @@ a:hover { opacity: 0.8; }
 </div>
 
 <!-- ═══════════════════════════════════════════════════ -->
-<!-- SLIDE 11: DO NOT EXPAND -->
+<!-- SLIDE 13: DO NOT EXPAND -->
 <!-- ═══════════════════════════════════════════════════ -->
 <div class="slide" data-pillar="impl">
   <div class="pillars"><span class="pill pill-impl">Implementation</span></div>
@@ -953,7 +1136,7 @@ a:hover { opacity: 0.8; }
 </div>
 
 <!-- ═══════════════════════════════════════════════════ -->
-<!-- SLIDE 12: PAINT LAND -->
+<!-- SLIDE 14: PAINT LAND -->
 <!-- ═══════════════════════════════════════════════════ -->
 <div class="slide" data-pillar="impl">
   <div class="pillars"><span class="pill pill-impl">Implementation</span></div>
@@ -1055,7 +1238,7 @@ a:hover { opacity: 0.8; }
 </div>
 
 <!-- ═══════════════════════════════════════════════════ -->
-<!-- SLIDE 13: TRANSITION 2 -->
+<!-- SLIDE 15: TRANSITION 2 -->
 <!-- ═══════════════════════════════════════════════════ -->
 <div class="slide slide-transition">
   <div class="center-col">
@@ -1069,7 +1252,7 @@ a:hover { opacity: 0.8; }
 </div>
 
 <!-- ═══════════════════════════════════════════════════ -->
-<!-- SLIDE 14: FEEDBACK THAT CHANGED THE SPEC -->
+<!-- SLIDE 16: FEEDBACK THAT CHANGED THE SPEC -->
 <!-- ═══════════════════════════════════════════════════ -->
 <div class="slide" data-pillar="wg-design">
   <div class="pillars"><span class="pill pill-wg">CSSWG</span><span class="pill pill-design">Design</span></div>
@@ -1157,7 +1340,7 @@ a:hover { opacity: 0.8; }
 </div>
 
 <!-- ═══════════════════════════════════════════════════ -->
-<!-- SLIDE 15: FROM INTERSECTIONS TO SEGMENTS -->
+<!-- SLIDE 17: FROM INTERSECTIONS TO SEGMENTS -->
 <!-- ═══════════════════════════════════════════════════ -->
 <div class="slide" data-pillar="wg-design">
   <div class="pillars"><span class="pill pill-wg">CSSWG</span><span class="pill pill-design">Design</span></div>
@@ -1226,7 +1409,7 @@ a:hover { opacity: 0.8; }
 </div>
 
 <!-- ═══════════════════════════════════════════════════ -->
-<!-- SLIDE 16: JANUARY 2026 FACE-TO-FACE -->
+<!-- SLIDE 18: JANUARY 2026 FACE-TO-FACE -->
 <!-- ═══════════════════════════════════════════════════ -->
 <div class="slide" data-pillar="all">
   <div class="pillars"><span class="pill pill-wg">CSSWG</span><span class="pill pill-design">Design</span><span class="pill pill-impl">Implementation</span></div>
@@ -1262,7 +1445,7 @@ a:hover { opacity: 0.8; }
 </div>
 
 <!-- ═══════════════════════════════════════════════════ -->
-<!-- SLIDE 17: BY THE NUMBERS -->
+<!-- SLIDE 19: BY THE NUMBERS -->
 <!-- ═══════════════════════════════════════════════════ -->
 <div class="slide">
   <div class="act-badge">Wrap</div>
@@ -1302,7 +1485,7 @@ a:hover { opacity: 0.8; }
 </div>
 
 <!-- ═══════════════════════════════════════════════════ -->
-<!-- SLIDE 18: THE FEATURE THAT TOUCHES EVERYTHING -->
+<!-- SLIDE 20: THE FEATURE THAT TOUCHES EVERYTHING -->
 <!-- ═══════════════════════════════════════════════════ -->
 <div class="slide slide-fullbleed">
   <div class="center-col">
@@ -1323,7 +1506,7 @@ a:hover { opacity: 0.8; }
 </div>
 
 <!-- ═══════════════════════════════════════════════════ -->
-<!-- SLIDE 19: CALL TO ACTION -->
+<!-- SLIDE 21: CALL TO ACTION -->
 <!-- ═══════════════════════════════════════════════════ -->
 <div class="slide slide-fullbleed">
   <div class="center-col">

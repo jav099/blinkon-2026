@@ -70,7 +70,27 @@ On the Web, container types help developers achieve their desired layout:
 
 ---
 
-## Slide 5: Three Layers
+## Slide 5: The Initial Feature
+**Pillars:** CSSWG | Design
+**Part:** 1 — The Origin
+**Label:** The Initial Feature
+
+### What the spec gave us
+
+CSS Gap Decorations Level 1 introduced three key capabilities beyond basic `column-rule`.
+
+- **Varying Styles**: List-valued properties let each gap carry a different style, width, and color—for both rows and columns.
+- **Rule Break**: Control how decorations break at intersections: `none`, `spanning-item`, or `intersection`.
+- **Rule Inset**: Shorten or extend decorations from gap edges with positive or negative inset values.
+
+**Diagram:** Three cards with visual vignettes — varying line styles, a grid with break at intersection, and an inset rule with arrows.
+
+**Links:**
+- [w3.org/TR/css-gaps-1](https://www.w3.org/TR/css-gaps-1/)
+
+---
+
+## Slide 6: Three Layers
 **Pillars:** Design | Implementation
 **Part:** 1 — The Origin
 **Label:** The Feature in Blink
@@ -89,15 +109,15 @@ Every CL touches at least one of these. Some touch all three.
 
 ---
 
-## Slide 6: Transition
+## Slide 7: Transition
 **Pillars:** —
 **Part:** Transition
 
-Once we had an initial spec and implementation, interesting questions started coming up. That's when we got pulled into Standards work.
+Once we had an initial spec and implementation, interesting questions started coming up. Re: Standards.
 
 ---
 
-## Slide 7: Working with Standards
+## Slide 8: Working with Standards
 **Pillars:** CSSWG | Design
 **Part:** 2 — Iteration
 **Label:** Working with Standards
@@ -113,19 +133,30 @@ Once we had an initial spec and implementation, interesting questions started co
   - #12024: Outsets at edges (✓ Aug 20, 2025)
   - #12540: Renamed rule-paint-order → rule-overlap (✓ Aug 6, 2025)
 - **30 issues filed. 24 resolved.**
-- The other side: #11491, bikeshedding rule-break names, took **14 months** to resolve. No change in the end. The deliberation is frustrating, but it's what produces a spec multiple engines can implement consistently.
-
 **Links:**
 - [#11492](https://github.com/w3c/csswg-drafts/issues/11492)
 - [#11494](https://github.com/w3c/csswg-drafts/issues/11494)
 - [#11496](https://github.com/w3c/csswg-drafts/issues/11496)
 - [#12024](https://github.com/w3c/csswg-drafts/issues/12024)
 - [#12540](https://github.com/w3c/csswg-drafts/issues/12540)
-- [#11491](https://github.com/w3c/csswg-drafts/issues/11491)
 
 ---
 
-## Slide 8: The Great Rewrite — The Old Model
+## Slide 9: Gap Suppression & Fragmentation
+**Pillars:** CSSWG | Implementation
+**Part:** 2 — Iteration
+**Label:** Fragmentation
+
+### Gap suppression across fragment breaks
+
+- When a container is **fragmented** (e.g. across pages or columns), gaps can land right at a break point.
+- CSSWG #11520 resolved: **suppress gaps at fragment breaks**. The break itself already acts as a visual separator—drawing a decoration there is redundant.
+**Links:**
+- [CSSWG #11520](https://github.com/w3c/csswg-drafts/issues/11520)
+
+---
+
+## Slide 10: The Great Rewrite — The Old Model
 **Pillars:** Implementation
 **Part:** 2 — Iteration
 **Label:** The Great Rewrite
@@ -148,22 +179,22 @@ Once we had an initial spec and implementation, interesting questions started co
 
 ---
 
-## Slide 9: The Great Rewrite — Why Grid Forced the Issue
+## Slide 11: The Great Rewrite — Why Grid Forced the Issue
 **Pillars:** Implementation
 **Part:** 2 — Iteration
 **Label:** The Great Rewrite
 
 ### Why Grid forced the issue
 
-- Grid tracks use **compressed abstractions**: `GridRanges` and `GridSets`.
-- Grid avoids expanding tracks into individual positions. That's by design.
-- But the old gap decoration model needed expansion via `ComputeExpandedPositions`.
-- We were **fighting the grid engine**, asking it to do the one thing it was built not to do.
-- It wasn't going to work long-term. We needed a model that fit how grid (and flex, and multicol) actually work inside.
+- In Blink, **gaps were throw-away values**—their positions were never stored. Layout computed them, used them, and discarded them.
+- Grid tracks live as **compressed abstractions** (`GridRanges`, `GridSets`) to avoid expanding repeaters into individual positions.
+- But to draw decorations, we had to expand every track to find where gaps lived. The result? Every intersection stored as an (x, y) pair—the O(m × n) cost from the previous slide.
+
+**Diagram:** Split layout. Left: text. Right: two stacked cards — "Grid's world: compressed" showing 2 ranges each containing 2 sets as (offset, count) pairs vs. "What we needed: expanded" showing every track position enumerated.
 
 ---
 
-## Slide 10: The Great Rewrite — Anchor/Dependent Model
+## Slide 12: The Great Rewrite — Anchor/Dependent Model
 **Pillars:** Implementation
 **Part:** 2 — Iteration
 **Label:** The Great Rewrite
@@ -183,7 +214,7 @@ Once we had an initial spec and implementation, interesting questions started co
 
 ---
 
-## Slide 11: Do Not Expand (Except Animations)
+## Slide 13: Do Not Expand (Except Animations)
 **Pillars:** Implementation
 **Part:** 2 — Iteration
 **Label:** Property Lists
@@ -205,7 +236,7 @@ Once we had an initial spec and implementation, interesting questions started co
 
 ---
 
-## Slide 12: Paint Land — Fun but Subtle
+## Slide 14: Paint Land — Fun but Subtle
 **Pillars:** Implementation
 **Part:** 2 — Iteration
 **Label:** Into Unfamiliar Territory
@@ -235,7 +266,7 @@ Big shoutout to **Philip Rogers (pdr)**, a paint owner. He walked us through man
 
 ---
 
-## Slide 13: Transition
+## Slide 15: Transition
 **Pillars:** —
 **Part:** Transition
 
@@ -245,7 +276,7 @@ Dev trial launched in Chrome/Edge 139, June 2025. We put the feature behind a fl
 
 ---
 
-## Slide 14: Feedback That Changed the Spec
+## Slide 16: Feedback That Changed the Spec
 **Pillars:** CSSWG | Design
 **Part:** 3 — Resolving Loose Ends
 **Label:** What Developers Told Us
@@ -285,7 +316,7 @@ Dev trial launched in Chrome/Edge 139, June 2025. We put the feature behind a fl
 
 ---
 
-## Slide 15: From Intersections to Segments
+## Slide 17: From Intersections to Segments
 **Pillars:** CSSWG | Design
 **Part:** 3 — Resolving Loose Ends
 **Label:** The Model Was Grid-specific
@@ -302,7 +333,7 @@ Dev trial launched in Chrome/Edge 139, June 2025. We put the feature behind a fl
 
 ---
 
-## Slide 16: January 2026 Face-to-Face
+## Slide 18: January 2026 Face-to-Face
 **Pillars:** CSSWG | Design | Implementation
 **Part:** 3 — Resolving Loose Ends
 **Label:** January 28, 2026 CSSWG Face-To-Face
@@ -319,7 +350,7 @@ Get the right people in a room and things move fast.
 
 ---
 
-## Slide 17: By the Numbers
+## Slide 19: By the Numbers
 **Pillars:** —
 **Part:** Wrap
 **Label:** By the Numbers
@@ -338,7 +369,7 @@ Sam Davis Omekara · Javier Contreras · Kevin Babbitt · Alison Maher · Kurt C
 
 ---
 
-## Slide 18: The Feature That Touches Everything
+## Slide 20: The Feature That Touches Everything
 **Pillars:** —
 **Part:** —
 **Label:** Final Thoughts
@@ -355,7 +386,7 @@ Sam Davis Omekara · Javier Contreras · Kevin Babbitt · Alison Maher · Kurt C
 
 ---
 
-## Slide 19: Call to Action
+## Slide 21: Call to Action
 **Pillars:** —
 **Part:** —
 **Label:** Try It
