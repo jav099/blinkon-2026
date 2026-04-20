@@ -1026,7 +1026,7 @@ a:hover { opacity: 0.8; }
   <div class="split">
     <div class="left-col">
       <div class="s-label reveal">The Great Rewrite</div>
-      <div class="s-title reveal reveal-d1">The Anchor / Dependent Model</div>
+      <div class="s-title reveal reveal-d1">MainGap / CrossGap model</div>
       <div class="s-body reveal reveal-d2">
         <ul>
           <li><strong>Two-direction model.</strong> Anchor Gaps (primary) plus Dependent Gaps (orthogonal).</li>
@@ -1128,8 +1128,13 @@ a:hover { opacity: 0.8; }
           <li><code>GapDataListIterator</code> walks property lists <strong>without expanding</strong> them.</li>
           <li>Three regions: <strong>Leading</strong>, <strong>Auto</strong>, <strong>Trailing</strong>.</li>
           <li>Animations (<a href="https://github.com/w3c/csswg-drafts/issues/12431" target="_blank">CSSWG #12431</a>) are the exception. They need expansion. LCM alignment for interpolating lists of different lengths.</li>
-          <li>Led to V2 interpolation: <a href="https://chromium-review.googlesource.com/c/chromium/src/+/6961880" target="_blank">CL 6961880</a>, <a href="https://chromium-review.googlesource.com/c/chromium/src/+/7078855" target="_blank">CL 7078855</a></li>
         </ul>
+        <div style="margin-top: 14px; background: var(--card); border-radius: 8px; padding: 14px 16px; font-family: var(--font-mono); font-size: 0.7rem; line-height: 1.7;">
+          <div style="font-size: 0.55rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; font-weight: 500;">Example: interpolating across lengths</div>
+          <div><span style="color: var(--dim);">from:</span> <span style="color: var(--text);">10px repeat(3, 5px 1px) 10px</span></div>
+          <div><span style="color: var(--dim);">to:&nbsp;&nbsp;</span> <span style="color: var(--text);">5px 10px</span></div>
+          <div style="color: var(--dim); margin-top: 6px; font-family: var(--font-body); font-size: 0.72rem; font-style: italic;">expand both, align to LCM, then interpolate.</div>
+        </div>
       </div>
     </div>
   </div>
@@ -1147,8 +1152,8 @@ a:hover { opacity: 0.8; }
     <div class="s-body reveal reveal-d2" style="text-align: center; max-width: 720px; margin-bottom: 28px;">
       Geometry from layout &rarr; rects &rarr; paint ops (<code>BoxFragmentPainter</code>). Five subtleties we had to figure out:
     </div>
-    <!-- Five vignettes: ink overflow, clipping, invalidation, resize, multicol -->
-    <div class="reveal reveal-d3" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; width: 100%; max-width: 1040px;">
+    <!-- Four vignettes: ink overflow, clipping, invalidation, resize -->
+    <div class="reveal reveal-d3" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; width: 100%; max-width: 1040px;">
 
       <!-- 1. Ink overflow: decoration extends past content box -->
       <div style="background: var(--card); border-radius: 8px; padding: 14px;">
@@ -1204,21 +1209,6 @@ a:hover { opacity: 0.8; }
         </div>
         <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--impl); letter-spacing: 1px; text-transform: uppercase; margin-top: 8px;">Resize</div>
         <div style="font-size: 0.7rem; color: var(--dim); margin-top: 4px; line-height: 1.4;">Decorations reflow when the layout changes.</div>
-      </div>
-
-      <!-- 5. Multicol paint: fragmented across columns -->
-      <div style="background: var(--card); border-radius: 8px; padding: 14px;">
-        <div style="position: relative; height: 80px; display: flex; align-items: center; justify-content: center; gap: 4px;">
-          <!-- two columns side-by-side, each with own decoration -->
-          <div style="position: relative; width: 26px; height: 60px; border: 1px solid var(--muted); border-radius: 3px;">
-            <div style="position: absolute; left: 50%; top: 6px; bottom: 6px; width: 2px; background: var(--impl); transform: translateX(-50%); border-radius: 1px;"></div>
-          </div>
-          <div style="position: relative; width: 26px; height: 60px; border: 1px solid var(--muted); border-radius: 3px;">
-            <div style="position: absolute; left: 50%; top: 6px; bottom: 6px; width: 2px; background: var(--impl); transform: translateX(-50%); border-radius: 1px;"></div>
-          </div>
-        </div>
-        <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--impl); letter-spacing: 1px; text-transform: uppercase; margin-top: 8px;">Multicol</div>
-        <div style="font-size: 0.7rem; color: var(--dim); margin-top: 4px; line-height: 1.4;">Fragmented columns each paint their own.</div>
       </div>
 
     </div>
@@ -1284,16 +1274,7 @@ a:hover { opacity: 0.8; }
           <div style="font-family: var(--font-mono); font-size: 0.5rem; color: var(--design); letter-spacing: 1px;">&#10003; RESTRUCTURED: rule-inset properties</div>
         </div>
       </div>
-      <!-- Card 3: i18n concerns -->
-      <div style="background: var(--card); border-radius: 8px; padding: 18px; border-top: 2px solid var(--wg); display: flex; flex-direction: column; gap: 8px;">
-        <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--wg); letter-spacing: 1px;">I18N REVIEW</div>
-        <div style="font-size: 0.82rem; color: var(--text); font-weight: 500;">Internationalization concerns</div>
-        <div style="font-size: 0.75rem; color: var(--dim); line-height: 1.5;">Logical property naming and direction-aware behavior for RTL and vertical writing modes.</div>
-        <div style="margin-top: auto; padding-top: 8px; border-top: 1px solid var(--border);">
-          <div style="font-family: var(--font-mono); font-size: 0.5rem; color: var(--design); letter-spacing: 1px;">&#10003; <a href="https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/1064" target="_blank" style="color: var(--wg);">ISSUE #1064</a></div>
-        </div>
-      </div>
-      <!-- Card 4: Naming -->
+      <!-- Card 3: Naming -->
       <div style="background: var(--card); border-radius: 8px; padding: 18px; border-top: 2px solid var(--design); display: flex; flex-direction: column; gap: 8px;">
         <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--design); letter-spacing: 1px;">NAMING FEEDBACK</div>
         <div style="font-size: 0.82rem; color: var(--text); font-weight: 500;">Property naming clarity</div>
@@ -1301,6 +1282,11 @@ a:hover { opacity: 0.8; }
         <div style="margin-top: auto; padding-top: 8px; border-top: 1px solid var(--border);">
           <div style="font-family: var(--font-mono); font-size: 0.5rem; color: var(--design); letter-spacing: 1px;">&#10003; INCORPORATED</div>
         </div>
+      </div>
+      <!-- Card 4: Quote from o-t-w -->
+      <div style="background: var(--surface); border-radius: 8px; padding: 18px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+        <div style="font-family: var(--font-display); font-style: italic; font-size: 0.95rem; color: var(--text); line-height: 1.5;">&ldquo;Works well and is a great addition to the spec.&rdquo;</div>
+        <div style="font-family: var(--font-mono); font-size: 0.5rem; color: var(--muted); letter-spacing: 1px; margin-top: 8px;">O-T-W, ON RULE-VISIBILITY-ITEMS</div>
       </div>
       <!-- Row 2: Pushed to future -->
       <!-- Card 5: Gradients/images -->
@@ -1437,10 +1423,6 @@ a:hover { opacity: 0.8; }
         </li>
       </ol>
     </div>
-    <div class="s-body reveal reveal-d3" style="margin-top: 16px;">
-      <strong>11 CLs and 2 spec PRs in 5 weeks.</strong><br>
-      Get the right people in a room and things move fast.
-    </div>
   </div>
 </div>
 
@@ -1469,7 +1451,7 @@ a:hover { opacity: 0.8; }
           <span style="font-size: 0.88rem; color: var(--dim);">CSSWG issues filed</span>
         </div>
         <div style="display: flex; align-items: baseline; gap: 12px;">
-          <span class="s-big-num" style="font-size: 2rem; color: var(--text); min-width: 50px; text-align: right;">5</span>
+          <span class="s-big-num" style="font-size: 2rem; color: var(--text); min-width: 50px; text-align: right;">6</span>
           <span style="font-size: 0.88rem; color: var(--dim);">contributors</span>
         </div>
         <div style="display: flex; align-items: baseline; gap: 12px;">
@@ -1479,7 +1461,7 @@ a:hover { opacity: 0.8; }
       </div>
     </div>
     <div class="s-body reveal reveal-d3" style="margin-top: 20px; text-align: center;">
-      Sam Davis Omekara &middot; Javier Contreras &middot; Kevin Babbitt &middot; Alison Maher &middot; Kurt Catti-Schmidt
+      Sam Davis Omekara &middot; Javier Contreras &middot; Kevin Babbitt &middot; Alison Maher &middot; Kurt Catti-Schmidt &middot; Ian Kilpatrick
     </div>
   </div>
 </div>
@@ -1490,7 +1472,7 @@ a:hover { opacity: 0.8; }
 <div class="slide slide-fullbleed">
   <div class="center-col">
     <div class="s-label reveal">Final Thoughts</div>
-    <div class="s-title reveal reveal-d1" style="max-width: 700px;">The feature that touches everything</div>
+    <div class="s-title reveal reveal-d1" style="max-width: 700px;">What it takes to draw a line</div>
     <div class="s-body reveal reveal-d2" style="text-align: center; max-width: 600px;">
       <ul style="text-align: left;">
         <li>Gap decorations forced us to learn paint, layout, and style in depth.</li>

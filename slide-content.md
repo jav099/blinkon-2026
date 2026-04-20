@@ -199,7 +199,7 @@ Once we had an initial spec and implementation, interesting questions started co
 **Part:** 2 — Iteration
 **Label:** The Great Rewrite
 
-### The Anchor / Dependent Model
+### MainGap / CrossGap model
 
 - **Two-direction model.** Anchor Gaps (primary) plus Dependent Gaps (orthogonal).
 - Intersections computed **on-demand**, not stored.
@@ -224,7 +224,8 @@ Once we had an initial spec and implementation, interesting questions started co
 - `GapDataListIterator` walks property lists **without expanding** them.
 - Three regions: **Leading**, **Auto**, **Trailing**.
 - Animations (CSSWG #12431) are the exception. They need expansion. LCM alignment for interpolating lists of different lengths.
-- Led to V2 interpolation: CL 6961880, CL 7078855.
+
+**Example:** interpolating `10px repeat(3, 5px 1px) 10px` to `5px 10px` — expand both, align to LCM, then interpolate.
 
 **Animation demo caption:** column-rule-color, column-rule-width, rule-inset: animating
 
@@ -243,17 +244,16 @@ Once we had an initial spec and implementation, interesting questions started co
 
 ### Paint Land: fun but subtle
 
-Geometry from layout → rects → paint ops (`BoxFragmentPainter`). Five subtleties we had to figure out:
+Geometry from layout → rects → paint ops (`BoxFragmentPainter`). Four subtleties we had to figure out:
 
 - **Ink overflow**: decorations extend past the content box
 - **Clipping**: scrollable containers clip correctly at edges
 - **Invalidation**: knowing what to repaint when state changes
 - **Resize**: decorations reflow when the layout changes
-- **Multicol**: fragmented columns each paint their own
 
 Big shoutout to **Philip Rogers (pdr)**, a paint owner. He walked us through many rounds of review.
 
-**Diagram:** five small vignettes — Ink overflow, Clipping, Invalidation, Resize, Multicol — each a tiny illustration.
+**Diagram:** four small vignettes — Ink overflow, Clipping, Invalidation, Resize — each a tiny illustration.
 
 **Links:**
 - [CL 6101656](https://chromium-review.googlesource.com/c/chromium/src/+/6101656)
@@ -291,7 +291,6 @@ Dev trial launched in Chrome/Edge 139, June 2025. We put the feature behind a fl
 |--------|----------|---------|
 | AHMAD SHADEED | Decorations around empty grid areas — responsive layouts leave cells empty, rules shouldn't appear there | ✓ NEW PROPERTY: `rule-visibility-items` |
 | REXGALILAE | Asymmetric insets on each side — different inset values for start and end, unlocked new layout patterns | ✓ RESTRUCTURED: `rule-inset` properties |
-| I18N REVIEW | Internationalization concerns — logical property naming and direction-aware behavior for RTL and vertical writing modes | ✓ ISSUE #1064 |
 | NAMING FEEDBACK | Property naming clarity — developer confusion around rule-break, rule-overlap, and shorthand grammar | ✓ INCORPORATED |
 
 **Pushed to future:**
@@ -302,7 +301,9 @@ Dev trial launched in Chrome/Edge 139, June 2025. We put the feature behind a fl
 | ALICO-CRA | Ornaments at crossing points — styling where row and column rules intersect | ▶ DEFERRED |
 | PER-SIDE STYLING | Per-side independent styling — different decoration styles on each side of an item, like border shorthand granularity | ▶ DEFERRED |
 
-**Quote:** "This made my day!" — RexGalilae, on inset changes
+**Quotes:**
+- "This made my day!" — RexGalilae, on inset changes
+- "Works well and is a great addition to the spec." — o-t-w, on rule-visibility-items
 
 "Not 'no' — 'not yet.' They become the roadmap."
 
@@ -345,9 +346,6 @@ Dev trial launched in Chrome/Edge 139, June 2025. We put the feature behind a fl
 3. Alignment space contributes to gap size. Whiteboard session with Alison Maher. [#12922](https://github.com/w3c/csswg-drafts/issues/12922)
 4. Gap suppression with spanners. No change needed. [#13362](https://github.com/w3c/csswg-drafts/issues/13362)
 
-**11 CLs and 2 spec PRs in 5 weeks.**
-Get the right people in a room and things move fast.
-
 ---
 
 ## Slide 19: By the Numbers
@@ -362,19 +360,19 @@ Get the right people in a room and things move fast.
 | Chromium CLs | 191 |
 | Spec PRs merged | 22 |
 | CSSWG issues filed | 30 |
-| Contributors | 5 |
+| Contributors | 6 |
 | Layout types · Blink layers | 3 · 3 |
 
-Sam Davis Omekara · Javier Contreras · Kevin Babbitt · Alison Maher · Kurt Catti-Schmidt
+Sam Davis Omekara · Javier Contreras · Kevin Babbitt · Alison Maher · Kurt Catti-Schmidt · Ian Kilpatrick
 
 ---
 
-## Slide 20: The Feature That Touches Everything
+## Slide 20: What It Takes to Draw a Line
 **Pillars:** —
 **Part:** —
 **Label:** Final Thoughts
 
-### The feature that touches everything
+### What it takes to draw a line
 
 - Gap decorations forced us to learn paint, layout, and style in depth.
 - The spec changed because implementation kept finding real problems.
