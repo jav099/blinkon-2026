@@ -357,10 +357,10 @@ Dev trial launched in Chrome/Edge 139, June 2025. We put the feature behind a fl
 | Chromium CLs | 191 |
 | Spec PRs merged | 22 |
 | CSSWG issues filed | 30 |
-| Contributors | 6 |
+| Contributors | 7 |
 | Layout types · Blink layers | 3 · 3 |
 
-Sam Davis Omekara · Javier Contreras · Kevin Babbitt · Alison Maher · Kurt Catti-Schmidt · Ian Kilpatrick
+Sam Davis Omekara · Javier Contreras · Kevin Babbitt · Alison Maher · Kurt Catti-Schmidt · Ian Kilpatrick · Hoch Hochkeppel
 
 ---
 
