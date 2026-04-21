@@ -1172,8 +1172,20 @@ a:hover { opacity: 0.8; }
     <div class="s-body reveal reveal-d2" style="text-align: center; max-width: 720px; margin-bottom: 28px;">
       Geometry from layout &rarr; rects &rarr; paint ops (<code>BoxFragmentPainter</code>). Four subtleties we had to figure out:
     </div>
-    <!-- Four vignettes: ink overflow, clipping, invalidation, resize -->
+    <!-- Four vignettes: pipeline hook, ink overflow, clipping, invalidation -->
     <div class="reveal reveal-d3" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; width: 100%; max-width: 1040px;">
+
+      <!-- 0. Pipeline hook: where in the paint order do gap decorations go -->
+      <div style="background: var(--card); border-radius: 8px; padding: 14px;">
+        <div style="position: relative; height: 80px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-family: var(--font-mono); font-size: 0.55rem;">
+          <div style="color: var(--dim);">background</div>
+          <div style="color: var(--dim);">border</div>
+          <div style="color: var(--impl); background: hsla(220,80%,60%,0.12); padding: 2px 8px; border-radius: 3px; border: 1px dashed var(--impl);">gap decorations</div>
+          <div style="color: var(--dim);">contents</div>
+        </div>
+        <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--impl); letter-spacing: 1px; text-transform: uppercase; margin-top: 8px;">Pipeline hook</div>
+        <div style="font-size: 0.7rem; color: var(--dim); margin-top: 4px; line-height: 1.4;">Where in <code>BoxFragmentPainter</code> to draw.</div>
+      </div>
 
       <!-- 1. Ink overflow: decoration extends past content box -->
       <div style="background: var(--card); border-radius: 8px; padding: 14px;">
@@ -1217,19 +1229,7 @@ a:hover { opacity: 0.8; }
       </div>
 
       <!-- 4. Resize repaint: container with arrows showing growth -->
-      <div style="background: var(--card); border-radius: 8px; padding: 14px;">
-        <div style="position: relative; height: 80px; display: flex; align-items: center; justify-content: center;">
-          <div style="position: relative; width: 60px; height: 50px; border: 1px solid var(--muted); border-radius: 3px;">
-            <!-- two decoration lines -->
-            <div style="position: absolute; left: 18px; top: 4px; bottom: 4px; width: 2px; background: var(--impl); border-radius: 1px;"></div>
-            <div style="position: absolute; left: 38px; top: 4px; bottom: 4px; width: 2px; background: var(--impl); border-radius: 1px;"></div>
-          </div>
-          <!-- resize arrows on the right -->
-          <div style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); font-family: var(--font-mono); font-size: 0.7rem; color: var(--muted);">&harr;</div>
-        </div>
-        <div style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--impl); letter-spacing: 1px; text-transform: uppercase; margin-top: 8px;">Resize</div>
-        <div style="font-size: 0.7rem; color: var(--dim); margin-top: 4px; line-height: 1.4;">Decorations reflow when the layout changes.</div>
-      </div>
+      <!-- removed: resize was layout-flavored and overlapped with invalidation -->
 
     </div>
     <div class="s-body reveal reveal-d4" style="text-align: center; margin-top: 24px; max-width: 720px;">

@@ -243,14 +243,14 @@ Once we had an initial spec and implementation, interesting questions started co
 
 Geometry from layout → rects → paint ops (`BoxFragmentPainter`). Four subtleties we had to figure out:
 
+- **Pipeline hook**: where in `BoxFragmentPainter` to draw
 - **Ink overflow**: decorations extend past the content box
 - **Clipping**: scrollable containers clip correctly at edges
 - **Invalidation**: knowing what to repaint when state changes
-- **Resize**: decorations reflow when the layout changes
 
 Big shoutout to **Philip Rogers (pdr)**, a paint owner. He walked us through many rounds of review.
 
-**Diagram:** four small vignettes — Ink overflow, Clipping, Invalidation, Resize — each a tiny illustration.
+**Diagram:** four small vignettes — Pipeline hook, Ink overflow, Clipping, Invalidation — each a tiny illustration.
 
 **Links:**
 - [CL 6101656](https://chromium-review.googlesource.com/c/chromium/src/+/6101656)
